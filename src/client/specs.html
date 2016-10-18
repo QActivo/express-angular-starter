@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <title>Spec Runner</title>
+
+  <style>
+    body {
+      font: 20px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+      padding-left: 20px;
+    }
+  </style>
+
+  <!--BEWARE of using any app styles as @media can screw up tests -->
+
+  <link rel="stylesheet" href="/node_modules/mocha/mocha.css">
+
+</head>
+
+<body>
+
+  <h1><a href="specs.html">Spec Runner</a></h1>
+  <p><strong>Make sure the REMOTE server is running</strong>
+    <br/> Click on a <em>description title</em> to narrow the scope to just its specs (see "<a href="http://mochajs.github.io/mocha/#grep-option"
+    target="_blank" title="MochaJS grep option">
+        ?grep</a>" in address bar).
+    <br/> Click on a <em>spec title</em> to see the test implementation.
+    <br/> Click on <em>page title</em> to start over.
+  </p>
+
+  <div id="mocha"></div>
+
+  <!-- inject:testlibraries:js -->
+  <script src="/node_modules/mocha/mocha.js"></script>
+  <script src="/node_modules/chai/chai.js"></script>
+  <script src="/node_modules/sinon-chai/lib/sinon-chai.js"></script>
+  <!-- endinject -->
+
+  <script>
+    expect = chai.expect;
+        AssertionError = chai.AssertionError;
+        mocha.setup('bdd');
+        mocha.traceIgnores = ['mocha.js', 'chai.js', 'angular.js'];
+  </script>
+
+  <!-- bower:js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="/bower_components/moment/moment.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="/bower_components/toastr/toastr.js"></script>
+  <script src="/bower_components/angular-animate/angular-animate.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="/bower_components/ngstorage/ngStorage.js"></script>
+  <script src="/bower_components/chart.js/dist/Chart.js"></script>
+  <script src="/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+  <script src="/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+  <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="/bower_components/sinon/index.js"></script>
+  <script src="/bower_components/bardjs/dist/bard.js"></script>
+  <script src="/bower_components/bardjs/dist/bard-ngRouteTester.js"></script>
+  <!-- endbower -->
+
+  <!-- inject:js -->
+  <script src="/src/client/app/app.module.js"></script>
+  <script src="/src/client/app/admin/admin.module.js"></script>
+  <script src="/src/client/app/blocks/exception/exception.module.js"></script>
+  <script src="/src/client/app/blocks/logger/logger.module.js"></script>
+  <script src="/src/client/app/blocks/router/router.module.js"></script>
+  <script src="/src/client/app/core/core.module.js"></script>
+  <script src="/src/client/app/dashboard/dashboard.module.js"></script>
+  <script src="/src/client/app/home/home.module.js"></script>
+  <script src="/src/client/app/layout/layout.module.js"></script>
+  <script src="/src/client/app/login/login.module.js"></script>
+  <script src="/src/client/app/models/models.module.js"></script>
+  <script src="/src/client/app/reports/reports.module.js"></script>
+  <script src="/src/client/app/users/users.module.js"></script>
+  <script src="/src/client/app/admin/admin.controller.js"></script>
+  <script src="/src/client/app/admin/admin.route.js"></script>
+  <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
+  <script src="/src/client/app/blocks/exception/exception.js"></script>
+  <script src="/src/client/app/blocks/logger/logger.js"></script>
+  <script src="/src/client/app/blocks/router/router-helper.provider.js"></script>
+  <script src="/src/client/app/core/alert.js"></script>
+  <script src="/src/client/app/core/alertController.js"></script>
+  <script src="/src/client/app/core/authentication.js"></script>
+  <script src="/src/client/app/core/config.js"></script>
+  <script src="/src/client/app/core/constants.js"></script>
+  <script src="/src/client/app/core/core.route.js"></script>
+  <script src="/src/client/app/core/inspectionservice.js"></script>
+  <script src="/src/client/app/core/modelfieldservice.js"></script>
+  <script src="/src/client/app/core/modelservice.js"></script>
+  <script src="/src/client/app/core/reportservice.js"></script>
+  <script src="/src/client/app/core/stationservice.js"></script>
+  <script src="/src/client/app/core/usersservice.js"></script>
+  <script src="/src/client/app/dashboard/dashboard.controller.js"></script>
+  <script src="/src/client/app/dashboard/dashboard.route.js"></script>
+  <script src="/src/client/app/home/home.route.js"></script>
+  <script src="/src/client/app/home/homeController.js"></script>
+  <script src="/src/client/app/home/tagNumberModalController.js"></script>
+  <script src="/src/client/app/layout/ht-top-nav.directive.js"></script>
+  <script src="/src/client/app/layout/shell.controller.js"></script>
+  <script src="/src/client/app/layout/sidebar.controller.js"></script>
+  <script src="/src/client/app/login/login.controller.js"></script>
+  <script src="/src/client/app/login/login.route.js"></script>
+  <script src="/src/client/app/login/logout.controller.js"></script>
+  <script src="/src/client/app/models/addInspectionModalController.js"></script>
+  <script src="/src/client/app/models/addModelFieldModalController.js"></script>
+  <script src="/src/client/app/models/addStationModalController.js"></script>
+  <script src="/src/client/app/models/models.controller.js"></script>
+  <script src="/src/client/app/models/models.route.js"></script>
+  <script src="/src/client/app/models/modelsConfigureController.js"></script>
+  <script src="/src/client/app/models/modelsConfigureSearchController.js"></script>
+  <script src="/src/client/app/models/NewModelController.js"></script>
+  <script src="/src/client/app/models/stationsController.js"></script>
+  <script src="/src/client/app/reports/newReportController.js"></script>
+  <script src="/src/client/app/reports/newReportPrintModalController.js"></script>
+  <script src="/src/client/app/reports/reports.route.js"></script>
+  <script src="/src/client/app/reports/reportsListController.js"></script>
+  <script src="/src/client/app/reports/serialNumberModalController.js"></script>
+  <script src="/src/client/app/reports/viewReportController.js"></script>
+  <script src="/src/client/app/users/addUserModalController.js"></script>
+  <script src="/src/client/app/users/editUserModalController.js"></script>
+  <script src="/src/client/app/users/users.route.js"></script>
+  <script src="/src/client/app/users/usersListController.js"></script>
+  <!-- endinject -->
+
+  <!-- inject:spechelpers:js -->
+  <script src="/src/client/test-helpers/mock-data.js"></script>
+  <!-- endinject -->
+
+  <!-- inject:specs:js -->
+  <script src="/src/client/app/admin/admin.controller.spec.js"></script>
+  <script src="/src/client/app/admin/admin.route.spec.js"></script>
+  <script src="/src/client/app/blocks/exception/exception-handler.provider.spec.js"></script>
+  <script src="/src/client/app/core/core.route.spec.js"></script>
+  <script src="/src/client/app/dashboard/dashboard.controller.spec.js"></script>
+  <script src="/src/client/app/dashboard/dashboard.route.spec.js"></script>
+  <script src="/src/client/app/layout/shell.controller.spec.js"></script>
+  <script src="/src/client/app/layout/sidebar.controller.spec.js"></script>
+  <!-- endinject -->
+
+  <!-- inject:templates:js -->
+  <script src="/.tmp/templates.js"></script>
+  <!-- endinject -->
+
+  <script>
+    mocha.run();
+  </script>
+
+</body>
+
+</html>

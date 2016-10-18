@@ -1,0 +1,39 @@
+<section>
+  <div class="row">
+    <h3>Hi, {{hc.user.name}}</h3>
+  </div>
+  <div class="pull-right">
+    <button class="btn btn-success" data-ng-click="hc.showModal()">New Task</button>
+  </div>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="task in hc.tasks">
+          <td>{{task.id}}</td>
+          <td>{{task.title}}</td>
+          <td data-ng-bind-html="task.done | boolFilter"></td>
+          <!-- <td>
+            <div class="btn-group">
+              <label class="btn btn-success" ng-model="task.done" uib-btn-radio="true">Done</label>
+              <label class="btn btn-danger" ng-model="task.done" uib-btn-radio="false">Not Done</label>
+            </div>
+          </td> -->
+          <td>{{task.created_at | date: "MM/dd/yyyy 'at' h:mma"}}</td>
+          <td>
+            <button class="btn btn-success btn-xs" data-ng-click="hc.showEditTaskModal(task)">Edit</button>
+            <button class="btn btn-danger btn-xs">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

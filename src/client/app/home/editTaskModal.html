@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h4 class="modal-title">Edit Task</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <form class="form-horizontal col-md-12" role="form" data-ng-submit="etmc.createTask()">
+        <div class="form-group">
+          <label class="col-md-3 control-label">Title</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" data-ng-model="etmc.task.title" id="title" placeholder="Title" required>
+          </div>
+        </div>
+        <label class="col-md-3 control-label">Done</label>
+          <div class="col-md-9">
+            <div class="btn-group">
+              <label class="btn btn-success" ng-model="etmc.task.done" uib-btn-radio="true">Done</label>
+              <label class="btn btn-success" ng-model="etmc.task.done" uib-btn-radio="false">Not Done</label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-success" type="button" ng-click="etmc.createTask()">Save</button>
+  <button class="btn btn-warning" type="button" ng-click="etmc.cancel()">Cancel</button>
+</div>

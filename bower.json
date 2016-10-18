@@ -1,35 +1,49 @@
 {
-  "name": "mean",
-  "private": true,
-  "dependencies": {
-    "bootstrap-sass": "~3.3.5",
-    "modernizr": "~2.8.1",
-    "angular": "^1.5",
-    "angular-ui-utils": "bower",
-    "angular-ui-router": "~0.2.15",
-    "angular-bootstrap": "~1.0.3",
-    "ngstorage": "~0.3.10",
-    "restangular": "https://github.com/sssilver/restangular.git#master",
-    "fastclick": "~1.0.6",
-    "angular-loading-bar": "^0.8.0",
-    "angular-animate": "^1.5.0",
-    "satellizer": "^0.14.0"
-  },
-  "overrides": {
-    "bootstrap-sass": {
-      "main": [
-        "assets/stylesheets/_bootstrap.scss",
-        "assets/fonts/bootstrap/*",
-        "assets/javascripts/bootstrap.js"
-      ]
-    }
-  },
+  "name": "mean-relational",
+  "version": "0.0.2",
+  "description": "mean-relational",
+  "authors": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "devDependencies": {
-    "chai": "~3.4.2",
-    "mocha": "~2.3.4",
-    "angular-mocks": "^1.5.2"
+    "angular-mocks": "^1.5.3",
+    "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
+    "bardjs": "^0.1.8"
+  },
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "angular": "~1.5.3",
+    "angular-sanitize": "~1.5.3",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.5.0",
+    "moment": "^2.12.0",
+    "angular-ui-router": "^0.2.18",
+    "toastr": "^2.1.2",
+    "angular-animate": "^1.5.3",
+    "angular-bootstrap": "^1.2.5",
+    "ngstorage": "^0.3.11",
+    "angular-chart.js": "^1.0.3",
+    "angular-loading-bar": "^0.9.0",
+    "angular-wysiwyg": "^1.2.4",
+    "components-font-awesome": "^4.6.3",
+    "angular-filepicker": "https://github.com/andreskuver/filepicker-angular.git#1.1.5"
   },
   "resolutions": {
-    "angular": "^1.5"
+    "angular": "1.5.3",
+    "jquery": "^2.2.2"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
   }
 }

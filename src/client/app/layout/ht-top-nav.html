@@ -1,0 +1,28 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0"
+ data-ng-controller="SidebarController as vm" data-ng-show="vm.user">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="/"><img src="/images/logo.png"></a>
+  </div>
+
+  <div>
+
+    <ul class="nav navbar-top-links navbar-left">
+      <li ng-class="vm.isCurrent(r)" ng-repeat="r in vm.navRoutes">
+        <a ui-sref="{{r.name}}" ng-bind-html="r.settings.content"></a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-top-links navbar-right" data-ng-show='vm.user'>
+      <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle pointer" data-toggle="dropdown" aria-expanded="false">
+          {{vm.user.name}}
+          <span class="caret sidebar-row"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a ui-sref="logout"">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
