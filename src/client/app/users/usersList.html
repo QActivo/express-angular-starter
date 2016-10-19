@@ -5,8 +5,18 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
-      <button class="btn btn-primary btn-models" data-ng-click="uc.openAddUserModal()">Add New</button>
+    <div class="col-xs-6">
+      <button class="btn btn-primary btn-models pull-left" data-ng-click="uc.openAddUserModal()">Add New</button>
+    </div>
+    <div class="col-xs-6">
+      <form class="pull-right form-inline">
+        <div class="form-group">
+          <label class="control-label">Search</label>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="uc.filter" data-ng-change="uc.loadUsers()">
+        </div>
+      </form>
     </div>
   </div>
   <div class="row">  
@@ -32,6 +42,9 @@
           </tr>
           </tbody>
         </table>
+      </div>
+      <div class="text-center">
+        <ul uib-pagination total-items="uc.count" ng-model="uc.page" max-size="10" class="pagination-sm" boundary-link-numbers="true" rotate="false" ng-change="uc.changePage()"></ul>
       </div>
     </div>
   </div>

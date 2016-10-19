@@ -17,8 +17,17 @@
 
     return service;
 
-    function getUsers() {
-      return $http.get('/api/v1/users')
+    function getUsers(search, page) {
+      const params = {};
+      // filter
+      if (search) {
+        params.text = search;
+      }
+      // current page
+      if (page) {
+        params.page = page;
+      }
+      return $http.get('/api/v1/users', { params })
         .then(success)
         .catch(fail);
 

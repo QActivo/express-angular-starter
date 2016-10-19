@@ -57,7 +57,8 @@ acl.allow([{
 const router = express.Router();
 
 router.get('/api/v1/users', acl.checkRoles, (req, res) => {
-  usersService.getAll()
+  const query = req.query;
+  usersService.getAll(query)
     .then(result => res.json(result))
     .catch(error => {
       res.status(412).json(errors.get(error));
