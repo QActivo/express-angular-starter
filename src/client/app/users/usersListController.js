@@ -21,6 +21,9 @@
     vm.filter = '';
     vm.count = 0;
     vm.page = 1;
+    vm.lengthMenu = [10, 25, 50, 100];
+    vm.limit = 10;
+    vm.changeLimit = changeLimit;
     vm.changePage = changePage;
     vm.loadUsers = loadUsers;
 
@@ -85,12 +88,16 @@
       loadUsers(vm.page);
     }
 
-    function loadUsers(page) {
-      const filter = (vm.filter !== '') ? vm.filter : null;
-      if (typeof page === 'undefined') { vm.page = 1; }
+    function changeLimit() {
+      loadUsers();
+    }
 
-      return usersservice.getUsers(filter, page)
-        .then(users => { 
+    function loadUsers(page = 1) {
+      const filter = (vm.filter !== '') ? vm.filter : null;
+      vm.page = page;
+
+      return usersservice.getUsers(filter, vm.page, vm.limit)
+        .then(users => {
           vm.users = users.rows;
           vm.count = users.count;
         });

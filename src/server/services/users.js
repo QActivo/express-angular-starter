@@ -18,9 +18,15 @@ service.getAll = (search) => {
       ],
     };
   }
+
   // pagination
-  query.offset = (search.page) ? (search.page - 1) * 10 : 0;
-  query.limit = 10;
+  if (search.page) {
+    const limit = (search.limit) ? search.limit : 10;
+    query.offset = (search.page - 1) * limit;
+  }
+  if (search.limit) {
+    query.limit = search.limit;
+  }
 
   return Users.findAndCountAll(query);
 };

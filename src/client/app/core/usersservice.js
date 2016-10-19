@@ -17,7 +17,7 @@
 
     return service;
 
-    function getUsers(search, page) {
+    function getUsers(search, page, limit) {
       const params = {};
       // filter
       if (search) {
@@ -27,6 +27,11 @@
       if (page) {
         params.page = page;
       }
+      // current limit menu
+      if (limit) {
+        params.limit = limit;
+      }
+
       return $http.get('/api/v1/users', { params })
         .then(success)
         .catch(fail);
