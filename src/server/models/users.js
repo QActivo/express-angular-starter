@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 
 import db from './../config/db';
 

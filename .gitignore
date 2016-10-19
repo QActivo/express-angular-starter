@@ -8,3 +8,7 @@ logs/
 .tmp/
 
 *.sqlite
+server-coverage
+.coverrun
+mean_relational_test.sqlite
+.coverdata

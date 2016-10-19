@@ -1,0 +1,23 @@
+language: node_js
+env:
+  - NODE_ENV=travis CXX=g++-4.8
+node_js:
+  - "5.10"
+  - "6.3"
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
+sudo: false
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+script:
+  - npm run test-server # This part of the code should be change to npm test after client task is fixed
+after_success:
+  - npm run server-coverage

@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 import request from 'request';
 import Q from 'q';
 import jwt from 'jwt-simple';

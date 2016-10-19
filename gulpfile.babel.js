@@ -5,7 +5,10 @@ import path from 'path';
 import mocha from 'gulp-mocha';
 import _ from 'lodash';
 import sourcemaps from 'gulp-sourcemaps';
+import istanbul from 'gulp-istanbul';
+import coveralls from 'gulp-coveralls';
 
+const isparta = require('isparta');
 const args = require('yargs').argv;
 const config = require('./gulp.config')();
 const $ = require('gulp-load-plugins')({ lazy: true });
@@ -312,24 +315,50 @@ gulp.task('clean-code', function (done) {
   clean(files, done);
 });
 
-
-gulp.task('server-tests', ['vet'], (done) => {
-  process.env.NODE_ENV = 'test';
-  return gulp.src(config.serverSpecs, {
-    read: false,
-  })
-  .pipe(mocha({
-    require: config.serverHelpers,
-    reporter: 'spec',
-    slow: 5000,
-    timeout: 10000,
-  }))
-  .once('end', () => {
-    process.env.NODE_ENV = 'development';
-    process.exit();
-  });
+/**
+ * Upload server side test coverage report to coveralls
+ */
+gulp.task('coveralls', () => {
+  if (!process.env.CI) {
+    return;
+  }
+  gulp.src(path.join(__dirname, 'server-coverage/lcov.info'))
+    .pipe(coveralls());
 });
 
+/**
+ * Runs the server-side test after ['vet'] task is successful
+ */
+gulp.task('server-tests', ['vet'], () => {
+  process.env.NODE_ENV = 'test';
+
+  gulp.src([config.serverSrcFiles])
+    .pipe(istanbul({
+      instrumenter: isparta.Instrumenter,
+      includeUntested: true,
+    }))
+    .pipe(istanbul.hookRequire())
+    .on('finish', () => {
+      return gulp.src(config.serverSpecs, {
+        read: false,
+      })
+      .pipe(mocha({
+        require: config.serverHelpers,
+        reporter: 'spec',
+        slow: 5000,
+        timeout: 10000,
+      }))
+      .pipe(istanbul.writeReports({
+        dir: './server-coverage',
+        reportOpts: { dir: './server-coverage' },
+        reporters: ['lcov', 'text-summary'],
+      }))
+      .once('end', () => {
+        process.env.NODE_ENV = 'development';
+        process.exit();
+      });
+    });
+});
 
 /**
  * Run specs once and exit

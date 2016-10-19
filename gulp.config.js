@@ -24,6 +24,7 @@ module.exports = function () {
       './src/**/*.js',
       './*.js',
     ],
+    serverSrcFiles: './src/server/**/*.js',
     build: './build/',
     client,
     css: temp + 'styles.css',

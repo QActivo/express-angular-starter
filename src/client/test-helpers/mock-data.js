@@ -9,14 +9,14 @@ const mockData = (function () {
   function getMockStates() {
     return [
       {
-        state: 'dashboard',
+        state: 'home',
         config: {
           url: '/',
-          templateUrl: 'app/dashboard/dashboard.html',
-          title: 'dashboard',
+          templateUrl: 'app/home/home.html',
+          title: 'home',
           settings: {
             nav: 1,
-            content: '<i class="fa fa-dashboard"></i> Dashboard',
+            content: '<i class="fa fa-home"></i> Home',
             roles: ['guest', 'admin', 'user'],
           },
         },

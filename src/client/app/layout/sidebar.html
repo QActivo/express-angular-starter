@@ -1,9 +1,0 @@
-<div class="navbar-default sidebar" role="navigation" ng-controller="SidebarController as vm">
-    <div class="sidebar-nav navbar-collapse">
-        <ul class="nav" id="side-menu">
-            <li ng-class="vm.isCurrent(r)" ng-repeat="r in vm.navRoutes">
-                <a ui-sref="{{r.name}}" ng-bind-html="r.settings.content"></a>
-            </li>
-        </ul>
-    </div>
-</div>
