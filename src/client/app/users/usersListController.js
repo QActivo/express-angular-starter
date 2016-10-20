@@ -86,11 +86,11 @@
     }
 
     function changePage() {
-      loadUsers(vm.pagination.page);
+      return loadUsers(vm.pagination.page);
     }
 
     function changeLimit() {
-      loadUsers();
+      return loadUsers();
     }
 
     function loadUsers(page = 1) {
