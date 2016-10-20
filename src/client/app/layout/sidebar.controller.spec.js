@@ -19,21 +19,15 @@ describe('layout', () => {
       $rootScope.$apply();
     });
 
-    bard.verifyNoOutstandingHttpRequests();
+    afterEach(() => {
+      $httpBackend.verifyNoOutstandingExpectation(false);
+      $httpBackend.verifyNoOutstandingRequest();
+    });
 
     it('should have isCurrent() for / to return `current`', () => {
       $location.path('/');
+      $rootScope.$apply();
       expect(controller.isCurrent($state.current)).to.equal('current');
-    });
-
-    it('should have isCurrent() for /customers to return `current`', () => {
-      $location.path('/customers');
-      expect(controller.isCurrent($state.current)).to.equal('current');
-    });
-
-    it('should have isCurrent() for non route not return `current`', () => {
-      $location.path('/invalid');
-      expect(controller.isCurrent({ title: 'invalid' })).not.to.equal('current');
     });
   });
 });

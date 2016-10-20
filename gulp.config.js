@@ -2,7 +2,6 @@ module.exports = function () {
   const client = './src/client/';
   const server = './src/server/';
   const clientApp = client + 'app/';
-  const report = './report/';
   const root = './';
   const specRunnerFile = 'specs.html';
   const temp = './.tmp/';
@@ -48,7 +47,6 @@ module.exports = function () {
       '**/*.js',
     ],
     less: client + 'styles/*.less',
-    report,
     root,
     server,
     source: 'src/',
@@ -165,11 +163,11 @@ module.exports = function () {
       ),
       exclude: [],
       coverage: {
-        dir: report + 'coverage',
+        dir: 'coverage/client',
         reporters: [
           // reporters not supporting the `file` property
           { type: 'html', subdir: 'report-html' },
-          { type: 'lcov', subdir: 'report-lcov' },
+          { type: 'lcov', subdir: '.' },
           { type: 'text-summary' }, // , subdir: '.', file: 'text-summary.txt'}
         ],
       },

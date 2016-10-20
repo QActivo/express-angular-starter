@@ -7,8 +7,13 @@ describe('core', function () {
 
     beforeEach(function () {
       module('app.core', bard.fakeToastr);
-      bard.inject('$location', '$rootScope', '$state', '$templateCache');
-      $templateCache.put(views.core, '');
+      bard.inject('$location', '$httpBackend', '$rootScope', '$state', '$templateCache');
+      $templateCache.put(views.four0four, '');
+    });
+
+    afterEach(() => {
+      $httpBackend.verifyNoOutstandingExpectation(false);
+      $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('should map /404 route to 404 View template', function () {
@@ -16,7 +21,7 @@ describe('core', function () {
     });
 
     it('of dashboard should work with $state.go', function () {
-      $state.go('404');
+      $location.path('/404');
       $rootScope.$apply();
       expect($state.is('404'));
     });

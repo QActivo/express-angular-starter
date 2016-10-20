@@ -18,6 +18,6 @@ cache:
 notifications:
   email: false
 script:
-  - npm run test-server # This part of the code should be change to npm test after client task is fixed
-after_success:
-  - npm run server-coverage
+  - npm run coverage
+after_script:
+  - npm run coveralls

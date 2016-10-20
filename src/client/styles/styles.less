@@ -12,7 +12,8 @@
   width: 170px;
 }
 
-#toast-container.toast-top-full-width > div, #toast-container.toast-bottom-full-width > div {
+#toast-container.toast-bottom-full-width > div,
+#toast-container.toast-top-full-width > div {
   margin: 4px auto;
 }
 
@@ -24,7 +25,6 @@
 .btn-models {
   margin-bottom: 20px;
 }
-
 
 #splash-page {
   z-index: 99999 !important;
@@ -42,7 +42,7 @@
   width: 100%;
   height: 100%;
   background-color: @brand-primary;
-  opacity: .9;
+  opacity: 0.9;
   pointer-events: auto;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -57,7 +57,7 @@
 
 .page-splash-message {
   text-align: center;
-  margin: 20% auto 0 auto;
+  margin: 20% auto 0;
   font-size: 400%;
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   font-weight: normal;
@@ -71,7 +71,7 @@
 }
 
 .page-splash-message.page-splash-message-subtle {
-  margin: 30% auto 0 auto;
+  margin: 30% auto 0;
   font-size: 200%;
 }
 
@@ -86,20 +86,20 @@
 }
 
 .table-reports {
-  width:100%;
-  margin-bottom:20px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .width-10 {
-  width:10%;
+  width: 10%;
 }
 
 .width-25 {
-  width:25%;
+  width: 25%;
 }
 
 .width-40 {
-  width:40%;
+  width: 40%;
 }
 
 .border {
@@ -115,11 +115,11 @@
 }
 
 .border-t {
-  border-top:   1px solid black;
+  border-top: 1px solid black;
 }
 
 .border-b {
-  border-bottom:   1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .padding-b-12 {
@@ -138,11 +138,11 @@
   padding-top: 20px;
 }
 
-.margin-t-20{
+.margin-t-20 {
   margin-top: 20px;
 }
 
-.margin-b-20{
+.margin-b-20 {
   margin-bottom: 20px;
 }
 
@@ -163,19 +163,154 @@
 }
 
 .login-div {
-  margin-top:5%;
+  margin-top: 5%;
 }
 
 @media print {
-  .no-print
-  {
+  .no-print {
     display: none !important;
   }
-  .page-break { 
+
+  .page-break {
     page-break-before: always !important;
   }
 }
 
 .pagination-margin {
   margin: 0px 0 !important;
+}
+
+.bred {
+  background: @color_important !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+.widget {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.widget hr {
+  margin: 4px 0;
+  padding: 4px 0;
+  border-top: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.widget .table {
+  margin: 0;
+  width: 100%;
+}
+
+.widget .table-bordered {
+  border: 0;
+}
+
+.widget .table-bordered th {
+  border-bottom: 1px solid #ccc !important;
+}
+
+.widget .table-bordered td {
+  border-top: 0 !important;
+  border-bottom: 1px solid #ccc !important;
+}
+
+.widget .table-bordered td:first-child,
+.widget .table-bordered th:first-child {
+  border-left: 0;
+}
+
+.widget .padd {
+  padding: 15px;
+}
+
+.widget .widget-head {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #777;
+  font-size: 18px;
+  padding: 12px 15px;
+
+  &.collapsive {
+    cursor: pointer;
+  }
+}
+
+.widget .widget-head .widget-icons i {
+  font-size: 14px;
+  margin: 0 4px;
+}
+
+.widget .widget-head .widget-icons a {
+  color: #aaa;
+}
+
+.widget .widget-head .widget-icons a:hover {
+  color: #888;
+}
+
+.widget .widget-content {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.widget .widget-foot {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-top: 0;
+  padding: 8px 15px;
+  font-size: 13px;
+  color: #555;
+}
+/* Widget colors */
+.widget.wblue .widget-head {
+  background-color: @color_blue;
+  border: 1px solid @color_blue;
+  color: #fff;
+}
+
+.widget.wblue .widget-head .widget-icons a {
+  color: #fff;
+}
+
+.widget.wblue .widget-head .widget-icons a:hover {
+  color: #eee;
+}
+/* Today datas */
+.today-datas {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.today-datas li {
+  display: inline-block;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  padding: 1.5em 1em;
+  background-color: #f8f8f8;
+  background: #f8f8f8;
+  border: 1px solid #ccc;
+  max-width: 100%;
+  text-align: center;
+}
+
+.today-datas li .datas-text {
+  font-size: 13px;
+  padding: 7px 0 0;
+  font-weight: normal;
+}
+
+.today-datas li .datas-text span {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.today-datas li i {
+  font-size: 50px;
+  margin-right: 10px;
 }

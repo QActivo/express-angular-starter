@@ -7,6 +7,8 @@ import _ from 'lodash';
 import sourcemaps from 'gulp-sourcemaps';
 import istanbul from 'gulp-istanbul';
 import coveralls from 'gulp-coveralls';
+import runSequence from 'run-sequence';
+import merger from 'lcov-result-merger';
 
 const isparta = require('isparta');
 const args = require('yargs').argv;
@@ -35,7 +37,7 @@ gulp.task('default', ['help']);
  * vet the code and create coverage report
  * @return {Stream}
  */
-gulp.task('vet', function () {
+gulp.task('vet', () => {
   log('Analyzing source with eslint');
   return gulp
     .src(config.alljs)
@@ -46,7 +48,7 @@ gulp.task('vet', function () {
 /**
  * Create a visualizer report
  */
-gulp.task('plato', function (done) {
+gulp.task('plato', (done) => {
   log('Analyzing source with Plato');
   log('Browse to /report/plato/index.html to see Plato results');
 
@@ -57,7 +59,7 @@ gulp.task('plato', function (done) {
  * Compile less to css
  * @return {Stream}
  */
-gulp.task('styles', ['clean-styles'], function () {
+gulp.task('styles', ['clean-styles'], () => {
   log('Compiling Less --> CSS');
 
   return gulp
@@ -73,7 +75,7 @@ gulp.task('styles', ['clean-styles'], function () {
  * Copy fonts
  * @return {Stream}
  */
-gulp.task('fonts', ['clean-fonts'], function () {
+gulp.task('fonts', ['clean-fonts'], () => {
   log('Copying fonts');
 
   return gulp
@@ -85,7 +87,7 @@ gulp.task('fonts', ['clean-fonts'], function () {
  * Compress images
  * @return {Stream}
  */
-gulp.task('images', ['clean-images'], function () {
+gulp.task('images', ['clean-images'], () => {
   log('Compressing and copying images');
 
   return gulp
@@ -94,7 +96,7 @@ gulp.task('images', ['clean-images'], function () {
     .pipe(gulp.dest(config.build + 'images'));
 });
 
-gulp.task('less-watcher', function () {
+gulp.task('less-watcher', () => {
   gulp.watch([config.less], ['styles']);
 });
 
@@ -102,7 +104,7 @@ gulp.task('less-watcher', function () {
  * Create $templateCache from the html templates
  * @return {Stream}
  */
-gulp.task('templatecache', ['clean-code'], function () {
+gulp.task('templatecache', ['clean-code'], () => {
   log('Creating an AngularJS $templateCache');
 
   return gulp
@@ -121,7 +123,7 @@ gulp.task('templatecache', ['clean-code'], function () {
  * Wire-up the bower dependencies
  * @return {Stream}
  */
-gulp.task('wiredep', function () {
+gulp.task('wiredep', () => {
   log('Wiring the bower dependencies into the html');
 
   const wiredep = require('wiredep').stream;
@@ -137,7 +139,7 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest(config.client));
 });
 
-gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function () {
+gulp.task('inject', ['wiredep', 'styles', 'templatecache'], () => {
   log('Wire up css into the html, after files are ready');
 
   return gulp
@@ -150,7 +152,7 @@ gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function () {
  * Run the spec runner
  * @return {Stream}
  */
-gulp.task('serve-specs', ['build-specs'], function (done) {
+gulp.task('serve-specs', ['build-specs'], (done) => {
   log('run the spec runner');
   serve(true /* isDev */, true /* specRunner */);
   done();
@@ -160,7 +162,7 @@ gulp.task('serve-specs', ['build-specs'], function (done) {
  * Inject all the spec files into the specs.html
  * @return {Stream}
  */
-gulp.task('build-specs', ['templatecache'], function (done) {
+gulp.task('build-specs', ['templatecache'], (done) => {
   log('building the spec runner');
 
   const wiredep = require('wiredep').stream;
@@ -189,7 +191,7 @@ gulp.task('build-specs', ['templatecache'], function (done) {
  * This is separate so we can run tests on
  * optimize before handling image or fonts
  */
-gulp.task('build', ['optimize-babel-js', 'images', 'fonts'], function () {
+gulp.task('build', ['optimize-babel-js', 'images', 'fonts'], () => {
   log('Building everything');
 
   const msg = {
@@ -224,7 +226,7 @@ gulp.task('optimize-babel-js', ['optimize'], () => {
  * and inject them into the new index.html
  * @return {Stream}
  */
-gulp.task('optimize', ['inject'], function () {
+gulp.task('optimize', ['inject'], () => {
   log('Optimizing the js, css, and html');
 
   const assets = $.useref.assets({ searchPath: './' });
@@ -266,9 +268,9 @@ gulp.task('optimize', ['inject'], function () {
 
 /**
  * Remove all files from the build, temp, and reports folders
- * @param  {Function} done - callback when complete
+ * @param  [Function] done - callback when complete
  */
-gulp.task('clean', function (done) {
+gulp.task('clean', (done) => {
   const delconfig = [].concat(config.build, config.temp, config.report);
   log('Cleaning: ' + $.util.colors.blue(delconfig));
   del(delconfig, done);
@@ -278,7 +280,7 @@ gulp.task('clean', function (done) {
  * Remove all fonts from the build folder
  * @param  {Function} done - callback when complete
  */
-gulp.task('clean-fonts', function (done) {
+gulp.task('clean-fonts', (done) => {
   clean(config.build + 'fonts/**/*.*', done);
 });
 
@@ -286,7 +288,7 @@ gulp.task('clean-fonts', function (done) {
  * Remove all images from the build folder
  * @param  {Function} done - callback when complete
  */
-gulp.task('clean-images', function (done) {
+gulp.task('clean-images', (done) => {
   clean(config.build + 'images/**/*.*', done);
 });
 
@@ -294,7 +296,7 @@ gulp.task('clean-images', function (done) {
  * Remove all styles from the build and temp folders
  * @param  {Function} done - callback when complete
  */
-gulp.task('clean-styles', function (done) {
+gulp.task('clean-styles', (done) => {
   const files = [].concat(
     config.temp + '**/*.css',
     config.build + 'styles/**/*.css'
@@ -306,7 +308,7 @@ gulp.task('clean-styles', function (done) {
  * Remove all js and html from the build and temp folders
  * @param  {Function} done - callback when complete
  */
-gulp.task('clean-code', function (done) {
+gulp.task('clean-code', (done) => {
   const files = [].concat(
     config.temp + '**/*.js',
     config.build + 'js/**/*.js',
@@ -316,20 +318,9 @@ gulp.task('clean-code', function (done) {
 });
 
 /**
- * Upload server side test coverage report to coveralls
- */
-gulp.task('coveralls', () => {
-  if (!process.env.CI) {
-    return;
-  }
-  gulp.src(path.join(__dirname, 'server-coverage/lcov.info'))
-    .pipe(coveralls());
-});
-
-/**
  * Runs the server-side test after ['vet'] task is successful
  */
-gulp.task('server-tests', ['vet'], () => {
+gulp.task('server-test', (done) => {
   process.env.NODE_ENV = 'test';
 
   gulp.src([config.serverSrcFiles])
@@ -348,26 +339,32 @@ gulp.task('server-tests', ['vet'], () => {
         slow: 5000,
         timeout: 10000,
       }))
-      .pipe(istanbul.writeReports({
-        dir: './server-coverage',
-        reportOpts: { dir: './server-coverage' },
-        reporters: ['lcov', 'text-summary'],
-      }))
       .once('end', () => {
         process.env.NODE_ENV = 'development';
-        process.exit();
+        done();
       });
     });
 });
 
+/**
+ * Report for server side test coverage
+ */
+gulp.task('server-coverage-report', ['server-test'], () => {
+  return gulp.src(config.serverSpecs)
+    .pipe(istanbul.writeReports({
+      dir: 'coverage/server',
+      reportOpts: { dir: './coverage/server' },
+      reporters: ['lcov', 'text-summary'],
+    }));
+});
 /**
  * Run specs once and exit
  * To start servers and run midway specs as well:
  *    gulp test --startServers
  * @return {Stream}
  */
-gulp.task('test', ['vet', 'templatecache'], function (done) {
-  startTests(true /* singleRun*/, done);
+gulp.task('client-test', ['templatecache'], (done) => {
+  runClientTests(true /* singleRun*/, done);
 });
 
 /**
@@ -376,8 +373,49 @@ gulp.task('test', ['vet', 'templatecache'], function (done) {
  * To start servers and run midway specs as well:
  *    gulp autotest --startServers
  */
-gulp.task('autotest', function (done) {
-  startTests(false /* singleRun*/, done);
+gulp.task('client-autotest', (done) => {
+  runClientTests(false /* singleRun*/, done);
+});
+
+/**
+ * Run specs, return report and exit
+ */
+gulp.task('client-coverage-report', (done) => {
+  clientCoverageReport(true, done);
+});
+
+/**
+ * Merge server and client coverage reports
+ */
+gulp.task('merge-coverage-report', () => {
+  return gulp.src('./coverage/**/lcov.info')
+    .pipe(merger())
+    .pipe(gulp.dest('./coverage/merged/'));
+});
+
+/**
+ * Upload server side test coverage report to coveralls
+ */
+gulp.task('publish-coverage-report', () => {
+  if (!process.env.CI) {
+    return;
+  }
+  gulp.src(path.join(__dirname, 'coverage/merged/lcov.info'))
+    .pipe(coveralls());
+});
+
+/**
+ * Run server and client tests
+ */
+gulp.task('test', (done) => {
+  runSequence('server-test', 'client-test', done);
+});
+
+/**
+ * Run server and client test coverage report
+ */
+gulp.task('test-coverage', (done) => {
+  runSequence('server-coverage-report', 'client-coverage-report', done);
 });
 
 /**
@@ -385,7 +423,7 @@ gulp.task('autotest', function (done) {
  * --debug-brk or --debug
  * --nosync
  */
-gulp.task('serve-dev', ['inject'], function () {
+gulp.task('serve-dev', ['inject'], () => {
   serve(true /* isDev*/);
 });
 
@@ -394,7 +432,7 @@ gulp.task('serve-dev', ['inject'], function () {
  * --debug-brk or --debug
  * --nosync
  */
-gulp.task('serve-build', ['build'], function () {
+gulp.task('serve-build', ['build'], () => {
   serve(false /* isDev*/);
 });
 
@@ -406,7 +444,7 @@ gulp.task('serve-build', ['build'], function () {
  * --type=major will bump the major version x.*.*
  * --version=1.2.3 will bump to a specific version and ignore other flags
  */
-gulp.task('bump', function () {
+gulp.task('bump', () => {
   let msg = 'Bumping versions';
   const type = args.type;
   const version = args.ver;
@@ -426,6 +464,70 @@ gulp.task('bump', function () {
     .pipe($.bump(options))
     .pipe(gulp.dest(config.root));
 });
+
+/**
+ * Run specs on client side
+ */
+function runClientTests(singleRun, done) {
+  const Karma = require('karma').Server;
+  new Karma({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: !!singleRun,
+  }, done).start();
+}
+
+/**
+ * Report client side coverage using karm
+ * @param  {boolean} singleRun - True means run once and end (CI), or keep running (dev)
+ * @param  {Function} done - Callback to fire when karma is done
+ * @return {undefined}
+ */
+function clientCoverageReport(singleRun, done) {
+  let child;
+  let excludeFiles = [];
+  const Karma = require('karma').Server;
+  const fork = require('child_process').fork;
+  const serverSpecs = config.serverIntegrationSpecs;
+
+  if (args.startServers) {
+    log('Starting servers');
+    const savedEnv = process.env;
+    savedEnv.NODE_ENV = 'dev';
+    savedEnv.PORT = 8888;
+    child = fork(config.nodeServer);
+  } else {
+    if (serverSpecs && serverSpecs.length) {
+      excludeFiles = serverSpecs;
+    }
+  }
+
+  new Karma({
+    configFile: __dirname + '/karma.conf.js',
+    exclude: excludeFiles,
+    singleRun: !!singleRun,
+    reporters: ['progress', 'coverage'],
+    coverageReporter: {
+      dir: config.karma.coverage.dir,
+      reporters: config.karma.coverage.reporters,
+    },
+  }, karmaCompleted).start();
+
+  // ////////////
+
+  function karmaCompleted(karmaResult) {
+    log('Karma completed');
+    if (child) {
+      log('shutting down the child process');
+      child.kill();
+    }
+    if (karmaResult === 1) {
+      done('karma: tests failed with code ' + karmaResult);
+    } else {
+      process.exit(0);
+      done();
+    }
+  }
+}
 
 
 // //////////////
@@ -493,13 +595,13 @@ function serve(isDev, specRunner) {
       log('*** nodemon restarted');
       log('files changed:\n' + ev);
     })
-    .on('start', function () {
+    .on('start', () => {
       log('*** nodemon started');
     })
-    .on('crash', function () {
+    .on('crash', () => {
       log('*** nodemon crashed: script crashed for some reason');
     })
-    .on('exit', function () {
+    .on('exit', () => {
       log('*** nodemon exited cleanly');
     });
 }
@@ -549,53 +651,6 @@ function startPlatoVisualizer(done) {
       log(overview.summary);
     }
     if (done) { done(); }
-  }
-}
-
-/**
- * Start the tests using karma.
- * @param  {boolean} singleRun - True means run once and end (CI), or keep running (dev)
- * @param  {Function} done - Callback to fire when karma is done
- * @return {undefined}
- */
-function startTests(singleRun, done) {
-  let child;
-  let excludeFiles = [];
-  const fork = require('child_process').fork;
-  const Karma = require('karma').Server;
-  const serverSpecs = config.serverIntegrationSpecs;
-
-  if (args.startServers) {
-    log('Starting servers');
-    const savedEnv = process.env;
-    savedEnv.NODE_ENV = 'dev';
-    savedEnv.PORT = 8888;
-    child = fork(config.nodeServer);
-  } else {
-    if (serverSpecs && serverSpecs.length) {
-      excludeFiles = serverSpecs;
-    }
-  }
-
-  new Karma({
-    configFile: __dirname + '/karma.conf.js',
-    exclude: excludeFiles,
-    singleRun: !!singleRun,
-  }, karmaCompleted).start();
-
-  // //////////////
-
-  function karmaCompleted(karmaResult) {
-    log('Karma completed');
-    if (child) {
-      log('shutting down the child process');
-      child.kill();
-    }
-    if (karmaResult === 1) {
-      done('karma: tests failed with code ' + karmaResult);
-    } else {
-      done();
-    }
   }
 }
 

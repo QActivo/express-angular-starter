@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for server/services/users.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">server/services/</a> users.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">53.23% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>33/62</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">61.11% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.71% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50.85% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>30/59</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import bcrypt from 'bcrypt-nodejs';
+&nbsp;
+import Users from './../models/users';
+&nbsp;
+const service = {};
+&nbsp;
+service.getAll = (params) =&gt; {
+  const query = {};
+  // attributes
+  query.attributes = ['id', 'name', 'email', 'role'];
+  // conditions
+  if (params.filter) {
+    query.where = {
+      $or: [
+        { name: { $like: '%' + params.filter + '%' } },
+        { email: { $like: '%' + params.filter + '%' } },
+        { role: { $like: '%' + params.filter + '%' } },
+      ],
+    };
+  }
+&nbsp;
+  // pagination
+  if (params.page) {
+    c</span>onst limit = (params.limit) ? params.limit : <span class="branch-1 cbranch-no" title="branch not covered" >10;
+    query.offset = (params.page - 1) * limit;
+  }
+  if (params.limit) {
+    query.limit = params.limit;
+  }
+&nbsp;
+  return Users.findAndCountAll(query);
+};
+&nbsp;
+service.findById = (id) =&gt; {
+  return Users.findById(id, {
+    attributes: ['id', 'name', 'email', 'role'],
+  });
+};
+&nbsp;
+service.destroy = (id) =&gt; {
+  return Users.destroy({
+    where: { id },
+  });
+};
+&nbsp;
+service.create = (user) =&gt; {
+  user.tokenValidate = null;
+  user.emailValidate = 1;
+  return Users.create(user);
+};
+&nbsp;
+service.update = <span class="fstat-no" title="function not covered" >(id, body) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst query = { where: { id } };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  r</span>eturn Users.update(body, query);
+};
+&nbsp;
+service.validateEmail = <span class="fstat-no" title="function not covered" >(token) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst query = { where: { tokenValidate: token } };
+<span class="cstat-no" title="statement not covered" >  c</span>onst value = { emailValidate: 1, tokenValidate: null };
+<span class="cstat-no" title="statement not covered" >  r</span>eturn Users.update(value, query);
+};
+&nbsp;
+service.forgot = <span class="fstat-no" title="function not covered" >(email) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst query = { where: { email } };
+<span class="cstat-no" title="statement not covered" >  c</span>onst user = {};
+<span class="cstat-no" title="statement not covered" >  u</span>ser.tokenPassRecovery = bcrypt.genSaltSync().replace(/[^a-zA-Z0-9-_]/g, '');
+<span class="cstat-no" title="statement not covered" >  u</span>ser.tokenPassRecoveryDate = new Date();
+<span class="cstat-no" title="statement not covered" >  r</span>eturn Users.update(user, query).then(<span class="fstat-no" title="function not covered" >(res) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (res[0] === 0) {</span>
+<span class="cstat-no" title="statement not covered" >      r</span>eturn { errorMessage: 'User not registered.' };
+    }
+<span class="cstat-no" title="statement not covered" >    r</span>eturn {
+      token: user.tokenPassRecovery,
+    };
+  });
+};
+&nbsp;
+service.validateReset = <span class="fstat-no" title="function not covered" >(token) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst query = { where: { tokenPassRecovery: token } };
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function diffDates(date1, date2) {</span>
+<span class="cstat-no" title="statement not covered" >    c</span>onst timeDiff = Math.abs(date2.getTime() - date1.getTime());
+<span class="cstat-no" title="statement not covered" >    c</span>onst diffHours = Math.ceil(timeDiff / (1000 * 3600));
+<span class="cstat-no" title="statement not covered" >    r</span>eturn diffHours;
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  r</span>eturn Users.findOne(query).then(<span class="fstat-no" title="function not covered" >(data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (diffDates(data.tokenPassRecoveryDate, new Date()) &gt; 8) {</span>
+<span class="cstat-no" title="statement not covered" >      r</span>eturn { 'res': 0 };
+    }
+<span class="cstat-no" title="statement not covered" >    r</span>eturn { 'res': 1 };
+  });
+};
+&nbsp;
+service.resetPassword = <span class="fstat-no" title="function not covered" >(token, newPassword) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst salt = bcrypt.genSaltSync();
+<span class="cstat-no" title="statement not covered" >  c</span>onst pass = bcrypt.hashSync(newPassword, salt);
+<span class="cstat-no" title="statement not covered" >  c</span>onst query = { where: { tokenPassRecovery: token } };
+<span class="cstat-no" title="statement not covered" >  c</span>onst value = {
+    password: pass,
+    tokenPassRecovery: null,
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  r</span>eturn Users.update(value, query).then(<span class="fstat-no" title="function not covered" >(data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (data[0]) {</span>
+<span class="cstat-no" title="statement not covered" >      r</span>eturn { 'res': 1 };
+    }
+<span class="cstat-no" title="statement not covered" >    r</span>eturn { 'res': 0 };
+  });
+};
+&nbsp;
+module.exports = service;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Oct 20 2016 17:27:53 GMT-0300 (ART)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
