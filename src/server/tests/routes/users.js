@@ -41,7 +41,6 @@ describe('Routes: Users', () => {
           .set('Authorization', `JWT ${token}`)
           .expect(200)
           .end((err, res) => {
-            console.log(res.body.count);
             expect(res.body.count).to.eql(1);
             expect(res.body.rows[0].name).to.eql('John');
             done(err);
@@ -85,7 +84,6 @@ describe('Routes: Users', () => {
           .set('Authorization', `JWT ${token}`)
           .expect(200)
           .end((err, res) => {
-            console.log(res.body.count);
             expect(res.body.count).to.eql(1);
             expect(res.body.rows[0].name).to.eql('John');
             done(err);
