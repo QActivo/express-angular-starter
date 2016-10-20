@@ -7,8 +7,13 @@ describe('core', function () {
 
     beforeEach(function () {
       module('app.core', bard.fakeToastr);
-      bard.inject('$location', '$rootScope', '$state', '$templateCache');
+      bard.inject('$location', '$httpBackend', '$rootScope', '$state', '$templateCache');
       $templateCache.put(views.four0four, '');
+    });
+
+    afterEach(function(){
+      $httpBackend.verifyNoOutstandingExpectation(false);
+      $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('should map /404 route to 404 View template', function () {
