@@ -29,17 +29,5 @@ describe('layout', () => {
       $rootScope.$apply();
       expect(controller.isCurrent($state.current)).to.equal('current');
     });
-
-    it('should have isCurrent() for /customers to return `current`', () => {
-      $location.path('/customers');
-      $rootScope.$apply();
-      expect(controller.isCurrent($state.current)).to.equal('current');
-    });
-
-    it('should have isCurrent() for non route not return `current`', () => {
-      $location.path('/invalid');
-      $rootScope.$apply();
-      expect(controller.isCurrent({ title: 'invalid' })).not.to.equal('current');
-    });
   });
 });
