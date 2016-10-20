@@ -4,28 +4,28 @@ import Users from './../models/users';
 
 const service = {};
 
-service.getAll = (search) => {
+service.getAll = (params) => {
   const query = {};
   // attributes
   query.attributes = ['id', 'name', 'email', 'role'];
   // conditions
-  if (search.text) {
+  if (params.filter) {
     query.where = {
       $or: [
-        { name: { $like: '%' + search.text + '%' } },
-        { email: { $like: '%' + search.text + '%' } },
-        { role: { $like: '%' + search.text + '%' } },
+        { name: { $like: '%' + params.filter + '%' } },
+        { email: { $like: '%' + params.filter + '%' } },
+        { role: { $like: '%' + params.filter + '%' } },
       ],
     };
   }
 
   // pagination
-  if (search.page) {
-    const limit = (search.limit) ? search.limit : 10;
-    query.offset = (search.page - 1) * limit;
+  if (params.page) {
+    const limit = (params.limit) ? params.limit : 10;
+    query.offset = (params.page - 1) * limit;
   }
-  if (search.limit) {
-    query.limit = search.limit;
+  if (params.limit) {
+    query.limit = params.limit;
   }
 
   return Users.findAndCountAll(query);

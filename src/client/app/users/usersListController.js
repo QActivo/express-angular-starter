@@ -18,11 +18,12 @@
     vm.openAddUserModal = openAddUserModal;
     vm.openEditUserModal = openEditUserModal;
     vm.removeUser = removeUser;
-    vm.filter = '';
-    vm.count = 0;
-    vm.page = 1;
-    vm.lengthMenu = [10, 25, 50, 100];
-    vm.limit = 10;
+    vm.pagination = {
+      filter: '',
+      page: 1,
+      lengthMenu: [10, 25, 50, 100],
+      limit: 10,
+    };
     vm.changeLimit = changeLimit;
     vm.changePage = changePage;
     vm.loadUsers = loadUsers;
@@ -85,7 +86,7 @@
     }
 
     function changePage() {
-      loadUsers(vm.page);
+      loadUsers(vm.pagination.page);
     }
 
     function changeLimit() {
@@ -93,10 +94,14 @@
     }
 
     function loadUsers(page = 1) {
-      const filter = (vm.filter !== '') ? vm.filter : null;
-      vm.page = page;
+      const params = {};
+      vm.pagination.page = page;
 
-      return usersservice.getUsers(filter, vm.page, vm.limit)
+      params.page = vm.pagination.page;
+      params.limit = vm.pagination.limit;
+      params.filter = (vm.pagination.filter !== '') ? vm.pagination.filter : null;
+
+      return usersservice.getUsers(params)
         .then(users => {
           vm.users = users.rows;
           vm.count = users.count;

@@ -17,21 +17,7 @@
 
     return service;
 
-    function getUsers(search, page, limit) {
-      const params = {};
-      // filter
-      if (search) {
-        params.text = search;
-      }
-      // current page
-      if (page) {
-        params.page = page;
-      }
-      // current limit menu
-      if (limit) {
-        params.limit = limit;
-      }
-
+    function getUsers(params) {
       return $http.get('/api/v1/users', { params })
         .then(success)
         .catch(fail);
