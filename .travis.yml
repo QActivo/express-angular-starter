@@ -20,5 +20,4 @@ notifications:
 script:
   - npm run coverage
 after_script:
-  - npm run server-coverage
   - npm run coveralls
