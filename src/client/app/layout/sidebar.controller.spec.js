@@ -19,7 +19,10 @@ describe('layout', () => {
       $rootScope.$apply();
     });
 
-    bard.verifyNoOutstandingHttpRequests();
+    afterEach(function(){
+      $httpBackend.verifyNoOutstandingExpectation(false);
+      $httpBackend.verifyNoOutstandingRequest();
+    });
 
     it('should have isCurrent() for / to return `current`', () => {
       $location.path('/');
