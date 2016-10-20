@@ -1,0 +1,1250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for server/services/social.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">server/services/</a> social.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">14.5% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>29/200</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">14.29% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.94% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10.94% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>21/192</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import bcrypt from 'bcrypt-nodejs';
+import request from 'request';
+import Q from 'q';
+import jwt from 'jwt-simple';
+import qs from 'querystring';
+&nbsp;
+import config from './../config/config';
+import Users from './../models/users';
+&nbsp;
+const service = {};
+&nbsp;
+<span class="fstat-no" title="function not covered" >function createJWT(user) {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst payload = { id: user.id };
+<span class="cstat-no" title="statement not covered" >  r</span>eturn jwt.encode(payload, config.jwtSecret);
+}
+&nbsp;
+service.facebook = <span class="fstat-no" title="function not covered" >(code, clientId, redirectUri) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst deferred = Q.defer();
+<span class="cstat-no" title="statement not covered" >  c</span>onst fields = ['id', 'email', 'first_name', 'last_name', 'link', 'name'];
+<span class="cstat-no" title="statement not covered" >  c</span>onst accessTokenUrl = 'https://graph.facebook.com/v2.5/oauth/access_token';
+<span class="cstat-no" title="statement not covered" >  c</span>onst graphApiUrl = 'https://graph.facebook.com/v2.5/me?fields=' + fields.join(',');
+<span class="cstat-no" title="statement not covered" >  c</span>onst params = {
+    code,
+    client_id: clientId,
+    client_secret: config.FACEBOOK_SECRET,
+    redirect_uri: redirectUri,
+  };
+<span class="cstat-no" title="statement not covered" >  r</span>equest.get({ url: accessTokenUrl, qs: params, json: true }, getAccessTokenCallback);
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getAccessTokenCallback(errToken, responseToken, accessToken) {</span>
+<span class="cstat-no" title="statement not covered" >    if (responseToken.statusCode !== 200) {</span>
+<span class="cstat-no" title="statement not covered" >      d</span>eferred.reject({ message: responseToken.body.error.message });
+<span class="cstat-no" title="statement not covered" >      r</span>eturn null;
+    }
+<span class="cstat-no" title="statement not covered" >    r</span>equest.get({ url: graphApiUrl, qs: accessToken, json: true }, getGraphCallback);
+<span class="cstat-no" title="statement not covered" >    r</span>eturn null;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getGraphCallback(errAuth, responseAuth, profile) {</span>
+<span class="cstat-no" title="statement not covered" >    if (responseAuth.statusCode !== 200) {</span>
+<span class="cstat-no" title="statement not covered" >      d</span>eferred.reject({ message: responseAuth.body.error.message });
+<span class="cstat-no" title="statement not covered" >      r</span>eturn null;
+    }
+<span class="cstat-no" title="statement not covered" >    c</span>onst query = { where: { facebook: profile.id } };
+<span class="cstat-no" title="statement not covered" >    r</span>eturn Users.findOne(query)
+    .then(<span class="fstat-no" title="function not covered" >(existingUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (existingUser) {</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onst token = createJWT(existingUser);
+<span class="cstat-no" title="statement not covered" >        d</span>eferred.resolve({
+          user: {
+            id: existingUser.dataValues.id,
+            name: existingUser.name,
+          },
+          token,
+        });
+<span class="cstat-no" title="statement not covered" >        r</span>eturn null;
+      }
+<span class="cstat-no" title="statement not covered" >      c</span>onst user = {};
+<span class="cstat-no" title="statement not covered" >      c</span>onst salt = bcrypt.genSaltSync();
+<span class="cstat-no" title="statement not covered" >      u</span>ser.password = bcrypt.hashSync(salt, salt);
+<span class="cstat-no" title="statement not covered" >      u</span>ser.facebook = profile.id;
+<span class="cstat-no" title="statement not covered" >      u</span>ser.emailValidate = 1;
+<span class="cstat-no" title="statement not covered" >      u</span>ser.email = profile.email;
+<span class="cstat-no" title="statement not covered" >      u</span>ser.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+<span class="cstat-no" title="statement not covered" >      u</span>ser.name = profile.first_name + ' ' + profile.last_name;
+<span class="cstat-no" title="statement not covered" >      r</span>eturn Users.create(user)
+      .then(<span class="fstat-no" title="function not covered" >(data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onst token = createJWT(user);
+<span class="cstat-no" title="statement not covered" >        d</span>eferred.resolve({
+          user: {
+            id: data.dataValues.id,
+            name: user.name,
+          },
+          token,
+        });
+<span class="cstat-no" title="statement not covered" >        r</span>eturn null;
+      });
+    });
+  }
+<span class="cstat-no" title="statement not covered" >  r</span>eturn deferred.promise;
+};
+&nbsp;
+service.twitter = <span class="fstat-no" title="function not covered" >(reqBody) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst deferred = Q.defer();
+<span class="cstat-no" title="statement not covered" >  c</span>onst accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
+<span class="cstat-no" title="statement not covered" >  c</span>onst profileUrl = 'https://api.twitter.com/1.1/users/show.json?screen_name=';
+<span class="cstat-no" title="statement not covered" >  c</span>onst accessTokenOauth = {
+    consumer_key: config.TWITTER_KEY,
+    consumer_secret: config.TWITTER_SECRET,
+    token: reqBody.oauth_token,
+    verifier: reqBody.oauth_verifier,
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  r</span>equest.post({ url: accessTokenUrl, oauth: accessTokenOauth },
+<span class="fstat-no" title="function not covered" >  (errToken, responseToken, accessTokenParam) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    c</span>onst accessToken = qs.parse(accessTokenParam);
+<span class="cstat-no" title="statement not covered" >    c</span>onst profileOauth = {
+      consumer_key: config.TWITTER_KEY,
+      consumer_secret: config.TWITTER_SECRET,
+      oauth_token: accessToken.oauth_token,
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    r</span>equest.get({
+      url: profileUrl + accessToken.screen_name,
+      oauth: profileOauth,
+      json: true,
+    }, <span class="fstat-no" title="function not covered" >(errAuth, responseAuth, profile) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      U</span>sers.findOne({ twitter: profile.id })
+      .then(<span class="fstat-no" title="function not covered" >(existingUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (existingUser) {</span>
+<span class="cstat-no" title="statement not covered" >          d</span>eferred.resolve({
+            user: {
+              id: existingUser.id,
+              name: existingUser.name,
+            },
+            token: createJWT(existingUser),
+          });
+        } else <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >          c</span>onst user = {};
+<span class="cstat-no" title="statement not covered" >          c</span>onst salt = bcrypt.genSaltSync();
+<span class="cstat-no" title="statement not covered" >          u</span>ser.password = bcrypt.hashSync(salt, salt);
+<span class="cstat-no" title="statement not covered" >          u</span>ser.emailValidate = 1;
+<span class="cstat-no" title="statement not covered" >          u</span>ser.email = profile.email;
+<span class="cstat-no" title="statement not covered" >          U</span>sers.create(user);
+<span class="cstat-no" title="statement not covered" >          u</span>ser.twitter = profile.id;
+<span class="cstat-no" title="statement not covered" >          u</span>ser.name = profile.name;
+<span class="cstat-no" title="statement not covered" >          u</span>ser.picture = profile.profile_image_url.replace('_normal', '');
+<span class="cstat-no" title="statement not covered" >          U</span>sers.create(user)
+          .then(<span class="fstat-no" title="function not covered" >(data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            c</span>onst token = createJWT(user);
+<span class="cstat-no" title="statement not covered" >            d</span>eferred.resolve({
+              user: {
+                id: data.dataValues.id,
+                name: user.name,
+              },
+              token,
+            });
+          });
+        }
+      });
+      // end
+    });
+  });
+<span class="cstat-no" title="statement not covered" >  r</span>eturn deferred.promise;
+};
+&nbsp;
+service.instagram = <span class="fstat-no" title="function not covered" >(code, clientId, redirectUri) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst deferred = Q.defer();
+<span class="cstat-no" title="statement not covered" >  c</span>onst accessTokenUrl = 'https://api.instagram.com/oauth/access_token';
+<span class="cstat-no" title="statement not covered" >  c</span>onst params = {
+    client_id: clientId,
+    redirect_uri: redirectUri,
+    client_secret: config.INSTAGRAM_SECRET,
+    code,
+    grant_type: 'authorization_code',
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  r</span>equest.post({ url: accessTokenUrl, form: params, json: true }, postAccessTokenCallback);
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function postAccessTokenCallback(errToken, responseToken, body) {</span>
+<span class="cstat-no" title="statement not covered" >    if (body.error_message) {</span>
+<span class="cstat-no" title="statement not covered" >      d</span>eferred.reject({ message: body.error_message });
+    }
+<span class="cstat-no" title="statement not covered" >    c</span>onst query = { where: { instagram: body.user.id } };
+<span class="cstat-no" title="statement not covered" >    r</span>eturn Users.findOne(query)
+    .then(<span class="fstat-no" title="function not covered" >(existingUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (existingUser) {</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onst token = createJWT(existingUser);
+<span class="cstat-no" title="statement not covered" >        d</span>eferred.resolve({
+          user: {
+            id: existingUser.dataValues.id,
+            name: existingUser.dataValues.name,
+          },
+          token,
+        });
+<span class="cstat-no" title="statement not covered" >        r</span>eturn null;
+      }
+<span class="cstat-no" title="statement not covered" >      c</span>onst user = {};
+<span class="cstat-no" title="statement not covered" >      c</span>onst salt = bcrypt.genSaltSync();
+<span class="cstat-no" title="statement not covered" >      c</span>onst fullNameArray = body.user.full_name.split(' ');
+<span class="cstat-no" title="statement not covered" >      u</span>ser.password = bcrypt.hashSync(salt, salt);
+<span class="cstat-no" title="statement not covered" >      u</span>ser.instagram = body.user.id;
+<span class="cstat-no" title="statement not covered" >      u</span>ser.emailValidate = 1;
+<span class="cstat-no" title="statement not covered" >      u</span>ser.email = body.user.username + '@instagram.com';
+<span class="cstat-no" title="statement not covered" >      u</span>ser.picture = body.user.profile_picture;
+<span class="cstat-no" title="statement not covered" >      u</span>ser.first_name = fullNameArray.shift();
+<span class="cstat-no" title="statement not covered" >      u</span>ser.last_name = fullNameArray.toString();
+<span class="cstat-no" title="statement not covered" >      u</span>ser.name = body.user.full_name;
+<span class="cstat-no" title="statement not covered" >      u</span>ser.gender = 'hombre';
+<span class="cstat-no" title="statement not covered" >      u</span>ser.country = 'Chile';
+<span class="cstat-no" title="statement not covered" >      u</span>ser.city = 'Arica';
+<span class="cstat-no" title="statement not covered" >      u</span>ser.birthday = new Date();
+<span class="cstat-no" title="statement not covered" >      r</span>eturn Users.create(user)
+      .then(<span class="fstat-no" title="function not covered" >(data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onst token = createJWT(data.dataValues);
+<span class="cstat-no" title="statement not covered" >        d</span>eferred.resolve({
+          user: {
+            id: data.dataValues.id,
+            name: data.dataValues.name,
+          },
+          token,
+        });
+<span class="cstat-no" title="statement not covered" >        r</span>eturn null;
+      })
+      .catch(<span class="fstat-no" title="function not covered" >(err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        d</span>eferred.reject({ message: err.message });
+<span class="cstat-no" title="statement not covered" >        r</span>eturn null;
+      });
+    })
+    .catch(<span class="fstat-no" title="function not covered" >(err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      d</span>eferred.reject({ message: err.message });
+<span class="cstat-no" title="statement not covered" >      r</span>eturn null;
+    });
+  }
+<span class="cstat-no" title="statement not covered" >  r</span>eturn deferred.promise;
+};
+&nbsp;
+service.google = <span class="fstat-no" title="function not covered" >(code, clientId, redirectUri) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst deferred = Q.defer();
+<span class="cstat-no" title="statement not covered" >  c</span>onst accessTokenUrl = 'https://accounts.google.com/o/oauth2/token';
+<span class="cstat-no" title="statement not covered" >  c</span>onst peopleApiUrl = 'https://www.googleapis.com/plus/v1/people/me/openIdConnect';
+<span class="cstat-no" title="statement not covered" >  c</span>onst params = {
+    code,
+    client_id: clientId,
+    client_secret: config.GOOGLE_SECRET,
+    redirect_uri: redirectUri,
+    grant_type: 'authorization_code',
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  r</span>equest.post(accessTokenUrl, { form: params, json: true }, postCallback);
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function postCallback(errToken, responseToken, tokenReturn) {</span>
+<span class="cstat-no" title="statement not covered" >    if (responseToken.body.error) {</span>
+<span class="cstat-no" title="statement not covered" >      d</span>eferred.reject({ message: responseToken.body.error });
+<span class="cstat-no" title="statement not covered" >      r</span>eturn null;
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    c</span>onst accessToken = tokenReturn.access_token;
+<span class="cstat-no" title="statement not covered" >    c</span>onst headers = { Authorization: 'Bearer ' + accessToken };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    r</span>equest.get({ url: peopleApiUrl, headers, json: true }, getCallback);
+<span class="cstat-no" title="statement not covered" >    r</span>eturn null;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getCallback(errAuth, responseAuth, profile) {</span>
+<span class="cstat-no" title="statement not covered" >    if (profile.error) {</span>
+<span class="cstat-no" title="statement not covered" >      d</span>eferred.reject({ message: profile.error.errors[0].message });
+<span class="cstat-no" title="statement not covered" >      r</span>eturn null;
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    c</span>onst query = { where: { email: profile.email } };
+<span class="cstat-no" title="statement not covered" >    r</span>eturn Users.findOne(query)
+      .then(<span class="fstat-no" title="function not covered" >existingUser =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (existingUser) { // Update existing user</span>
+<span class="cstat-no" title="statement not covered" >          c</span>onst id = existingUser.id;
+<span class="cstat-no" title="statement not covered" >          c</span>onst queryId = { where: { id } };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          e</span>xistingUser.google = profile.sub;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          r</span>eturn Users.update(existingUser.dataValues, queryId)
+            .then(<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              c</span>onst token = createJWT(existingUser);
+<span class="cstat-no" title="statement not covered" >              d</span>eferred.resolve({
+                user: {
+                  id: existingUser.dataValues.id,
+                  first_name: existingUser.dataValues.first_name,
+                  last_name: existingUser.dataValues.last_name,
+                  email: existingUser.dataValues.email,
+                  role: existingUser.dataValues.role,
+                  birthday: existingUser.dataValues.birthday,
+                  gender: existingUser.dataValues.gender,
+                  country: existingUser.dataValues.country,
+                  city: existingUser.dataValues.city,
+                  newsletter: existingUser.dataValues.newsletter,
+                  picture: existingUser.dataValues.picture,
+                },
+                token,
+              });
+            })
+            .catch(<span class="fstat-no" title="function not covered" >err =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              d</span>eferred.reject({ message: err.message });
+            });
+        }
+        // Create new user
+<span class="cstat-no" title="statement not covered" >        c</span>onst user = {};
+<span class="cstat-no" title="statement not covered" >        c</span>onst salt = bcrypt.genSaltSync();
+<span class="cstat-no" title="statement not covered" >        u</span>ser.password = bcrypt.hashSync(salt, salt);
+<span class="cstat-no" title="statement not covered" >        u</span>ser.google = profile.sub;
+<span class="cstat-no" title="statement not covered" >        u</span>ser.emailValidate = 1;
+<span class="cstat-no" title="statement not covered" >        u</span>ser.email = profile.email;
+<span class="cstat-no" title="statement not covered" >        u</span>ser.picture = profile.picture;
+<span class="cstat-no" title="statement not covered" >        u</span>ser.first_name = profile.given_name;
+<span class="cstat-no" title="statement not covered" >        u</span>ser.last_name = profile.family_name;
+<span class="cstat-no" title="statement not covered" >        u</span>ser.gender = 'hombre';
+<span class="cstat-no" title="statement not covered" >        u</span>ser.country = 'Chile';
+<span class="cstat-no" title="statement not covered" >        u</span>ser.city = 'Arica';
+<span class="cstat-no" title="statement not covered" >        u</span>ser.birthday = new Date();
+<span class="cstat-no" title="statement not covered" >        r</span>eturn Users.create(user)
+          .then(<span class="fstat-no" title="function not covered" >data =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            c</span>onst token = createJWT(data.dataValues);
+<span class="cstat-no" title="statement not covered" >            d</span>eferred.resolve({
+              user: {
+                id: data.dataValues.id,
+                first_name: data.dataValues.first_name,
+                last_name: data.dataValues.last_name,
+                email: data.dataValues.email,
+                role: data.dataValues.role,
+                birthday: data.dataValues.birthday,
+                gender: data.dataValues.gender,
+                country: data.dataValues.country,
+                city: data.dataValues.city,
+                newsletter: data.dataValues.newsletter,
+                picture: data.dataValues.picture,
+              },
+              token,
+            });
+          })
+          .catch(<span class="fstat-no" title="function not covered" >err =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            d</span>eferred.reject({ message: err.message });
+          });
+      })
+      .catch(<span class="fstat-no" title="function not covered" >err =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        d</span>eferred.reject({ message: err.message });
+      });
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  r</span>eturn deferred.promise;
+};
+&nbsp;
+service.pinterest = <span class="fstat-no" title="function not covered" >(code, clientId, redirectUri) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  c</span>onst deferred = Q.defer();
+<span class="cstat-no" title="statement not covered" >  c</span>onst accessTokenUrl = 'https://api.pinterest.com/v1/oauth/token';
+<span class="cstat-no" title="statement not covered" >  c</span>onst fields = ['id', 'first_name', 'last_name', 'username', 'image'];
+<span class="cstat-no" title="statement not covered" >  c</span>onst peopleApiUrl = 'https://api.pinterest.com/v1/me?fields=' + fields.join(',');
+<span class="cstat-no" title="statement not covered" >  c</span>onst params = {
+    code,
+    client_id: config.PINTEREST_KEY,
+    client_secret: config.PINTEREST_SECRET,
+    redirect_uri: redirectUri,
+    grant_type: 'authorization_code',
+  };
+<span class="cstat-no" title="statement not covered" >  r</span>equest.post(accessTokenUrl, { form: params, json: true },
+<span class="fstat-no" title="function not covered" >  (errToken, responseToken, tokenReturn) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (tokenReturn.status === 'failure') {</span>
+<span class="cstat-no" title="statement not covered" >      d</span>eferred.reject({ message: tokenReturn.message });
+    } else {
+<span class="cstat-no" title="statement not covered" >      c</span>onst accessToken = tokenReturn.access_token;
+<span class="cstat-no" title="statement not covered" >      c</span>onst headers = { Authorization: 'Bearer ' + accessToken };
+<span class="cstat-no" title="statement not covered" >      r</span>equest.get({ url: peopleApiUrl, headers, json: true },
+<span class="fstat-no" title="function not covered" >      (errAuth, responseAuth, profile) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (profile.message) {</span>
+<span class="cstat-no" title="statement not covered" >          d</span>eferred.reject({ message: profile.message });
+        } else {
+<span class="cstat-no" title="statement not covered" >          c</span>onst query = { where: { pinterest: profile.data.id } };
+<span class="cstat-no" title="statement not covered" >          U</span>sers.findOne(query)
+          .then(<span class="fstat-no" title="function not covered" >(existingUser) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if (existingUser) {</span>
+<span class="cstat-no" title="statement not covered" >              c</span>onst token = createJWT(existingUser);
+<span class="cstat-no" title="statement not covered" >              d</span>eferred.resolve({
+                user: {
+                  id: existingUser.dataValues.id,
+                  name: existingUser.name,
+                },
+                token,
+              });
+            } else <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >              c</span>onst user = {};
+<span class="cstat-no" title="statement not covered" >              c</span>onst salt = bcrypt.genSaltSync();
+<span class="cstat-no" title="statement not covered" >              u</span>ser.password = bcrypt.hashSync(salt, salt);
+<span class="cstat-no" title="statement not covered" >              u</span>ser.pinterest = profile.data.id;
+<span class="cstat-no" title="statement not covered" >              u</span>ser.emailValidate = 1;
+<span class="cstat-no" title="statement not covered" >              u</span>ser.email = profile.data.username + '@pinterest.com';
+<span class="cstat-no" title="statement not covered" >              u</span>ser.picture = profile.data.image['60x60'].url;
+<span class="cstat-no" title="statement not covered" >              u</span>ser.name = profile.data.first_name + ' ' + profile.data.last_name;
+<span class="cstat-no" title="statement not covered" >              U</span>sers.create(user)
+              .then(<span class="fstat-no" title="function not covered" >(data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                c</span>onst token = createJWT(user);
+<span class="cstat-no" title="statement not covered" >                d</span>eferred.resolve({
+                  user: {
+                    id: data.dataValues.id,
+                    name: user.name,
+                  },
+                  token,
+                });
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+<span class="cstat-no" title="statement not covered" >  r</span>eturn deferred.promise;
+};
+&nbsp;
+module.exports = service;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Oct 20 2016 17:27:53 GMT-0300 (ART)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
