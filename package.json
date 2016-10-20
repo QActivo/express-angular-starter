@@ -152,7 +152,7 @@
     "opn": "^1.0.1",
     "phantomjs-prebuilt": "^2.1.4",
     "plato": "^1.2.0",
-    "run-sequence": "^1.1.5",
+    "run-sequence": "^1.2.2",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.6.0",
     "supertest": "^1.2.0",
@@ -175,7 +175,6 @@
     "gulp-coveralls": "^0.1.4",
     "gulp-istanbul": "^1.1.1",
     "isparta": "^4.0.0",
-    "lcov-result-merger": "^1.2.0",
-    "run-sequence": "^1.2.2"
+    "lcov-result-merger": "^1.2.0"
   }
 }

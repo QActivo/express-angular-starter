@@ -12,7 +12,7 @@ const mockData = (function () {
         state: 'home',
         config: {
           url: '/',
-          templateUrl: 'app/home/home.html',
+          template: '<h1>Home</h1>',
           title: 'home',
           settings: {
             nav: 1,
