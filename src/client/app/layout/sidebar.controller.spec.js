@@ -26,19 +26,19 @@ describe('layout', () => {
 
     it('should have isCurrent() for / to return `current`', () => {
       $location.path('/');
-      $rootScope.$apply();      
+      $rootScope.$apply();
       expect(controller.isCurrent($state.current)).to.equal('current');
     });
 
     it('should have isCurrent() for /customers to return `current`', () => {
       $location.path('/customers');
-      $rootScope.$apply();      
+      $rootScope.$apply();
       expect(controller.isCurrent($state.current)).to.equal('current');
     });
 
     it('should have isCurrent() for non route not return `current`', () => {
       $location.path('/invalid');
-      $rootScope.$apply();      
+      $rootScope.$apply();
       expect(controller.isCurrent({ title: 'invalid' })).not.to.equal('current');
     });
   });
