@@ -19,7 +19,7 @@ describe('layout', () => {
       $rootScope.$apply();
     });
 
-    afterEach(function(){
+    afterEach(() => {
       $httpBackend.verifyNoOutstandingExpectation(false);
       $httpBackend.verifyNoOutstandingRequest();
     });

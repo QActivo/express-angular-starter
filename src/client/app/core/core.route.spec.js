@@ -11,7 +11,7 @@ describe('core', function () {
       $templateCache.put(views.four0four, '');
     });
 
-    afterEach(function(){
+    afterEach(() => {
       $httpBackend.verifyNoOutstandingExpectation(false);
       $httpBackend.verifyNoOutstandingRequest();
     });

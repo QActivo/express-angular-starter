@@ -4,7 +4,7 @@ describe('ShellController', function () {
 
   beforeEach(function () {
     bard.appModule('app.layout');
-    bard.inject('$controller', '$q', '$rootScope', '$timeout');
+    bard.inject('$controller', '$httpBackend', '$q', '$rootScope', '$timeout');
   });
 
   beforeEach(function () {
@@ -12,7 +12,10 @@ describe('ShellController', function () {
     $rootScope.$apply();
   });
 
-  bard.verifyNoOutstandingHttpRequests();
+  afterEach(() => {
+    $httpBackend.verifyNoOutstandingExpectation(false);
+    $httpBackend.verifyNoOutstandingRequest();
+  });
 
   describe('Shell controller', function () {
     it('should be created successfully', function () {
