@@ -14,9 +14,6 @@ acl.allow([{
     permissions: '*',
   },
   {
-    resources: '/api/v1/tasks/paginated',
-    permissions: '*',
-  }, {
     resources: '/api/v1/tasks/:taskId',
     permissions: '*',
   }],
@@ -70,22 +67,12 @@ const router = express.Router();
  */
 router
 .get('/api/v1/tasks', (req, res) => {
-  tasksService.getAll(req.user)
+  tasksService.getAll(req.user, req.query)
     .then(result => res.json(result))
     .catch(error => {
       res.status(412).json(errors.get(error));
     });
 });
-
-router
-.get('/api/v1/tasks/paginated', (req, res) => {
-  tasksService.getPaginated(req.user, req.query)
-    .then(result => res.json(result))
-    .catch(error => {
-      res.status(412).json(errors.get(error));
-    });
-});
-
 
 /**
  * @api {post} /tasks Register a new task

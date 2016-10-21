@@ -1,18 +1,19 @@
 import Tasks from './../models/tasks';
 
+import Paginator from './../classes/paginator';
+
 const service = {};
 
-service.getAll = (user) => {
-  return Tasks.findAll({
-    where: { user_id: user.id },
+service.getAll = (user, params) => {
+  const paginator = new Paginator(Tasks);
+  return paginator.getPaginated({
+    attributes: ['id', 'title', 'done'],
+    scope: { user_id: user.id },
+    filter: params.filter,
+    filterAttributes: ['title'],
+    page: params.page,
+    limit: params.limit,
   });
-};
-
-service.getPaginated = (user, params) => {
-  const query = {};
-  query.where = { user_id: user.id };
-  buildPagination(params, query);
-  return Tasks.findAndCountAll(query);
 };
 
 service.create = (task) => {
@@ -48,18 +49,5 @@ service.destroy = (id, user) => {
 
   return Tasks.destroy(query);
 };
-
-function buildPagination(params, query) {
-  query.limit = 10;
-  query.offset = 0;
-
-  if (params.offset) {
-    query.offset = parseInt(params.offset, 10) * parseInt(params.limit, 10);
-  }
-
-  if (params.limit) {
-    query.limit = parseInt(params.limit, 10);
-  }
-}
 
 module.exports = service;
