@@ -14,7 +14,7 @@
     activate();
 
     function activate() {
-
+      // Get users count
       usersservice.getCount()
         .then(count => {
           vm.userCount = count;
@@ -28,13 +28,13 @@
 
 
       // Get complete tasks count
-      taskservice.getCount({done: true})
+      taskservice.getCountDone()
         .then(count => {
           vm.taskDoneCount = count;
         });
 
       // Get not done tasks count
-      taskservice.getCount({done: false})
+      taskservice.getCountNotDone()
         .then(count => {
           vm.taskNotDoneCount = count;
         });

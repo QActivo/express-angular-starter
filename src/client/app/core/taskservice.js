@@ -15,6 +15,8 @@
       getPaginated,
       getMessageCount,
       getCount,
+      getCountDone,
+      getCountNotDone,
     };
 
     return service;
@@ -52,6 +54,14 @@
       function fail(e) {
         return exception.catcher('XHR Failed for getCount')(e);
       }
+    }
+
+    function getCountDone() {
+      return getCount({ done: true });
+    }
+
+    function getCountNotDone() {
+      return getCount({ done: false });
     }
 
     function getPaginated(query) {

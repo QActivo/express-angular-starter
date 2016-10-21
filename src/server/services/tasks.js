@@ -1,4 +1,3 @@
-import Sequelize from 'sequelize';
 import Tasks from './../models/tasks';
 
 const service = {};

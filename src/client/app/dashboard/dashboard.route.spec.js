@@ -7,7 +7,8 @@ describe('dashboard routes', function () {
 
     beforeEach(function () {
       module('app.dashboard', bard.fakeToastr);
-      bard.inject('$location', '$httpBackend', '$rootScope', '$state', '$templateCache', 'authentication');
+      bard.inject('$location', '$httpBackend', '$rootScope', '$state', '$templateCache',
+       'authentication');
       $templateCache.put(views.dashboard, '');
 
       sinon.stub(authentication, 'getUser').returns({
