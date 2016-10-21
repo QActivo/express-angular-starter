@@ -18,6 +18,15 @@
     vm.openAddUserModal = openAddUserModal;
     vm.openEditUserModal = openEditUserModal;
     vm.removeUser = removeUser;
+    vm.pagination = {
+      filter: '',
+      page: 1,
+      lengthMenu: [10, 25, 50, 100],
+      limit: 10,
+    };
+    vm.changeLimit = changeLimit;
+    vm.changePage = changePage;
+    vm.loadUsers = loadUsers;
 
     activate();
 
@@ -76,9 +85,27 @@
       }
     }
 
-    function loadUsers() {
-      return usersservice.getUsers()
-        .then(users => { vm.users = users; });
+    function changePage() {
+      return loadUsers(vm.pagination.page);
+    }
+
+    function changeLimit() {
+      return loadUsers();
+    }
+
+    function loadUsers(page = 1) {
+      const params = {};
+      vm.pagination.page = page;
+
+      params.page = vm.pagination.page;
+      params.limit = vm.pagination.limit;
+      params.filter = (vm.pagination.filter !== '') ? vm.pagination.filter : null;
+
+      return usersservice.getUsers(params)
+        .then(users => {
+          vm.users = users.rows;
+          vm.count = users.count;
+        });
     }
   }
 }());

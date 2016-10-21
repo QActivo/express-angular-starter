@@ -5,8 +5,18 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
-      <button class="btn btn-primary btn-models" data-ng-click="uc.openAddUserModal()">Add New</button>
+    <div class="col-xs-6">
+      <button class="btn btn-primary btn-models pull-left" data-ng-click="uc.openAddUserModal()">Add New</button>
+    </div>
+    <div class="col-xs-6">
+      <form class="pull-right form-inline">
+        <div class="form-group">
+          <label class="control-label">Search: </label>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="uc.pagination.filter" data-ng-change="uc.loadUsers()">
+        </div>
+      </form>
     </div>
   </div>
   <div class="row">  
@@ -32,6 +42,22 @@
           </tr>
           </tbody>
         </table>
+      </div>
+      <div class="pull-left">
+        <form class="form-inline">
+        <div class="form-group">
+          <label class="control-label">Show</label>
+        </div>
+        <div class="form-group">
+          <select ng-model="uc.pagination.limit" ng-change="uc.changeLimit()" ng-options="op as op for op in uc.pagination.lengthMenu">
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="control-label">users</label>
+        </div>
+      </div>
+      <div class="pull-right">
+        <ul uib-pagination total-items="uc.count" ng-model="uc.pagination.page" items-per-page="uc.pagination.limit" max-size="5" class="pagination-sm pagination-margin" boundary-link-numbers="true" rotate="false" ng-change="uc.changePage()"></ul>
       </div>
     </div>
   </div>

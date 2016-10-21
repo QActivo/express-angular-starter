@@ -4,10 +4,31 @@ import Users from './../models/users';
 
 const service = {};
 
-service.getAll = () => {
-  return Users.findAll({
-    attributes: ['id', 'name', 'email', 'role'],
-  });
+service.getAll = (params) => {
+  const query = {};
+  // attributes
+  query.attributes = ['id', 'name', 'email', 'role'];
+  // conditions
+  if (params.filter) {
+    query.where = {
+      $or: [
+        { name: { $like: '%' + params.filter + '%' } },
+        { email: { $like: '%' + params.filter + '%' } },
+        { role: { $like: '%' + params.filter + '%' } },
+      ],
+    };
+  }
+
+  // pagination
+  if (params.page) {
+    const limit = (params.limit) ? params.limit : 10;
+    query.offset = (params.page - 1) * limit;
+  }
+  if (params.limit) {
+    query.limit = params.limit;
+  }
+
+  return Users.findAndCountAll(query);
 };
 
 service.findById = (id) => {

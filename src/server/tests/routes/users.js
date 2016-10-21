@@ -34,6 +34,20 @@ describe('Routes: Users', () => {
       });
     });
   });
+  describe('GET /users', () => {
+    describe('status 200', () => {
+      it('returns all users', done => {
+        request.get('/api/v1/users')
+          .set('Authorization', `JWT ${token}`)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.body.count).to.eql(1);
+            expect(res.body.rows[0].name).to.eql('John');
+            done(err);
+          });
+      });
+    });
+  });
   describe('DELETE /user', () => {
     describe('status 204', () => {
       it('deletes an authenticated user', done => {
@@ -58,6 +72,20 @@ describe('Routes: Users', () => {
           .end((err, res) => {
             expect(res.body.name).to.eql('Mary');
             expect(res.body.email).to.eql('mary@mail.net');
+            done(err);
+          });
+      });
+    });
+  });
+  describe('GET /users', () => {
+    describe('status 200', () => {
+      it('returns users with params', done => {
+        request.get('/api/v1/users?limit=1&page=1&filter=John')
+          .set('Authorization', `JWT ${token}`)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.body.count).to.eql(1);
+            expect(res.body.rows[0].name).to.eql('John');
             done(err);
           });
       });

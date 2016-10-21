@@ -17,8 +17,8 @@
 
     return service;
 
-    function getUsers() {
-      return $http.get('/api/v1/users')
+    function getUsers(params) {
+      return $http.get('/api/v1/users', { params })
         .then(success)
         .catch(fail);
 
