@@ -1,3 +1,4 @@
+import Sequelize from 'sequelize';
 import Tasks from './../models/tasks';
 
 const service = {};
@@ -13,6 +14,18 @@ service.getPaginated = (user, params) => {
   query.where = { user_id: user.id };
   buildPagination(params, query);
   return Tasks.findAndCountAll(query);
+};
+
+service.getCount = (params) => {
+  const query = {};
+
+  if (params && params.done) {
+    query.where = {
+      done: params.done,
+    };
+  }
+
+  return Tasks.count(query);
 };
 
 service.create = (task) => {

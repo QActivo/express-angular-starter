@@ -56,7 +56,11 @@
         updateHeader();
         // broadcast user logged message and user data
         $rootScope.$broadcast('user-login', response.data.user);
-        $state.go('home');
+        if (response.data.user.role === 'admin') {
+          $state.go('dashboard');
+        } else {
+          $state.go('home');
+        }
 
         return response.data.user;
       }

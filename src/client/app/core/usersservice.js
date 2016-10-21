@@ -13,6 +13,7 @@
       createUser,
       editUser,
       removeUser,
+      getCount,
     };
 
     return service;
@@ -70,6 +71,25 @@
 
       function fail(e) {
         return exception.catcher('XHR Failed for remove')(e);
+      }
+    }
+
+    function getCount(query) {
+      const params = {};
+      if (query) {
+        params.params = query;
+      }
+
+      return $http.get('/api/v1/users/count', params)
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response.data;
+      }
+
+      function fail(e) {
+        return exception.catcher('XHR Failed for getCount')(e);
       }
     }
   }

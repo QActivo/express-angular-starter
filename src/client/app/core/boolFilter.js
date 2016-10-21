@@ -8,10 +8,10 @@
   function boolFilter($sce) {
     return function (input) {
       let output = $sce.trustAsHtml('<button class="btn btn-success">'
-        + '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>');
+        + '<i class="fa fa-check-circle"></i></span></button>');
       if (input === false) {
         output = $sce.trustAsHtml('<button class="btn btn-danger">'
-          + '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+          + '<i class="fa fa-clock-o"></i></span></button>');
       }
       return output;
     };

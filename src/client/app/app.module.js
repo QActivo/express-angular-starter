@@ -8,5 +8,6 @@
     'app.layout',
     'app.users',
     'app.home',
+    'app.dashboard',
   ]);
 }());
