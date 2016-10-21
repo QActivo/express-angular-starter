@@ -13,6 +13,9 @@
       updateTask,
       getTasks,
       getMessageCount,
+      getCount,
+      getCountDone,
+      getCountNotDone,
     };
 
     return service;
@@ -32,7 +35,7 @@
         return exception.catcher('XHR Failed for getTasks')(e);
       }
     }
-
+    
     function createTask(task) {
       return $http.post('/api/v1/tasks', task)
         .then(success)

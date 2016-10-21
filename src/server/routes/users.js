@@ -23,6 +23,9 @@ acl.allow([{
 {
   roles: ['admin'],
   allows: [{
+    resources: '/api/v1/users/count',
+    permissions: ['get'],
+  }, {
     resources: '/api/v1/users/:userId',
     permissions: ['get', 'put', 'delete'],
   }, {
@@ -59,6 +62,15 @@ const router = express.Router();
 router.get('/api/v1/users', acl.checkRoles, (req, res) => {
   const query = req.query;
   usersService.getAll(query)
+    .then(result => res.json(result))
+    .catch(error => {
+      res.status(412).json(errors.get(error));
+    });
+});
+
+
+router.get('/api/v1/users/count', acl.checkRoles, (req, res) => {
+  usersService.getCount(req.query)
     .then(result => res.json(result))
     .catch(error => {
       res.status(412).json(errors.get(error));
