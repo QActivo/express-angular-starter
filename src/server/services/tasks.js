@@ -15,6 +15,18 @@ service.getPaginated = (user, params) => {
   return Tasks.findAndCountAll(query);
 };
 
+service.getCount = (params) => {
+  const query = {};
+
+  if (params && params.done) {
+    query.where = {
+      done: params.done,
+    };
+  }
+
+  return Tasks.count(query);
+};
+
 service.create = (task) => {
   return Tasks.create(task);
 };

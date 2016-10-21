@@ -31,6 +31,10 @@ service.getAll = (params) => {
   return Users.findAndCountAll(query);
 };
 
+service.getCount = (query) => {
+  return Users.count(query);
+};
+
 service.findById = (id) => {
   return Users.findById(id, {
     attributes: ['id', 'name', 'email', 'role'],

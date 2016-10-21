@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.users')
+    .module('app.dashboard')
     .run(appRun);
 
   appRun.$inject = ['routerHelper'];
@@ -14,16 +14,16 @@
   function getStates() {
     return [
       {
-        state: 'users',
+        state: 'dashboard',
         config: {
-          url: '/users',
-          templateUrl: 'app/users/usersList.html',
-          controller: 'UserListController',
-          controllerAs: 'uc',
-          title: 'Users',
+          url: '/dashboard',
+          templateUrl: 'app/dashboard/dashboard.html',
+          controller: 'DashboardController',
+          controllerAs: 'vm',
+          title: 'dashboard',
           settings: {
-            nav: 2,
-            content: 'Users',
+            nav: 1,
+            content: 'Dashboard',
             roles: ['admin'],
           },
         },

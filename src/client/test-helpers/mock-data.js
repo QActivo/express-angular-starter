@@ -3,7 +3,10 @@
 const mockData = (function () {
   return {
     getMockStates,
-    getMockDataForGraph,
+    getMockCountUsers,
+    getMockDataCountAllTasks,
+    getMockDataCountDoneTasks,
+    getMockDataCountNotDoneTasks,
   };
 
   function getMockStates() {
@@ -24,16 +27,19 @@ const mockData = (function () {
     ];
   }
 
-  function getMockDataForGraph() {
-    return [
-      {
-        date: '2016-10-07T03:00:00.000Z',
-        passesCount: 2,
-      },
-      {
-        date: '2016-10-07T03:00:00.000Z',
-        passesCount: 2,
-      },
-    ];
+  function getMockCountUsers() {
+    return 2;
+  }
+
+  function getMockDataCountAllTasks() {
+    return 25;
+  }
+
+  function getMockDataCountDoneTasks() {
+    return 17;
+  }
+
+  function getMockDataCountNotDoneTasks() {
+    return 8;
   }
 }());
