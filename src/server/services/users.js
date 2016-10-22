@@ -2,33 +2,19 @@ import bcrypt from 'bcrypt-nodejs';
 
 import Users from './../models/users';
 
+import Paginator from './../classes/paginator';
+
 const service = {};
 
 service.getAll = (params) => {
-  const query = {};
-  // attributes
-  query.attributes = ['id', 'name', 'email', 'role'];
-  // conditions
-  if (params.filter) {
-    query.where = {
-      $or: [
-        { name: { $like: '%' + params.filter + '%' } },
-        { email: { $like: '%' + params.filter + '%' } },
-        { role: { $like: '%' + params.filter + '%' } },
-      ],
-    };
-  }
-
-  // pagination
-  if (params.page) {
-    const limit = (params.limit) ? params.limit : 10;
-    query.offset = (params.page - 1) * limit;
-  }
-  if (params.limit) {
-    query.limit = params.limit;
-  }
-
-  return Users.findAndCountAll(query);
+  const paginator = new Paginator(Users);
+  return paginator.getPaginated({
+    attributes: ['id', 'name', 'email', 'role'],
+    filter: params.filter,
+    filterAttributes: ['name', 'email'],
+    page: params.page,
+    limit: params.limit,
+  });
 };
 
 service.getCount = (query) => {

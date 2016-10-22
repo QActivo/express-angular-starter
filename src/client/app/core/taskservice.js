@@ -12,7 +12,6 @@
       createTask,
       updateTask,
       getTasks,
-      getPaginated,
       getMessageCount,
       getCount,
       getCountDone,
@@ -23,8 +22,8 @@
 
     function getMessageCount() { return $q.when(72); }
 
-    function getTasks() {
-      return $http.get('/api/v1/tasks')
+    function getTasks(params) {
+      return $http.get('/api/v1/tasks', { params })
         .then(success)
         .catch(fail);
 
@@ -36,54 +35,7 @@
         return exception.catcher('XHR Failed for getTasks')(e);
       }
     }
-
-    function getCount(query) {
-      const params = {};
-      if (query) {
-        params.params = query;
-      }
-
-      return $http.get('/api/v1/tasks/count', params)
-        .then(success)
-        .catch(fail);
-
-      function success(response) {
-        return response.data;
-      }
-
-      function fail(e) {
-        return exception.catcher('XHR Failed for getCount')(e);
-      }
-    }
-
-    function getCountDone() {
-      return getCount({ done: true });
-    }
-
-    function getCountNotDone() {
-      return getCount({ done: false });
-    }
-
-    function getPaginated(query) {
-      const params = {};
-
-      if (query) {
-        params.params = query;
-      }
-
-      return $http.get('/api/v1/tasks/paginated', params)
-        .then(success)
-        .catch(fail);
-
-      function success(response) {
-        return response.data;
-      }
-
-      function fail(e) {
-        return exception.catcher('XHR Failed for getPaginated')(e);
-      }
-    }
-
+    
     function createTask(task) {
       return $http.post('/api/v1/tasks', task)
         .then(success)
