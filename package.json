@@ -14,7 +14,9 @@
     "coverage": "gulp test-coverage",
     "coveralls": "gulp publish-coverage-report",
     "apidoc": "apidoc -i api/routes/ -o client/web/dist/apidoc",
-    "deploy": "better-npm-run deploy"
+    "deploy": "better-npm-run deploy",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "apidoc": {
     "name": "Node Task API - Documentation",
@@ -74,7 +76,7 @@
     "bcrypt-nodejs": "0.0.3",
     "better-npm-run": "0.0.5",
     "bower": "^1.7.9",
-    "browser-sync": "~2.11.2",
+    "browser-sync": "~2.17.1",
     "chai": "^3.1.0",
     "chai-as-promised": "^5.1.0",
     "chalk": "^1.1.0",
@@ -87,7 +89,7 @@
     "eslint-plugin-flow-vars": "^0.1.3",
     "eslint-plugin-react": "^4.2.1",
     "estraverse-fb": "^1.3.1",
-    "glob": "^4.5.3",
+    "glob": "^5.0.15",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.4.2",
     "gulp-apidoc": "^0.2.3",
@@ -100,20 +102,20 @@
     "gulp-eslint": "^2.0.0",
     "gulp-filter": "^2.0.2",
     "gulp-header": "^1.2.2",
-    "gulp-if": "^1.2.5",
+    "gulp-if": "^2.0.0",
     "gulp-imagemin": "^2.3.0",
     "gulp-inject": "^1.0.1",
     "gulp-less": "^3.0.1",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-minify-css": "^1.1.1",
     "gulp-minify-html": "^1.0.4",
-    "gulp-mocha": "^2.2.0",
+    "gulp-mocha": "^3.0.0",
     "gulp-ng-annotate": "^1.0.0",
     "gulp-nodemon": "^2.0.3",
     "gulp-order": "^1.1.1",
     "gulp-plumber": "^1.0.1",
     "gulp-print": "^1.1.0",
-    "gulp-protractor": "^2.2.0",
+    "gulp-protractor": "^3.0.0",
     "gulp-rev": "^5.1.0",
     "gulp-rev-replace": "^0.4.2",
     "gulp-sass": "^2.0.0",
@@ -122,7 +124,7 @@
     "gulp-task-listing": "^1.0.0",
     "gulp-traceur-compiler": "^1.1.4",
     "gulp-uglify": "^1.0.1",
-    "gulp-useref": "^1.0.2",
+    "gulp-useref": "^2.0.0",
     "gulp-util": "^3.0.1",
     "gulp.spritesmith": "^6.0.0",
     "istanbul": "^0.4.3",
@@ -133,7 +135,7 @@
     "karma-chai-sinon": "^0.1.3",
     "karma-chrome-launcher": "^0.2.0",
     "karma-cli": "^0.1.2",
-    "karma-coverage": "^0.4.2",
+    "karma-coverage": "^0.5.3",
     "karma-firefox-launcher": "^0.1.3",
     "karma-growl-reporter": "^0.1.1",
     "karma-jasmine": "^0.3.8",
@@ -145,7 +147,7 @@
     "main-bower-files": "^2.5.0",
     "method-override": "^2.3.4",
     "minimist": "^1.1.0",
-    "mocha": "^2.2.5",
+    "mocha": "^3.0.0",
     "node-bourbon": "^4.2.3",
     "node-notifier": "^4.0.3",
     "nodemon": "^1.8.1",
@@ -156,8 +158,9 @@
     "sinon": "^1.12.2",
     "sinon-chai": "^2.6.0",
     "supertest": "^1.2.0",
-    "wiredep": "^2.2.2",
-    "yargs": "^3.15.0"
+    "wiredep": "^3.0.1",
+    "yargs": "^3.15.0",
+    "snyk": "^1.19.1"
   },
   "eslintConfig": {
     "env": {
@@ -176,5 +179,6 @@
     "gulp-istanbul": "^1.1.1",
     "isparta": "^4.0.0",
     "lcov-result-merger": "^1.2.0"
-  }
+  },
+  "snyk": true
 }
