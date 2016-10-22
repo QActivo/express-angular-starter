@@ -2,7 +2,9 @@
 
 
 [![Build Status](https://travis-ci.org/QActivo/express-angular-starter.svg)](https://travis-ci.org/QActivo/express-angular-starter)
-[![Coverage Status](https://coveralls.io/repos/github/QActivo/express-angular-starter/badge.svg?)](https://coveralls.io/github/QActivo/express-angular-starter)
+[![Coverage Status](https://coveralls.io/repos/github/QActivo/express-angular-starter/badge.svg?branch=master)](https://coveralls.io/github/QActivo/express-angular-starter)
+
+
 ## Prerequisites
 Make sure you have installed all of the following prerequisites on your development machine:
 * Git - [Download & Install Git](https://git-scm.com/downloads). OSX and Linux machines typically have this already installed.
