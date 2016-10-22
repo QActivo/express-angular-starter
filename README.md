@@ -1,9 +1,17 @@
-# mean-relational
-
-
+# express-angular-starter
 [![Build Status](https://travis-ci.org/QActivo/express-angular-starter.svg)](https://travis-ci.org/QActivo/express-angular-starter)
 [![Coverage Status](https://coveralls.io/repos/github/QActivo/express-angular-starter/badge.svg?branch=master)](https://coveralls.io/github/QActivo/express-angular-starter)
 
+
+## Stack
+* Express
+* Angular 1.5 ([John Papa Styleguide](https://github.com/johnpapa/angular-styleguide))
+* Gulp
+* Babel
+* Sequalize
+* ACL
+* Mocha
+* Karma
 
 ## Prerequisites
 Make sure you have installed all of the following prerequisites on your development machine:
