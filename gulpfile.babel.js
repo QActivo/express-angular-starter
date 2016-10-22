@@ -396,7 +396,7 @@ gulp.task('merge-coverage-report', () => {
 /**
  * Upload server side test coverage report to coveralls
  */
-gulp.task('publish-coverage-report', () => {
+gulp.task('publish-coverage-report', ['merge-coverage-report'], () => {
   if (!process.env.CI) {
     return;
   }
