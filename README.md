@@ -1,6 +1,6 @@
 # express-angular-starter
 [![Build Status](https://travis-ci.org/QActivo/express-angular-starter.svg)](https://travis-ci.org/QActivo/express-angular-starter)
-[![Coverage Status](https://coveralls.io/repos/github/QActivo/express-angular-starter/badge.svg?branch=master)](https://coveralls.io/github/QActivo/express-angular-starter)
+[![Coverage Status](https://coveralls.io/repos/github/QActivo/express-angular-starter/badge.svg)](https://coveralls.io/github/QActivo/express-angular-starter)
 [![dependencies Status](https://david-dm.org/QActivo/express-angular-starter/status.svg)](https://david-dm.org/QActivo/express-angular-starter)
 
 ## Stack
