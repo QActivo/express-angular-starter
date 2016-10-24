@@ -14,6 +14,7 @@
     vm.tasks = [];
     vm.showModal = showModal;
     vm.showEditTaskModal = showEditTaskModal;
+    vm.removeTask = removeTask;
 
     activate();
 
@@ -76,6 +77,14 @@
       taskservice.getTasks()
         .then((tasks) => {
           vm.tasks = tasks;
+        });
+    }
+
+    function removeTask(taskId) {
+      taskservice.removeTask(taskId)
+        .then(function success() {
+          logger.success('Task deleted');
+          loadTasks();
         });
     }
   }

@@ -27,7 +27,7 @@
           <td>{{task.created_at | date: "MM/dd/yyyy 'at' h:mma"}}</td>
           <td>
             <button class="btn btn-success btn-xs" data-ng-click="hc.showEditTaskModal(task)">Edit</button>
-            <button class="btn btn-danger btn-xs">Remove</button>
+            <button class="btn btn-danger btn-xs" data-ng-click="hc.removeTask(task.id)">Remove</button>
           </td>
         </tr>
       </tbody>
