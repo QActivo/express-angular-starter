@@ -73,7 +73,7 @@ const router = express.Router();
  */
 router
 .get('/api/v1/tasks', (req, res) => {
-  tasksService.getAll(req.user)
+  tasksService.getAll(req.User)
     .then(result => res.json(result))
     .catch(error => {
       res.status(412).json(errors.get(error));
@@ -82,7 +82,7 @@ router
 
 router
 .get('/api/v1/tasks/paginated', (req, res) => {
-  tasksService.getPaginated(req.user, req.query)
+  tasksService.getPaginated(req.User, req.query)
     .then(result => res.json(result))
     .catch(error => {
       res.status(412).json(errors.get(error));
@@ -129,7 +129,7 @@ router
  */
 router
 .post('/api/v1/tasks', acl.checkRoles, (req, res) => {
-  req.body.user_id = req.user.id;
+  req.body.user_id = req.User.id;
   tasksService.create(req.body)
     .then(result => res.json(result))
     .catch(error => res.status(412).json(errors.get(error)));
@@ -166,7 +166,7 @@ router
  */
 router
 .get('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
-  tasksService.findById(req.params.taskId, req.user)
+  tasksService.findById(req.params.taskId, req.User)
     .then(result => {
       if (result) {
         res.json(result);
@@ -199,7 +199,7 @@ router
  */
 router
 .put('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
-  tasksService.update(req.params.taskId, req.body, req.user)
+  tasksService.update(req.params.taskId, req.body, req.User)
     .then(result => res.sendStatus(204))
     .catch(error => res.status(412).json(errors.get(error)));
 });
@@ -219,7 +219,7 @@ router
  */
 router
 .delete('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
-  tasksService.destroy(req.params.taskId, req.user)
+  tasksService.destroy(req.params.taskId, req.User)
     .then(result => res.sendStatus(204))
     .catch(error => res.status(412).json(errors.get(error)));
 });

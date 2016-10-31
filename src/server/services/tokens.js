@@ -1,41 +1,51 @@
-import jwt from 'jwt-simple';
-
-import config from './../config/config';
-import Users from './../models/users';
+import usersService from './../services/users';
+import sessionsService from './../services/sessions';
 
 const service = {};
 
-service.signin = (email, password) => {
-  return Users.findOne({ where: { email } })
-    .then(user => {
-      if (!Users.isPassword(user.password, password)) {
-        throw new Error({
-          message: 'Invalid Password',
-        });
-      }
-      if (!user.emailValidate) {
-        throw new Error({
-          message: 'Email Not Validated',
-        });
-      }
+/**
+ * Do user signin, store new session for the logged user
+ * with Authorization token and expiration date
+ */
+service.signin = (credentials) => {
+  if (!credentials || !credentials.email || !credentials.password) {
+    throw new Error('Incomplete Credentials');
+  }
 
-      const payload = { id: user.id };
+  return usersService.findByEmail(credentials.email, true)
+  .then(User => {
+    if (!User || !User.isPassword(credentials.password)) {
+      throw new Error('Invalid Username or Password');
+    }
 
-      return {
-        user: {
-          id: user.id,
-          name: user.name,
-          role: user.role,
-        },
-        token: jwt.encode(payload, config.jwtSecret),
-      };
+    return sessionsService.removeExpiredSessions(User)
+    .then(() => {
+      return sessionsService.createNewSession(User);
     })
-    .catch(error => {
-      if (!error.message) {
-        error.message = 'Invalid Password';
-      }
-      throw error;
+    .then(Session => {
+      return { User, Session };
     });
+  });
+};
+
+/**
+ * Do user signout, remove current user session from storage
+ */
+service.signout = (Session) => {
+  return sessionsService.removeSession(Session)
+  .then(() => {
+    return { msg: 'Signout Successfully' };
+  });
+};
+
+/**
+ * Finish all user sessions
+ */
+service.endSessions = (User) => {
+  return sessionsService.removeAllSessions(User)
+  .then(() => {
+    return { msg: 'Sessions closed' };
+  });
 };
 
 module.exports = service;

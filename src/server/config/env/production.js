@@ -16,6 +16,7 @@ module.exports = {
   },
   jwtSecret: 'Mean-relational-AP1-prod',
   jwtSession: { session: false },
+  sessionExpiration: 60,
   emailService: 'Gmail',
   auth: {
     user: '',

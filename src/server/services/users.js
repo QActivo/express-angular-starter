@@ -35,9 +35,35 @@ service.getCount = (query) => {
   return Users.count(query);
 };
 
-service.findById = (id) => {
-  return Users.findById(id, {
-    attributes: ['id', 'name', 'email', 'role'],
+// Find a user by his id and get all data / relations (used also in auth process)
+service.findById = (id, includePassword) => {
+  return service.findUser({ id }, includePassword);
+};
+
+// Find a user by his username and get all data / relations (used also in auth process)
+service.findByUsername = (username, includePassword) => {
+  return service.findUser({ username }, includePassword);
+};
+
+// Find a user by his email and get all data / relations (used also in auth process)
+service.findByEmail = (email, includePassword) => {
+  return service.findUser({ email }, includePassword);
+};
+
+// Find a user and realtions by custom where and check if include user password or not
+service.findUser = (where, includePassword) => {
+  const attributes = [
+    'id', 'name', 'email', 'role', 'emailValidate',
+    'picture', 'tokenValidate', 'tokenPassRecovery', 'tokenPassRecoveryDate',
+  ];
+
+  if (includePassword) {
+    attributes.push('password');
+  }
+
+  return Users.findOne({
+    where,
+    attributes,
   });
 };
 

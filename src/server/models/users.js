@@ -1,7 +1,18 @@
 import Sequelize from 'sequelize';
 import bcrypt from 'bcrypt-nodejs';
-
+import _ from 'lodash';
 import db from './../config/db';
+
+const isPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+const toJSON = function () {
+  const privateAttributes = [
+    'password', 'emailValidate', 'tokenValidate', 'tokenPassRecovery', 'tokenPassRecoveryDate',
+  ];
+  return _.omit(this.dataValues, privateAttributes);
+};
 
 const Users = db.sequelize.define('Users', {
   id: {
@@ -75,10 +86,12 @@ const Users = db.sequelize.define('Users', {
   classMethods: {
     associate: models => {
       Users.hasMany(models.Tasks);
+      Users.hasMany(models.Sessions);
     },
-    isPassword: (encodedPassword, password) => {
-      return bcrypt.compareSync(password, encodedPassword);
-    },
+  },
+  instanceMethods: {
+    isPassword,
+    toJSON,
   },
 });
 

@@ -1,9 +1,11 @@
 import bodyParser from 'body-parser';
 import express from 'express';
+import jwt from 'jwt-simple';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 
+import config from './../config/config';
 import routes from './../routes';
 import logger from './logger';
 import Auth from './auth';
@@ -28,8 +30,14 @@ app.use(bodyParser.json());
 app.use(Auth.initialize());
 
 app.use((req, res, next) => {
-  Auth.authenticate((authErr, user, info) => {
-    req.user = user;
+  Auth.authenticate((authErr, data, info) => {
+    if (data && data.User && data.Session) {
+      req.User = data.User;
+      req.Session = data.Session;
+
+      res.setHeader('Authorization', jwt.encode(data.Session.authToken, config.jwtSecret));
+      res.setHeader('Expiration', data.Session.expiresOn);
+    }
     next(authErr);
   })(req, res, next);
 });

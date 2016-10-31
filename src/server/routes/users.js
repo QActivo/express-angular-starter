@@ -68,7 +68,6 @@ router.get('/api/v1/users', acl.checkRoles, (req, res) => {
     });
 });
 
-
 router.get('/api/v1/users/count', acl.checkRoles, (req, res) => {
   usersService.getCount(req.query)
     .then(result => res.json(result))
@@ -76,7 +75,6 @@ router.get('/api/v1/users/count', acl.checkRoles, (req, res) => {
       res.status(412).json(errors.get(error));
     });
 });
-
 
 /**
  * @api {get} /users/me Return the authenticated user's data
@@ -98,11 +96,7 @@ router.get('/api/v1/users/count', acl.checkRoles, (req, res) => {
  *    HTTP/1.1 412 Precondition Failed
  */
 router.get('/api/v1/users/me', acl.checkRoles, (req, res) => {
-  usersService.findById(req.user.id)
-    .then(result => res.json(result))
-    .catch(error => {
-      res.status(412).json(errors.get(error));
-    });
+  res.json(req.User);
 });
 
 /**
@@ -117,7 +111,7 @@ router.get('/api/v1/users/me', acl.checkRoles, (req, res) => {
  *    HTTP/1.1 412 Precondition Failed
  */
 router.delete('/api/v1/users/me', acl.checkRoles, (req, res) => {
-  usersService.destroy(req.user.id)
+  usersService.destroy(req.User.id)
     .then(result => res.sendStatus(204))
     .catch(error => {
       res.status(412).json(errors.get(error));
@@ -210,7 +204,7 @@ router.post('/api/v1/users', acl.checkRoles, (req, res) => {
  */
 router.put('/api/v1/users/me', acl.checkRoles, (req, res) => {
   delete req.body.role;
-  usersService.update(req.user.id, req.body)
+  usersService.update(req.User.id, req.body)
     .then(result => res.json(result))
     .catch(error => {
       res.status(412).json(errors.get(error));

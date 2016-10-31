@@ -2,7 +2,7 @@ import logger from '../logger.js';
 
 module.exports = {
   database: 'mean_relational',
-  username: 'postgres',
+  username: 'cristian',
   password: 'postgres',
   params: {
     dialect: 'postgres',
@@ -16,6 +16,7 @@ module.exports = {
   },
   jwtSecret: 'Mean-relational-AP1',
   jwtSession: { session: false },
+  sessionExpiration: 60,
   emailService: 'Gmail',
   auth: {
     user: '',

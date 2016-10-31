@@ -12,7 +12,19 @@
     $state, $localStorage, exception, logger) {
     const service = {
       user: $localStorage.user,
+      session: $localStorage.session,
+      //
       getUser,
+      setUser,
+      clearUser,
+      //
+      getSession,
+      setSession,
+      clearSession,
+      //
+      updateHeader,
+      removeHeader,
+      //
       login,
       logout,
       signup,
@@ -23,64 +35,83 @@
     return service;
 
     // implementations
+    function getUser() {
+      return service.user;
+    }
+
+    function setUser(user) {
+      service.user = user;
+      $localStorage.user = user;
+    }
+
+    function clearUser() {
+      service.user = undefined;
+      delete $localStorage.user;
+    }
+
+    function getSession() {
+      return service.session;
+    }
+
+    function setSession(session) {
+      service.session = session;
+      $localStorage.session = session;
+    }
+
+    function clearSession() {
+      service.session = undefined;
+      delete $localStorage.session;
+    }
 
     function updateHeader() {
-      // Update previous headers
-      if ($localStorage.token) {
-        // Set default headers
-        $http.defaults.headers.common.Authorization = 'JWT ' + $localStorage.token;
+      if ($localStorage.session) {
+        $http.defaults.headers.common.Authorization = 'JWT ' + $localStorage.session.authToken;
       }
     }
 
     function removeHeader() {
-      // Update previous headers
       $http.defaults.headers.common.Authorization = undefined;
-    }
-
-    function getUser() {
-      return service.user;
     }
 
     /**
      * @param credentials: {email: user_email, password: user_password}
      */
     function login(credentials) {
-      return $http.post('/api/v1/token', credentials)
-        .then(loginCompleted)
-        .catch(loginFailed);
+      return $http.post('/api/v1/signin', credentials)
+        .then(response => {
+          setUser(response.data.User);
+          setSession(response.data.Session);
+          updateHeader();
 
-      function loginCompleted(response) {
-        service.user = response.data.user;
-        $localStorage.user = response.data.user;
-        $localStorage.token = response.data.token;
-        updateHeader();
-        // broadcast user logged message and user data
-        $rootScope.$broadcast('user-login', response.data.user);
-        if (response.data.user.role === 'admin') {
-          $state.go('dashboard');
-        } else {
-          $state.go('home');
-        }
+          $rootScope.$broadcast('user-login', service.user);
 
-        return response.data.user;
-      }
+          if (service.user.role === 'admin') {
+            $state.go('dashboard');
+          } else {
+            $state.go('home');
+          }
 
-      function loginFailed(err) {
-        return exception.catcher('Failed Login')(err);
-      }
+          return service.user;
+        })
+        .catch(err => {
+          return exception.catcher('Failed Login')(err);
+        });
     }
 
     function logout() {
-      service.user = null;
-      delete $localStorage.user;
-      delete $localStorage.token;
+      return $http.post('/api/v1/signout')
+        .then(response => {
+          clearUser();
+          clearSession();
+          removeHeader();
 
-      removeHeader();
+          $rootScope.$broadcast('user-logout');
 
-      // broadcast user logout message
-      $rootScope.$broadcast('user-logout');
-
-      $state.go('login');
+          // $state.go('login');
+        })
+        .catch(err => {
+          return exception.catcher('Failed Login')(err);
+        });
     }
 
     /**
@@ -88,16 +119,12 @@
      */
     function signup(credentials) {
       return $http.post('/api/v1/users', credentials)
-        .then(signupCompleted)
-        .catch(signupFailed);
-
-      function signupCompleted(response) {
-        return response;
-      }
-
-      function signupFailed(err) {
-        return exception.catcher('Failed signup')(err);
-      }
+        .then(response => {
+          return response;
+        })
+        .catch(err => {
+          return exception.catcher('Failed signup')(err);
+        });
     }
   }
 }());
