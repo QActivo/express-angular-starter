@@ -6,11 +6,14 @@ module.exports = () => {
       role: 'admin',
     },
     defaults: {
-      name: 'Admin',
+      firstName: 'Admin',
+      lastName: 'Admin',
       password: 'admin',
+      username: 'admin',
       email: 'admin@admin.com',
       role: 'admin',
       emailValidate: 1,
+      status: 'active',
     },
   });
 };

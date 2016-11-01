@@ -53,8 +53,8 @@ service.findByEmail = (email, includePassword) => {
 // Find a user and realtions by custom where and check if include user password or not
 service.findUser = (where, includePassword) => {
   const attributes = [
-    'id', 'name', 'email', 'role', 'emailValidate',
-    'picture', 'tokenValidate', 'tokenPassRecovery', 'tokenPassRecoveryDate',
+    'id', 'username', 'email', 'role', 'emailValidate', 'firstName', 'lastName',
+    'picture', 'tokenValidate', 'tokenPassRecovery', 'tokenPassRecoveryDate', 'status',
   ];
 
   if (includePassword) {

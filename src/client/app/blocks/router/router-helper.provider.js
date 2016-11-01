@@ -50,16 +50,15 @@
 
       function configureStates(states, otherwisePath) {
         states.forEach(function (state) {
-          state.config.resolve =
-            angular.extend(state.config.resolve || {}, config.resolveAlways);
+          state.config.resolve = angular.extend(state.config.resolve || {}, config.resolveAlways);
           $stateProvider.state(state.state, state.config);
         });
+
         if (otherwisePath && !hasOtherwise) {
           hasOtherwise = true;
           $urlRouterProvider.otherwise(otherwisePath);
         }
       }
-
 
       function handleRoutingPermissions() {
         $rootScope.$on('$stateChangeStart', checkPermissions);
@@ -68,44 +67,54 @@
           let allowed = false;
 
           if (toState.settings && toState.settings.roles && toState.settings.roles.length > 0) {
+            const authenticated = typeof authentication.getUser() === 'object';
             const role = authentication.getUser() ? authentication.getUser().role : 'guest';
+            const status = authentication.getUser() ? authentication.getUser().status : 'any';
+
             if (toState.settings.roles && role) {
               allowed = toState.settings.roles.indexOf(role) !== -1;
             }
+
+            if (toState.settings.status && status) {
+              allowed = toState.settings.status.indexOf(status) !== -1;
+            }
+
+            if (!toState.settings.status && status !== 'active' && authenticated) {
+              allowed = false;
+            }
+
             if (!allowed) {
+              console.log(authentication.continueFrom());
               event.preventDefault();
-              if (authentication.getUser() !== undefined &&
-                typeof authentication.getUser() === 'object') {
-                $state.go('home');// forbiden
-              } else {
-                $state.go('login');
-              }
+              $state.go(authentication.continueFrom());
             }
           }
         }
       }
 
+      // Route cancellation:
+      // On routing error, go to the dashboard.
+      // Provide an exit clause if it tries to do it twice.
       function handleRoutingErrors() {
-        // Route cancellation:
-        // On routing error, go to the dashboard.
-        // Provide an exit clause if it tries to do it twice.
-        $rootScope.$on('$stateChangeError',
-          function (event, toState, toParams, fromState, fromParams, error) {
-            if (handlingStateChangeError) {
-              return;
-            }
-            stateCounts.errors++;
-            handlingStateChangeError = true;
-            const destination = (toState &&
-              (toState.title || toState.name || toState.loadedTemplateUrl)) ||
-              'unknown target';
-            const msg = 'Error routing to ' + destination + '. ' +
-              (error.data || '') + '. <br/>' + (error.statusText || '') +
-              ': ' + (error.status || '');
-            logger.warning(msg, [toState]);
-            $location.path('/');
+        $rootScope.$on('$stateChangeError', handleErrors);
+
+        function handleErrors(event, toState, toParams, fromState, fromParams, error) {
+          if (handlingStateChangeError) {
+            return;
           }
-        );
+
+          stateCounts.errors++;
+          handlingStateChangeError = true;
+
+          const destination = (toState &&
+            (toState.title || toState.name || toState.loadedTemplateUrl)) || 'unknown target';
+
+          const msg = 'Error routing to ' + destination + '. ' +
+            (error.data || '') + '. <br/>' + (error.statusText || '') + ': ' + (error.status || '');
+
+          logger.warning(msg, [toState]);
+          $location.path('/');
+        }
       }
 
       function init() {
@@ -114,17 +123,19 @@
         updateDocTitle();
       }
 
-      function getStates() { return $state.get(); }
+      function getStates() {
+        return $state.get();
+      }
 
       function updateDocTitle() {
-        $rootScope.$on('$stateChangeSuccess',
-          function (event, toState, toParams, fromState, fromParams) {
-            stateCounts.changes++;
-            handlingStateChangeError = false;
-            const title = config.docTitle + ' ' + (toState.title || '');
-            $rootScope.title = title; // data bind to <title>
-          }
-        );
+        $rootScope.$on('$stateChangeSuccess', updateTitle);
+
+        function updateTitle(event, toState, toParams, fromState, fromParams) {
+          stateCounts.changes++;
+          handlingStateChangeError = false;
+          const title = config.docTitle + ' ' + (toState.title || '');
+          $rootScope.title = title; // data bind to <title>
+        }
       }
     }
   }

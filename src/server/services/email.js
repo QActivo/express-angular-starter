@@ -1,45 +1,73 @@
+import path from 'path';
+import MandrillTransport from 'nodemailer-mandrill-transport';
+import EmailTemplates from 'email-templates';
 import Nodemailer from 'nodemailer';
 import config from './../config/config';
 
 const service = {};
-
-const transporter = Nodemailer.createTransport({
-  service: config.emailService,
-  auth: config.auth,
-});
+const templatesDir = path.resolve(__dirname, '..', 'templates');
+const transporter = config.mandrillAPIKEY ?
+  Nodemailer.createTransport(MandrillTransport({ auth: { apiKey: config.mandrillAPIKEY } })) :
+  Nodemailer.createTransport({ service: config.emailService, auth: config.auth });
 
 function sendEmail(mailOptions) {
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Enviado: ' + info.response);
+  return new Promise((resolve, reject) => {
+    if (mailOptions.notification && !config.sendEmailNotifications) {
+      resolve('ok');
+      return;
     }
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(info);
+      }
+    });
   });
 }
 
-service.sendValidateEmail = (email, token) => {
-  const content = 'Please enter <a href=\"' + config.urlBaseClient + '/user/validate/' + token +
-  '\"> here </a>';
-  const subject = 'Validate Email';
-  const mailOptions = {
-    to: email,
-    subject,
-    html: '<b>' + content + '</b>',
+function sendWithTemplate(templateData, User, subjectEmail, templateName, notification) {
+  const template = new EmailTemplates.EmailTemplate(path.join(templatesDir, templateName));
+  return template.render(templateData)
+    .then(results => {
+      return sendEmail({
+        from: 'mean@qactivo.com',
+        to: User.email,
+        subject: subjectEmail,
+        html: results.html,
+        text: results.text,
+        notification,
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+service.sendValidateEmail = (User) => {
+  const data = {
+    url: config.urlBaseClient + 'signup/validation/' + User.tokenValidate,
+    username: User.username,
   };
-  sendEmail(mailOptions);
+  return sendWithTemplate(data, User, 'Validate your Email address', 'validate-email');
 };
 
-service.sendRecoveryEmail = (email, token) => {
-  const content = 'Please enter <a href=\"' + config.urlBaseClient + '/user/recovery/' + token +
-  '\"> here </a> to change your password.';
-  const subject = 'Recovery Password';
-  const mailOptions = {
-    to: email,
-    subject,
-    html: '<b>' + content + '</b>',
+service.sendRecoveryEmail = (User) => {
+  const data = {
+    url: config.urlBaseClient + 'user/recovery/' + User.tokenPassRecovery,
+    username: User.username,
   };
-  sendEmail(mailOptions);
+  return sendWithTemplate(data, User, 'Recovery Password', 'recovery-password-email');
+};
+
+service.sendWelcomeEmail = (User) => {
+  const data = {
+    url: config.urlBaseClient + 'login',
+    firstName: User.firstName,
+    lastName: User.lastName,
+    username: User.username,
+  };
+  return sendWithTemplate(data, User, 'Welcome!', 'welcome-email');
 };
 
 module.exports = service;

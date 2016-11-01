@@ -22,12 +22,25 @@
       setSession,
       clearSession,
       //
+      clearAll,
+      //
       updateHeader,
       removeHeader,
       //
       login,
       logout,
+      //
       signup,
+      sendValidationEmail,
+      validateEmail,
+      storeProfile,
+      activateAccount,
+      //
+      forgot,
+      reset,
+      token,
+      //
+      continueFrom,
     };
 
     updateHeader();
@@ -61,6 +74,12 @@
     function clearSession() {
       service.session = undefined;
       delete $localStorage.session;
+    }
+
+    function clearAll() {
+      clearUser();
+      clearSession();
+      removeHeader();
     }
 
     function updateHeader() {
@@ -98,6 +117,9 @@
         });
     }
 
+    /**
+     * Do user logout, remove current session
+     */
     function logout() {
       return $http.post('/api/v1/signout')
         .then(response => {
@@ -118,13 +140,122 @@
      * @param credentials: {firstName, lastName, email, password, ...}
      */
     function signup(credentials) {
-      return $http.post('/api/v1/users', credentials)
+      return $http.post('/api/v1/signup', credentials)
         .then(response => {
-          return response;
+          setUser(response.data.User);
+          setSession(response.data.Session);
+          updateHeader();
+
+          return response.data;
         })
         .catch(err => {
           return exception.catcher('Failed signup')(err);
         });
+    }
+
+    /**
+     * Send user validation email again
+     */
+    function sendValidationEmail() {
+      return $http.get('/api/v1/signup/validation')
+        .then(response => {
+          return response.data;
+        })
+        .catch(err => {
+          return exception.catcher('Failed send validation email')(err);
+        });
+    }
+
+    /**
+     * Validate user email
+     */
+    function validateEmail(key) {
+      return $http.get('/api/v1/signup/validate/' + key)
+        .then(response => {
+          setUser(response.data.User);
+          setSession(response.data.Session);
+          updateHeader();
+
+          return response.data;
+        })
+        .catch(err => {
+          return exception.catcher('Failed validate email')(err);
+        });
+    }
+
+    /**
+     * Store user profile after email validation
+     */
+    function storeProfile(profile) {
+      return $http.post('/api/v1/signup/profile', profile)
+        .then(response => {
+          setUser(response.data.User);
+          setSession(response.data.Session);
+          updateHeader();
+
+          return response.data;
+        })
+        .catch(err => {
+          return exception.catcher('Failed store profile')(err);
+        });
+    }
+
+    /**
+     * Finish signup process and activate user account
+     */
+    function activateAccount() {
+      return $http.post('/api/v1/signup/activate')
+      .then(response => {
+        setUser(response.data.User);
+        setSession(response.data.Session);
+        updateHeader();
+
+        return response.data;
+      })
+      .catch(err => {
+        return exception.catcher('Failed activate account')(err);
+      });
+    }
+
+    /**
+     * Password forgot/recovery
+     * param credentials : object {email: example@domain.name}
+     */
+    function forgot(credentials) {
+      return $http.post('/api/v1/users/forgot', credentials);
+    }
+
+    /**
+     * Password reset
+     * param token: password reset token
+     * param credentials: object {password: password}
+     */
+    function reset(paramToken, credentials) {
+      return $http.post('/api/v1/users/reset/password/' + paramToken, credentials);
+    }
+
+    /**
+     * Password reset token validation
+     * param token: token to validate
+     */
+    function token(paramToken) {
+      return $http.get('/api/v1/users/reset/validate/' + paramToken);
+    }
+
+    /**
+     *
+     */
+    function continueFrom() {
+      if (!service.user) {
+        return 'login';
+      }
+
+      const states = {
+        'not_validated': 'signup_validation',
+        'validated': 'signup_profile',
+        'active': 'dashboard',
+      };
+      return states[service.user.status] || 'home';
     }
   }
 }());

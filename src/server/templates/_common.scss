@@ -1,0 +1,68 @@
+@import 'https://fonts.googleapis.com/css?family=Abel';
+@import 'https://fonts.googleapis.com/css?family=Montserrat+Alternates';
+
+.message {
+    color: #7e7e7e;
+    font-family: 'Abel', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    padding-top: 25px;
+}
+.header {
+  text-align: center;
+       padding: 25px;
+       background-color: #fff;
+       border-bottom: 1px solid rgba(230, 230, 230, 0.7);
+}
+.header img {
+  width: 250px;
+}
+.subject {
+  background-color: #f0f0f0;
+  text-align: center;
+  font-family: 'Montserrat';
+       -webkit-border-radius: 0px;
+       -moz-border-radius: 0px;
+       border-radius: 0px;
+       box-shadow: none;
+       padding: 15px 0;
+       margin: 0;
+       border: none;
+       text-transform: uppercase;
+       display: block;
+       color: #626262;
+   font-size: 14px;
+   font-weight: normal;
+   letter-spacing: 0.01em;
+   -webkit-font-smoothing: antialiased;
+}
+.content {
+  text-align: center;
+  color: #2c2c2c;
+}
+.footer {
+  background-color: #f0f0f0;
+  text-align: center;
+  font-family: 'Montserrat';
+       -webkit-border-radius: 0px;
+       -moz-border-radius: 0px;
+       border-radius: 0px;
+       box-shadow: none;
+       padding: 40px 0;
+       border: none;
+       margin-top: 30px;
+       display: block;
+       color: #626262;
+     font-size: 16px;
+       -webkit-font-smoothing: antialiased;
+}
+.message-content p {
+  display: block;
+     font-size: 14px;
+     font-weight: normal;
+     letter-spacing: 0.01em;
+     line-height: 22px;
+     margin: 0px 0px 10px 0px;
+     font-style: normal;
+     white-space: normal;
+}

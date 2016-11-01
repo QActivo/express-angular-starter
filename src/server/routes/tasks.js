@@ -32,15 +32,6 @@ acl.allow([{
     resources: '/api/v1/tasks/:taskId',
     permissions: '*',
   }],
-}, {
-  roles: ['guest'],
-  allows: [{
-    resources: '/api/v1/tasks',
-    permissions: ['get'],
-  }, {
-    resources: '/api/v1/tasks/:taskId',
-    permissions: ['get'],
-  }],
 }]);
 
 const router = express.Router();
@@ -71,31 +62,22 @@ const router = express.Router();
  * @apiErrorExample {json} List error
  *    HTTP/1.1 412 Precondition Failed
  */
-router
-.get('/api/v1/tasks', (req, res) => {
+router.get('/api/v1/tasks', acl.checkRoles, (req, res) => {
   tasksService.getAll(req.User)
     .then(result => res.json(result))
-    .catch(error => {
-      res.status(412).json(errors.get(error));
-    });
+    .catch(error => res.status(412).json(errors.get(error)));
 });
 
-router
-.get('/api/v1/tasks/paginated', (req, res) => {
+router.get('/api/v1/tasks/paginated', acl.checkRoles, (req, res) => {
   tasksService.getPaginated(req.User, req.query)
     .then(result => res.json(result))
-    .catch(error => {
-      res.status(412).json(errors.get(error));
-    });
+    .catch(error => res.status(412).json(errors.get(error)));
 });
 
-router
-.get('/api/v1/tasks/count', (req, res) => {
+router.get('/api/v1/tasks/count', acl.checkRoles, (req, res) => {
   tasksService.getCount(req.query)
     .then(result => res.json(result))
-    .catch(error => {
-      res.status(412).json(errors.get(error));
-    });
+    .catch(error => res.status(412).json(errors.get(error)));
 });
 
 
@@ -127,8 +109,7 @@ router
  * @apiErrorExample {json} Register error
  *    HTTP/1.1 412 Precondition Failed
  */
-router
-.post('/api/v1/tasks', acl.checkRoles, (req, res) => {
+router.post('/api/v1/tasks', acl.checkRoles, (req, res) => {
   req.body.user_id = req.User.id;
   tasksService.create(req.body)
     .then(result => res.json(result))
@@ -164,8 +145,7 @@ router
  * @apiErrorExample {json} Find error
  *    HTTP/1.1 412 Precondition Failed
  */
-router
-.get('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
+router.get('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
   tasksService.findById(req.params.taskId, req.User)
     .then(result => {
       if (result) {
@@ -197,8 +177,7 @@ router
  * @apiErrorExample {json} Update error
  *    HTTP/1.1 412 Precondition Failed
  */
-router
-.put('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
+router.put('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
   tasksService.update(req.params.taskId, req.body, req.User)
     .then(result => res.sendStatus(204))
     .catch(error => res.status(412).json(errors.get(error)));
@@ -217,8 +196,7 @@ router
  * @apiErrorExample {json} Delete error
  *    HTTP/1.1 412 Precondition Failed
  */
-router
-.delete('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
+router.delete('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
   tasksService.destroy(req.params.taskId, req.User)
     .then(result => res.sendStatus(204))
     .catch(error => res.status(412).json(errors.get(error)));

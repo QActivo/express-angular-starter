@@ -8,11 +8,19 @@ const service = {};
  * with Authorization token and expiration date
  */
 service.signin = (credentials) => {
-  if (!credentials || !credentials.email || !credentials.password) {
+  if (!credentials || !credentials.identification || !credentials.password) {
     throw new Error('Incomplete Credentials');
   }
 
-  return usersService.findByEmail(credentials.email, true)
+  const where = {
+    $or: [{
+      username: credentials.identification,
+    }, {
+      email: credentials.identification,
+    }],
+  };
+
+  return usersService.findUser(where, true)
   .then(User => {
     if (!User || !User.isPassword(credentials.password)) {
       throw new Error('Invalid Username or Password');

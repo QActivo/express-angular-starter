@@ -20,11 +20,12 @@ const Users = db.sequelize.define('Users', {
     primaryKey: true,
     autoIncrement: true,
   },
-  name: {
+  username: {
     type: Sequelize.STRING,
+    unique: { msg: 'Username alredy in use' },
     allowNull: false,
     validate: {
-      notEmpty: true,
+      notEmpty: { msg: 'The username can\'t be empty' },
     },
   },
   password: {
@@ -36,11 +37,19 @@ const Users = db.sequelize.define('Users', {
   },
   email: {
     type: Sequelize.STRING,
-    unique: true,
+    unique: { msg: 'Email alredy in use' },
     allowNull: false,
     validate: {
-      notEmpty: true,
+      notEmpty: { msg: 'The email address can\'t be empty' },
     },
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: true,
   },
   role: {
     type: Sequelize.STRING,
@@ -49,6 +58,14 @@ const Users = db.sequelize.define('Users', {
     validate: {
       notEmpty: true,
     },
+  },
+  status: {
+    type: Sequelize.ENUM('not_validated', 'validated', 'not_active', 'active'),
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+    defaultValue: 'not_validated',
   },
   emailValidate: {
     type: Sequelize.BOOLEAN,
@@ -81,6 +98,11 @@ const Users = db.sequelize.define('Users', {
     beforeCreate: user => {
       const salt = bcrypt.genSaltSync();
       user.password = bcrypt.hashSync(user.password, salt);
+    },
+    beforeValidate: (model, options, cb) => { // Workarround to change not null validation message
+      model.email = model.email || '';
+      model.username = model.username || '';
+      cb(null, model);
     },
   },
   classMethods: {

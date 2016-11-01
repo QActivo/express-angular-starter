@@ -2,11 +2,11 @@ import logger from '../logger.js';
 
 module.exports = {
   database: 'mean_relational',
-  username: 'cristian',
-  password: 'postgres',
+  username: 'root',
+  password: 'root',
   params: {
-    dialect: 'postgres',
-    protocol: 'postgres',
+    dialect: 'mysql',
+    protocol: 'mysql',
     logging: (sql) => {
       logger.info(`[${new Date()}] ${sql}`);
     },
@@ -16,19 +16,20 @@ module.exports = {
   },
   jwtSecret: 'Mean-relational-AP1',
   jwtSession: { session: false },
-  sessionExpiration: 60,
+  sessionExpiration: 800,
   emailService: 'Gmail',
   auth: {
     user: '',
     pass: '',
   },
-  verifyEmail: false,
-  urlBaseClient: 'https://localhost:9000',
-  urlBaseApi: 'https://localhost:3000',
-  FACEBOOK_SECRET: 'cc5f57a04c594783bc513460718d164d', // Facebook secret API
+  mandrillAPIKEY: '',
+  verifyEmail: true,
+  urlBaseClient: 'http://localhost:3000/',
+  urlBaseApi: 'http://localhost:3000/api/v1/',
+  FACEBOOK_SECRET: '',
   TWITTER_KEY: '',
   TWITTER_SECRET: '',
-  INSTAGRAM_SECRET: 'fd9cb1ec4581434f89d1dbe4d44669e1',
+  INSTAGRAM_SECRET: '',
   GOOGLE_SECRET: '',
   PINTEREST_SECRET: '',
   PINTEREST_KEY: '',
