@@ -1,7 +1,9 @@
 import express from 'express';
+import jwt from 'jwt-simple';
+
 import errors from './../error';
 import acl from './../config/acl';
-
+import config from './../config/config';
 import signupService from './../services/signup';
 
 /**
@@ -74,7 +76,11 @@ const router = express.Router();
  */
 router.post('/api/v1/signup', acl.checkRoles, (req, res) => {
   signupService.create(req.body)
-    .then(result => res.json(result))
+    .then(result => {
+      res.setHeader('Authorization', jwt.encode(result.Session.authToken, config.jwtSecret));
+      res.setHeader('AuthExpiration', result.Session.expiresOn);
+      res.json(result);
+    })
     .catch(error => res.status(412).json(errors.get(error)));
 });
 
@@ -120,7 +126,11 @@ router.get('/api/v1/signup/validation', acl.checkRoles, (req, res) => {
 router.get('/api/v1/signup/validate/:token', acl.checkRoles, (req, res) => {
   try {
     signupService.validateEmail(req.User, req.Session, req.params.token)
-      .then(result => res.json(result))
+      .then(result => {
+        res.setHeader('Authorization', jwt.encode(result.Session.authToken, config.jwtSecret));
+        res.setHeader('AuthExpiration', result.Session.expiresOn);
+        res.json(result);
+      })
       .catch(error => res.status(412).json(errors.get(error)));
   } catch (error) {
     res.status(412).json(errors.get(error));

@@ -22,7 +22,7 @@
     "angular-sanitize": "~1.5.3",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
-    "moment": "^2.12.0",
+    "moment": "momentjs#^2.15.2",
     "angular-ui-router": "^0.2.18",
     "toastr": "^2.1.2",
     "angular-animate": "^1.5.3",
@@ -32,7 +32,8 @@
     "angular-loading-bar": "^0.9.0",
     "angular-wysiwyg": "^1.2.4",
     "components-font-awesome": "^4.6.3",
-    "angular-filepicker": "https://github.com/andreskuver/filepicker-angular.git#1.1.5"
+    "angular-filepicker": "https://github.com/andreskuver/filepicker-angular.git#1.1.5",
+    "angular-moment": "^1.0.0"
   },
   "resolutions": {
     "angular": "1.5.3",

@@ -12,6 +12,7 @@
     const states = routerHelper.getStates();
     let role = authentication.getUser() ? authentication.getUser().role : 'guest';
     vm.isCurrent = isCurrent;
+    vm.logout = authentication.logout;
 
     activate();
 

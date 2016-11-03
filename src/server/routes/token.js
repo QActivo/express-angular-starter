@@ -33,7 +33,7 @@ router.post('/api/v1/signin', acl.checkRoles, (req, res) => {
     tokenService.signin(req.body)
       .then(response => {
         res.setHeader('Authorization', jwt.encode(response.Session.authToken, config.jwtSecret));
-        res.setHeader('Expiration', response.Session.expiresOn);
+        res.setHeader('AuthExpiration', response.Session.expiresOn);
         res.json(response);
       })
       .catch(error => res.status(412).json(errors.get(error)));
@@ -46,7 +46,7 @@ router.post('/api/v1/signout', acl.checkRoles, (req, res) => {
   tokenService.signout(req.Session)
     .then(response => {
       res.removeHeader('Authorization');
-      res.removeHeader('Expiration');
+      res.removeHeader('AuthExpiration');
       res.json(response);
     })
     .catch(error => res.status(412).json(errors.get(error)));
@@ -56,7 +56,7 @@ router.post('/api/v1/signout/all', acl.checkRoles, (req, res) => {
   tokenService.endSessions(req.User)
     .then(response => {
       res.removeHeader('Authorization');
-      res.removeHeader('Expiration');
+      res.removeHeader('AuthExpiration');
       res.json(response);
     })
     .catch(error => res.status(412).json(errors.get(error)));

@@ -1,4 +1,5 @@
 import uuid from 'node-uuid';
+import Sequelize from 'sequelize';
 
 import config from './../config/config';
 import Sessions from './../models/sessions';
@@ -7,14 +8,16 @@ const service = {};
 
 /**
  * Find one session by his Authorization token
- * And validate session expiration date
+ * And check session expiration date
  */
 service.findSession = (authToken) => {
+  const date = new Date().toISOString();
   return Sessions.findOne({
-    where: {
-      authToken,
-      expiresOn: { $gte: new Date() },
-    },
+    where: { authToken },
+    attributes: [
+      'user_id', 'authToken', 'expiresOn', 'issuedOn', 'updatedOn',
+      Sequelize.literal(`expiresOn <= '${date}' AS expired`),
+    ],
   });
 };
 
@@ -25,14 +28,14 @@ service.findSession = (authToken) => {
 service.validateSession = (authToken) => {
   return service.findSession(authToken)
     .then(Session => {
-      if (Session) {
+      if (Session && !Session.expired) {
         const expiresOn = new Date();
         expiresOn.setSeconds(expiresOn.getSeconds() + config.sessionExpiration);
         Session.expiresOn = expiresOn;
 
         return Session.save();
       }
-      return null;
+      return Session;
     });
 };
 

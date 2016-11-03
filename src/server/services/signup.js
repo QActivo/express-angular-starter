@@ -132,7 +132,7 @@ service.activate = (User, Session) => {
     return {
       Session,
       User: updatedUser,
-      msg: 'Welcome ' + User.firstName + ' ' + User.lastName + '!',
+      msg: `Welcome ${User.firstName} ${User.lastName}!`,
     };
   });
 };

@@ -129,7 +129,7 @@
 
           $rootScope.$broadcast('user-logout');
 
-          // $state.go('login');
+          $state.go('login');
         })
         .catch(err => {
           return exception.catcher('Failed Login')(err);
@@ -243,7 +243,7 @@
     }
 
     /**
-     *
+     * Get next available state for current user on signup process
      */
     function continueFrom() {
       if (!service.user) {
@@ -253,7 +253,7 @@
       const states = {
         'not_validated': 'signup_validation',
         'validated': 'signup_profile',
-        'active': 'dashboard',
+        'active': 'home',
       };
       return states[service.user.status] || 'home';
     }

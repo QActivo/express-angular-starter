@@ -7,12 +7,14 @@ const service = {};
 service.getAll = (params) => {
   const query = {};
   // attributes
-  query.attributes = ['id', 'name', 'email', 'role'];
+  query.attributes = ['id', 'username', 'email', 'role', 'status', 'firstName', 'lastName'];
   // conditions
   if (params.filter) {
     query.where = {
       $or: [
-        { name: { $like: '%' + params.filter + '%' } },
+        { username: { $like: '%' + params.filter + '%' } },
+        { firstName: { $like: '%' + params.filter + '%' } },
+        { lastName: { $like: '%' + params.filter + '%' } },
         { email: { $like: '%' + params.filter + '%' } },
         { role: { $like: '%' + params.filter + '%' } },
       ],
@@ -21,11 +23,11 @@ service.getAll = (params) => {
 
   // pagination
   if (params.page) {
-    const limit = (params.limit) ? params.limit : 10;
-    query.offset = (params.page - 1) * limit;
+    const limit = (params.limit) ? parseInt(params.limit, 10) : 10;
+    query.offset = (parseInt(params.page, 10) - 1) * limit;
   }
   if (params.limit) {
-    query.limit = params.limit;
+    query.limit = parseInt(params.limit, 10);
   }
 
   return Users.findAndCountAll(query);
@@ -61,21 +63,17 @@ service.findUser = (where, includePassword) => {
     attributes.push('password');
   }
 
-  return Users.findOne({
-    where,
-    attributes,
-  });
+  return Users.findOne({ where, attributes });
 };
 
 service.destroy = (id) => {
-  return Users.destroy({
-    where: { id },
-  });
+  return Users.destroy({ where: { id } });
 };
 
 service.create = (user) => {
   user.tokenValidate = null;
   user.emailValidate = 1;
+  user.status = 'active';
   return Users.create(user);
 };
 
@@ -83,12 +81,6 @@ service.update = (id, body) => {
   const query = { where: { id } };
 
   return Users.update(body, query);
-};
-
-service.validateEmail = (token) => {
-  const query = { where: { tokenValidate: token } };
-  const value = { emailValidate: 1, tokenValidate: null };
-  return Users.update(value, query);
 };
 
 service.forgot = (email) => {

@@ -32,7 +32,7 @@ const Users = db.sequelize.define('Users', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
+      notEmpty: { msg: 'The password can\'t be empty' },
     },
   },
   email: {
@@ -102,6 +102,7 @@ const Users = db.sequelize.define('Users', {
     beforeValidate: (model, options, cb) => { // Workarround to change not null validation message
       model.email = model.email || '';
       model.username = model.username || '';
+      model.password = model.password || '';
       cb(null, model);
     },
   },

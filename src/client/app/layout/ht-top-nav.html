@@ -16,11 +16,11 @@
     <ul class="nav navbar-top-links navbar-right" data-ng-show='vm.user'>
       <li role="presentation" class="dropdown">
         <a class="dropdown-toggle pointer" data-toggle="dropdown" aria-expanded="false">
-          {{vm.user.name}}
+          {{vm.user.username}}
           <span class="caret sidebar-row"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a ui-sref="logout"">Logout</a></li>
+          <li><a ng-click="vm.logout();">Logout</a></li>
         </ul>
       </li>
     </ul>

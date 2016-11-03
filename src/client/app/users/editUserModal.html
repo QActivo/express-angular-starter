@@ -5,7 +5,15 @@
   <form>
     <div class="form-group">
       <label class="control-label">Name</label>
-      <input data-ng-model="uc.user.name" type="text" class="form-control">
+      <input data-ng-model="uc.user.username" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label class="control-label">First Name</label>
+      <input data-ng-model="uc.user.firstName" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label class="control-label">Last Name</label>
+      <input data-ng-model="uc.user.lastName" type="text" class="form-control">
     </div>
     <div class="form-group">
       <label class="control-label">Email</label>
@@ -14,7 +22,7 @@
     <div class="form-group">
       <label class="control-label">Role</label>
       <select data-ng-model="uc.user.role" data-ng-options="role as role for role in uc.roles" class="form-control"></select>
-    </div>  
+    </div>
   </form>
 </div>
 <div class="modal-footer">

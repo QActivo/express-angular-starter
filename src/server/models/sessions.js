@@ -5,7 +5,7 @@ import db from './../config/db';
 import config from './../config/config';
 
 const toJSON = function () {
-  const privateAttributes = ['updatedOn', 'user_id'];
+  const privateAttributes = ['updatedOn', 'user_id', 'expired'];
   this.dataValues.authToken = jwt.encode(this.authToken, config.jwtSecret);
   return _.omit(this.dataValues, privateAttributes);
 };
@@ -21,6 +21,9 @@ const Sessions = db.sequelize.define('Sessions', {
     validate: {
       notEmpty: true,
     },
+  },
+  expired: {
+    type: Sequelize.VIRTUAL,
   },
 }, {
   createdAt: 'issuedOn',

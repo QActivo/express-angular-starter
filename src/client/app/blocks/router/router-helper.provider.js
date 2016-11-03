@@ -84,7 +84,6 @@
             }
 
             if (!allowed) {
-              console.log(authentication.continueFrom());
               event.preventDefault();
               $state.go(authentication.continueFrom());
             }

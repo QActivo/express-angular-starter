@@ -36,7 +36,7 @@ app.use((req, res, next) => {
       req.Session = data.Session;
 
       res.setHeader('Authorization', jwt.encode(data.Session.authToken, config.jwtSecret));
-      res.setHeader('Expiration', data.Session.expiresOn);
+      res.setHeader('AuthExpiration', data.Session.expiresOn);
     }
     next(authErr);
   })(req, res, next);

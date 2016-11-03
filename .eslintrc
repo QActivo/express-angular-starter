@@ -25,6 +25,7 @@
     ApplicationConfiguration: true,
     io: true,
     $: true,
+    moment: true,
   },
   "rules": {
     "prefer-arrow-callback": 0,
