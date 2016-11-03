@@ -24,7 +24,7 @@
       if (form.$valid) {
         authentication.signup(vm.credentials).then(res => {
           logger.success(res.msg);
-          $state.go('signup_validation');
+          $state.go(authentication.continueFrom());
         });
       }
     }

@@ -46,7 +46,7 @@ function sendWithTemplate(templateData, User, subjectEmail, templateName, notifi
 
 service.sendValidateEmail = (User) => {
   const data = {
-    url: config.urlBaseClient + 'signup/validation/' + User.tokenValidate,
+    url: `${config.urlBaseClient}/signup/validation/${User.tokenValidate}`,
     username: User.username,
   };
   return sendWithTemplate(data, User, 'Validate your Email address', 'validate-email');
@@ -54,7 +54,7 @@ service.sendValidateEmail = (User) => {
 
 service.sendRecoveryEmail = (User) => {
   const data = {
-    url: config.urlBaseClient + 'user/recovery/' + User.tokenPassRecovery,
+    url: `${config.urlBaseClient}/password_reset/${User.tokenPassRecovery}`,
     username: User.username,
   };
   return sendWithTemplate(data, User, 'Recovery Password', 'recovery-password-email');
@@ -62,7 +62,7 @@ service.sendRecoveryEmail = (User) => {
 
 service.sendWelcomeEmail = (User) => {
   const data = {
-    url: config.urlBaseClient + 'login',
+    url: `${config.urlBaseClient}/login`,
     firstName: User.firstName,
     lastName: User.lastName,
     username: User.username,

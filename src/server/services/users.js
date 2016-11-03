@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 
 import Users from './../models/users';
+import emailService from './../services/email';
 
 const service = {};
 
@@ -56,7 +57,7 @@ service.findByEmail = (email, includePassword) => {
 service.findUser = (where, includePassword) => {
   const attributes = [
     'id', 'username', 'email', 'role', 'emailValidate', 'firstName', 'lastName',
-    'picture', 'tokenValidate', 'tokenPassRecovery', 'tokenPassRecoveryDate', 'status',
+    'picture', 'tokenValidate', 'tokenPassRecovery', 'tokenPassRecoveryExpiryDate', 'status',
   ];
 
   if (includePassword) {
@@ -79,56 +80,97 @@ service.create = (user) => {
 
 service.update = (id, body) => {
   const query = { where: { id } };
-
   return Users.update(body, query);
 };
 
-service.forgot = (email) => {
-  const query = { where: { email } };
-  const user = {};
-  user.tokenPassRecovery = bcrypt.genSaltSync().replace(/[^a-zA-Z0-9-_]/g, '');
-  user.tokenPassRecoveryDate = new Date();
-  return Users.update(user, query).then((res) => {
-    if (res[0] === 0) {
-      return { errorMessage: 'User not registered.' };
-    }
-    return {
-      token: user.tokenPassRecovery,
-    };
-  });
-};
 
-service.validateReset = (token) => {
-  const query = { where: { tokenPassRecovery: token } };
-
-  function diffDates(date1, date2) {
-    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    const diffHours = Math.ceil(timeDiff / (1000 * 3600));
-    return diffHours;
+// Init forgot password process
+service.forgot = (identification) => {
+  if (!identification) {
+    throw new Error('Invalid user identification');
   }
 
-  return Users.findOne(query).then((data) => {
-    if (diffDates(data.tokenPassRecoveryDate, new Date()) > 8) {
-      return { 'res': 0 };
+  return Users.findOne({
+    where: {
+      $or: [{
+        username: identification,
+      }, {
+        email: identification,
+      }],
+    },
+    attributes: ['id', 'username', 'firstName', 'lastName', 'email'],
+  })
+  .then(User => {
+    if (!User) {
+      throw new Error('User not registered');
     }
-    return { 'res': 1 };
+
+    User.tokenPassRecovery = bcrypt.genSaltSync().replace(/[^a-zA-Z0-9-_]/g, '');
+
+    const expiry = new Date();
+    expiry.setHours(expiry.getHours() + 8);
+    User.tokenPassRecoveryExpiryDate = expiry;
+
+    return User.save()
+      .then(updated => {
+        emailService.sendRecoveryEmail(User);
+
+        return {
+          msg: `Recovery email sent to ${User.username} (${User.email}).
+            Please follow the email instructions to recover your account.`,
+        };
+      });
   });
 };
 
-service.resetPassword = (token, newPassword) => {
-  const salt = bcrypt.genSaltSync();
-  const pass = bcrypt.hashSync(newPassword, salt);
-  const query = { where: { tokenPassRecovery: token } };
-  const value = {
-    password: pass,
-    tokenPassRecovery: null,
-  };
-
-  return Users.update(value, query).then((data) => {
-    if (data[0]) {
-      return { 'res': 1 };
+// Validate reset pasword token
+service.validateReset = (token) => {
+  return Users.findOne({
+    where: {
+      tokenPassRecovery: token,
+      tokenPassRecoveryExpiryDate: { $gt: new Date() },
+    },
+    attributes: ['firstName', 'lastName', 'username'],
+  }).then(user => {
+    if (!user) {
+      throw new Error('Invalid/Expired token.');
     }
-    return { 'res': 0 };
+    return { msg: 'Your password recovery token is valid, please set your new password' };
+  });
+};
+
+// Do password reset
+service.resetPassword = (token, password, verifyPassword) => {
+  if (!password || !verifyPassword || password !== verifyPassword) {
+    throw new Error('Invalid password');
+  }
+
+  return Users.findOne({
+    where: {
+      tokenPassRecovery: token,
+      tokenPassRecoveryExpiryDate: { $gt: new Date() },
+    },
+  })
+  .then(user => {
+    if (!user) {
+      throw new Error('Invalid or expired token');
+    }
+    const salt = bcrypt.genSaltSync();
+
+    user.password = bcrypt.hashSync(password, salt);
+    user.tokenPassRecovery = null;
+    user.tokenPassRecoveryExpiryDate = null;
+
+    // if recovery password then validate user email
+    if (user.status === 'not_validated') {
+      user.status = 'validated';
+      user.tokenValidate = null;
+    }
+
+    return user.save()
+    .then(updated => {
+      return { msg: 'Password successfully changed. Please login again to continue.' };
+    });
   });
 };
 

@@ -16,7 +16,7 @@
     function activateProfile() {
       authentication.activateAccount().then(res => {
         logger.success(res.msg);
-        $state.go('home');
+        $state.go(authentication.continueFrom());
       });
     }
   }

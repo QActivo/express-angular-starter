@@ -9,7 +9,8 @@ const isPassword = function (password) {
 
 const toJSON = function () {
   const privateAttributes = [
-    'password', 'emailValidate', 'tokenValidate', 'tokenPassRecovery', 'tokenPassRecoveryDate',
+    'password', 'emailValidate', 'tokenValidate',
+    'tokenPassRecovery', 'tokenPassRecoveryExpiryDate',
   ];
   return _.omit(this.dataValues, privateAttributes);
 };
@@ -89,9 +90,10 @@ const Users = db.sequelize.define('Users', {
     allowNull: true,
     defaultValue: null,
   },
-  tokenPassRecoveryDate: {
+  tokenPassRecoveryExpiryDate: {
     type: Sequelize.DATE,
-    defaultValue: new Date(),
+    allowNull: true,
+    defaultValue: null,
   },
 }, {
   hooks: {

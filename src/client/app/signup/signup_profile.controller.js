@@ -23,7 +23,7 @@
       if (form.$valid) {
         authentication.storeProfile(vm.profile).then(res => {
           logger.success(res.msg);
-          $state.go('signup_activate');
+          $state.go(authentication.continueFrom());
         });
       }
     }

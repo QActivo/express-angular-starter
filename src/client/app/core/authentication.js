@@ -219,10 +219,16 @@
 
     /**
      * Password forgot/recovery
-     * param credentials : object {email: example@domain.name}
+     * param credentials : object {identification: example@domain.name || username }
      */
     function forgot(credentials) {
-      return $http.post('/api/v1/users/forgot', credentials);
+      return $http.post('/api/v1/users/forgot', credentials)
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => {
+        return exception.catcher('Failed forgot')(err);
+      });
     }
 
     /**
@@ -231,7 +237,13 @@
      * param credentials: object {password: password}
      */
     function reset(paramToken, credentials) {
-      return $http.post('/api/v1/users/reset/password/' + paramToken, credentials);
+      return $http.post('/api/v1/users/reset/password/' + paramToken, credentials)
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => {
+        return exception.catcher('Failed reset')(err);
+      });
     }
 
     /**
@@ -239,7 +251,13 @@
      * param token: token to validate
      */
     function token(paramToken) {
-      return $http.get('/api/v1/users/reset/validate/' + paramToken);
+      return $http.get('/api/v1/users/reset/validate/' + paramToken)
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => {
+        return exception.catcher('Failed validate reset token')(err);
+      });
     }
 
     /**
@@ -253,6 +271,7 @@
       const states = {
         'not_validated': 'signup_validation',
         'validated': 'signup_profile',
+        'not_active': 'signup_activate',
         'active': 'home',
       };
       return states[service.user.status] || 'home';

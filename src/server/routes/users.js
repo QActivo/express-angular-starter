@@ -141,9 +141,13 @@ router.put('/api/v1/users/updatepassword', acl.checkRoles, (req, res) => {
  *    }
  */
 router.post('/api/v1/users/forgot', acl.checkRoles, (req, res) => {
-  usersService.forgot(req.body.username)
-    .then(result => res.json(result))
-    .catch(error => res.status(412).json(errors.get(error)));
+  try {
+    usersService.forgot(req.body.identification)
+      .then(result => res.json(result))
+      .catch(error => res.status(412).json(errors.get(error)));
+  } catch (error) {
+    res.status(412).json(errors.get(error));
+  }
 });
 
 /**
@@ -191,9 +195,13 @@ router.get('/api/v1/users/reset/validate/:token', acl.checkRoles, (req, res) => 
  *    }
  */
 router.post('/api/v1/users/reset/password/:token', acl.checkRoles, (req, res) => {
-  usersService.resetPassword(req.params.token, req.body.password)
+  try {
+    usersService.resetPassword(req.params.token, req.body.password, req.body.verifyPassword)
     .then(result => res.json(result))
     .catch(error => res.status(412).json(errors.get(error)));
+  } catch (error) {
+    res.status(412).json(errors.get(error));
+  }
 });
 
 /**

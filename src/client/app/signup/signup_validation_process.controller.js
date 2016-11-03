@@ -18,7 +18,7 @@
       if ($stateParams.tokenValidate) {
         authentication.validateEmail($stateParams.tokenValidate).then(res => {
           logger.success(res.msg);
-          $state.go('signup_profile');
+          $state.go(authentication.continueFrom());
         });
       }
     }
