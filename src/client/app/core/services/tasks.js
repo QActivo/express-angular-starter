@@ -17,14 +17,15 @@
       getCount,
       getCountDone,
       getCountNotDone,
+      deleteTask,
     };
 
     return service;
 
     function getMessageCount() { return $q.when(72); }
 
-    function getTasks() {
-      return $http.get('/api/v1/tasks')
+    function getTasks(params) {
+      return $http.get('/api/v1/tasks', { params })
         .then(success)
         .catch(fail);
 
@@ -109,6 +110,20 @@
 
       function fail(e) {
         return exception.catcher('XHR Failed for updateTask')(e);
+      }
+    }
+
+    function deleteTask(taskId) {
+      return $http.delete('/api/v1/tasks/' + taskId)
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response.data;
+      }
+
+      function fail(e) {
+        return exception.catcher('XHR Failed for deleteTask')(e);
       }
     }
   }

@@ -2,8 +2,25 @@ import Tasks from './../models/tasks';
 
 const service = {};
 
-service.getAll = (User) => {
-  return User.getTasks();
+service.getAll = (User, params) => {
+  if (User.role !== 'admin') {
+    delete params.userId;
+  }
+
+  const query = {
+    where: { user_id: params.userId || User.id },
+  };
+
+  const status = {
+    completed: true,
+    incompleted: false,
+  };
+
+  if (params.status && status[params.status]) {
+    query.where.done = status[params.status];
+  }
+
+  return Tasks.findAll(query);
 };
 
 service.getPaginated = (user, params) => {
@@ -13,19 +30,31 @@ service.getPaginated = (user, params) => {
   return Tasks.findAndCountAll(query);
 };
 
-service.getCount = (params) => {
-  const query = {};
+service.getCount = (User, params) => {
+  if (User.role !== 'admin') {
+    delete params.userId;
+  }
+
+  const query = {
+    where: { user_id: params.userId || User.id },
+  };
 
   if (params && params.done) {
-    query.where = {
-      done: params.done,
-    };
+    query.where.done = (params.done === 'true');
   }
 
   return Tasks.count(query);
 };
 
-service.create = (task) => {
+service.create = (User, task) => {
+  if (!User.role === 'admin' && task.user_id) {
+    delete task.user_id;
+  }
+
+  if (!task.user_id) {
+    task.user_id = User.id;
+  }
+
   return Tasks.create(task);
 };
 
@@ -39,24 +68,31 @@ service.findById = (id, user) => {
   return Tasks.findOne(query);
 };
 
-service.update = (id, task, user) => {
+service.update = (id, task, User) => {
   const query = { where: { id } };
+  delete task.id;
+  delete task.user_id;
 
-  if (user) {
-    query.where.user_id = user.id;
+  if (User.role !== 'admin') {
+    query.where.user_id = User.id;
   }
 
   return Tasks.update(task, query);
 };
 
-service.destroy = (id, user) => {
+service.destroy = (id, User) => {
   const query = { where: { id } };
 
-  if (user) {
-    query.where.user_id = user.id;
+  if (User.role !== 'admin') {
+    query.where.user_id = User.id;
   }
 
-  return Tasks.destroy(query);
+  return Tasks.destroy(query)
+    .then(res => {
+      if (res === 0) {
+        throw new Error('Can\'t delete task/invalid task');
+      }
+    });
 };
 
 function buildPagination(params, query) {

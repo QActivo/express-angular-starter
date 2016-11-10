@@ -1,6 +1,6 @@
 <section>
   <div class="pull-right">
-    <button class="btn btn-success" data-ng-click="hc.showModal()">New Task</button>
+    <button class="btn btn-success" data-ng-click="tc.createTask()">New Task</button>
   </div>
   <div>
     <table class="table">
@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="task in hc.tasks">
+        <tr data-ng-repeat="task in tc.tasks">
           <td>{{task.id}}</td>
           <td>{{task.title}}</td>
           <td data-ng-bind-html="task.done | boolFilter"></td>
@@ -26,8 +26,8 @@
           </td> -->
           <td>{{task.created_at | date: "MM/dd/yyyy 'at' h:mma"}}</td>
           <td>
-            <button class="btn btn-success btn-xs" data-ng-click="hc.showEditTaskModal(task)">Edit</button>
-            <button class="btn btn-danger btn-xs">Remove</button>
+            <button class="btn btn-success btn-xs" data-ng-click="tc.editTask(task)">Edit</button>
+            <button class="btn btn-danger btn-xs" data-ng-click="tc.deleteTask(task)">Remove</button>
           </td>
         </tr>
       </tbody>

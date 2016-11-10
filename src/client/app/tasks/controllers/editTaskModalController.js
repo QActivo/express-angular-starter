@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.home')
+    .module('app.tasks')
     .controller('editTaskModalController', editTaskModalController);
 
   editTaskModalController.$inject = ['$uibModalInstance', 'logger', 'taskservice', 'task'];

@@ -2,18 +2,21 @@
   'use strict';
 
   angular
-    .module('app.home')
-    .controller('HomeController', HomeController);
+    .module('app.tasks')
+    .controller('TasksController', TasksController);
 
-  HomeController.$inject = ['$uibModal', 'logger', 'authentication', 'taskservice'];
+  TasksController.$inject = [
+    '$stateParams', '$uibModal', 'logger', 'authentication', 'taskservice', 'alert',
+  ];
   /* @ngInject */
-  function HomeController($uibModal, logger, authentication, taskservice) {
+  function TasksController($stateParams, $uibModal, logger, authentication, taskservice, alert) {
     const vm = this;
     vm.user = authentication.user;
     vm.title = 'Home';
     vm.tasks = [];
-    vm.showModal = showModal;
-    vm.showEditTaskModal = showEditTaskModal;
+    vm.createTask = showCreateModal;
+    vm.editTask = showEditTaskModal;
+    vm.deleteTask = showDeleteModal;
 
     activate();
 
@@ -21,9 +24,23 @@
       loadTasks();
     }
 
-    function showModal() {
+    function showDeleteModal(task) {
+      alert.show({
+        title: 'Delete task',
+        warning: `Delete task ${task.title} permanently?`,
+      })
+      .then(res => {
+        return taskservice.deleteTask(task.id);
+      })
+      .then(res => {
+        logger.success('Task deleted');
+        loadTasks();
+      });
+    }
+
+    function showCreateModal() {
       const modalInstance = $uibModal.open({
-        templateUrl: 'app/home/createTaskModal.html',
+        templateUrl: 'app/tasks/templates/createTaskModal.html',
         controller: 'createTaskModalController',
         controllerAs: 'ctmc',
         resolve: {
@@ -47,7 +64,7 @@
 
     function showEditTaskModal(task) {
       const modalInstance = $uibModal.open({
-        templateUrl: 'app/home/editTaskModal.html',
+        templateUrl: 'app/tasks/templates/editTaskModal.html',
         controller: 'editTaskModalController',
         controllerAs: 'etmc',
         resolve: {
@@ -73,10 +90,10 @@
     }
 
     function loadTasks() {
-      taskservice.getTasks()
-        .then((tasks) => {
-          vm.tasks = tasks;
-        });
+      return taskservice.getTasks({ userId: $stateParams.userId, status: $stateParams.status })
+      .then(tasks => {
+        vm.tasks = tasks;
+      });
     }
   }
 }());

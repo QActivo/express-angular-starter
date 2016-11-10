@@ -8,7 +8,7 @@
     'app.signup',
     'app.layout',
     'app.users',
-    'app.home',
+    'app.tasks',
     'app.dashboard',
   ]);
 }());

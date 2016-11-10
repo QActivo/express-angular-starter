@@ -2,19 +2,20 @@
   'use strict';
 
   angular
-    .module('app.home')
+    .module('app.tasks')
     .controller('createTaskModalController', createTaskModalController);
 
-  createTaskModalController.$inject = ['$uibModalInstance', 'logger', 'taskservice'];
+  createTaskModalController.$inject = [
+    '$stateParams', '$uibModalInstance', 'logger', 'taskservice',
+  ];
   /* @ngInject */
-  function createTaskModalController($uibModalInstance, logger, taskservice) {
+  function createTaskModalController($stateParams, $uibModalInstance, logger, taskservice) {
     const vm = this;
     vm.createTask = createTask;
     vm.cancel = cancel;
-    vm.task = {};
-    activate();
-
-    function activate() {}
+    vm.task = {
+      user_id: $stateParams.userId,
+    };
 
     function createTask() {
       return taskservice.createTask(vm.task).then(data => {

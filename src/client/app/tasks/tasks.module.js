@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('app.home', [
+  angular.module('app.tasks', [
     'app.core',
     'ui.bootstrap',
   ]);

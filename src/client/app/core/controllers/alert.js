@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.home')
+    .module('app.core')
     .controller('AlertController', AlertController);
 
   AlertController.$inject = ['$uibModalInstance', 'options'];

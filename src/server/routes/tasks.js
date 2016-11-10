@@ -63,7 +63,7 @@ const router = express.Router();
  *    HTTP/1.1 412 Precondition Failed
  */
 router.get('/api/v1/tasks', acl.checkRoles, (req, res) => {
-  tasksService.getAll(req.User)
+  tasksService.getAll(req.User, req.query)
     .then(result => res.json(result))
     .catch(error => res.status(412).json(errors.get(error)));
 });
@@ -75,7 +75,7 @@ router.get('/api/v1/tasks/paginated', acl.checkRoles, (req, res) => {
 });
 
 router.get('/api/v1/tasks/count', acl.checkRoles, (req, res) => {
-  tasksService.getCount(req.query)
+  tasksService.getCount(req.User, req.query)
     .then(result => res.json(result))
     .catch(error => res.status(412).json(errors.get(error)));
 });
@@ -110,8 +110,7 @@ router.get('/api/v1/tasks/count', acl.checkRoles, (req, res) => {
  *    HTTP/1.1 412 Precondition Failed
  */
 router.post('/api/v1/tasks', acl.checkRoles, (req, res) => {
-  req.body.user_id = req.User.id;
-  tasksService.create(req.body)
+  tasksService.create(req.User, req.body)
     .then(result => res.json(result))
     .catch(error => res.status(412).json(errors.get(error)));
 });
@@ -197,9 +196,13 @@ router.put('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
  *    HTTP/1.1 412 Precondition Failed
  */
 router.delete('/api/v1/tasks/:taskId', acl.checkRoles, (req, res) => {
-  tasksService.destroy(req.params.taskId, req.User)
-    .then(result => res.sendStatus(204))
-    .catch(error => res.status(412).json(errors.get(error)));
+  try {
+    tasksService.destroy(req.params.taskId, req.User)
+      .then(result => res.sendStatus(204))
+      .catch(error => res.status(412).json(errors.get(error)));
+  } catch (error) {
+    res.status(412).json(errors.get(error));
+  }
 });
 
 export default router;
