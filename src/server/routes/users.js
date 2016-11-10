@@ -73,7 +73,7 @@ const router = express.Router();
  *    }
  */
 router.get('/api/v1/users/me', acl.checkRoles, (req, res) => {
-  res.json(req.user);
+  res.json(req.User);
 });
 
 /**
@@ -103,7 +103,7 @@ router.get('/api/v1/users/me', acl.checkRoles, (req, res) => {
  *    }
  */
 router.put('/api/v1/users/update', acl.checkRoles, (req, res) => {
-  usersService.edit(req.user, req.body)
+  usersService.edit(req.User, req.body)
     .then(result => res.json(result))
     .catch(error => res.status(412).json(errors.get(error)));
 });
@@ -113,7 +113,7 @@ router.put('/api/v1/users/update', acl.checkRoles, (req, res) => {
  */
 router.put('/api/v1/users/updatepassword', acl.checkRoles, (req, res) => {
   try {
-    usersService.editPassword(req.user, req.body)
+    usersService.editPassword(req.User, req.body)
     .then(result => res.json(result))
     .catch(error => res.status(412).json(errors.get(error)));
   } catch (error) {
