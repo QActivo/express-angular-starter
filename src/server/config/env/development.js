@@ -22,7 +22,7 @@ module.exports = {
     user: '',
     pass: '',
   },
-  mandrillAPIKEY: 'HQMOVdyGtO6oSmLNuQHyDg',
+  mandrillAPIKEY: undefined,
   verifyEmail: true,
   urlBaseClient: 'http://localhost:3000',
   urlBaseApi: 'http://localhost:3000/api/v1',
