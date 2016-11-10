@@ -40,22 +40,21 @@
       },
       request: ($config) => {
         // Check Authorization Token
-        // if ($localStorage.session) {
-        //   // Check Authorization Expiration
-        //   const expiresOn = $localStorage.session.expiresOn;
-        //   if (expiresOn && $config.url.includes('/api/v1/')) {
-        //     const nowUTC = new Date().toUTCString();
-        //     const exp = moment(expiresOn, 'YYYY-MM-DDTHH:mm:ss.SSS', false).utc();
-        //     const now = moment(nowUTC, 'ddd, DD MMM YYYY HH:mm:ss.SSSS GMT', false).utc();
-        //
-        //     if (!exp.isAfter(now)) {
-        //       $config.status = 401; // Not Authorized session expired
-        //       $config.config = { ignoreAuthModule: false };
-        //       $config.data = { msg: 'Your Session has expired' };
-        //       return $q.reject($config);
-        //     }
-        //   }
-        // }
+        if ($localStorage.session) {
+          // Only for api requests
+          if ($config.url.includes('/api/v1/')) {
+            // Set Authorization token
+            $config.headers.Authorization = 'JWT ' + $localStorage.session.authToken;
+
+            // Check Authorization Expiration
+            if ($injector.get('authentication').sessionHasExpired()) {
+              $config.status = 401; // Not Authorized session expired
+              $config.config = { ignoreAuthModule: false };
+              $config.data = { msg: 'Your Session has expired' };
+              return $q.reject($config);
+            }
+          }
+        }
 
         return $config;
       },

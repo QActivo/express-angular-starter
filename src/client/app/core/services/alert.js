@@ -16,7 +16,7 @@
 
     function show(options) {
       const modalInstance = $uibModal.open({
-        templateUrl: 'app/core/alert.html',
+        templateUrl: 'app/core/templates/alert.html',
         controller: 'AlertController',
         controllerAs: 'ac',
         animation: true,

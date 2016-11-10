@@ -24,9 +24,6 @@
       //
       clearAll,
       //
-      updateHeader,
-      removeHeader,
-      //
       login,
       logout,
       //
@@ -41,9 +38,9 @@
       token,
       //
       continueFrom,
+      //
+      sessionHasExpired,
     };
-
-    updateHeader();
 
     return service;
 
@@ -79,17 +76,6 @@
     function clearAll() {
       clearUser();
       clearSession();
-      removeHeader();
-    }
-
-    function updateHeader() {
-      if ($localStorage.session) {
-        $http.defaults.headers.common.Authorization = 'JWT ' + $localStorage.session.authToken;
-      }
-    }
-
-    function removeHeader() {
-      $http.defaults.headers.common.Authorization = undefined;
     }
 
     /**
@@ -100,7 +86,6 @@
         .then(response => {
           setUser(response.data.User);
           setSession(response.data.Session);
-          updateHeader();
 
           $rootScope.$broadcast('user-login', service.user);
 
@@ -125,7 +110,6 @@
         .then(response => {
           clearUser();
           clearSession();
-          removeHeader();
 
           $rootScope.$broadcast('user-logout');
 
@@ -144,7 +128,6 @@
         .then(response => {
           setUser(response.data.User);
           setSession(response.data.Session);
-          updateHeader();
 
           return response.data;
         })
@@ -174,7 +157,6 @@
         .then(response => {
           setUser(response.data.User);
           setSession(response.data.Session);
-          updateHeader();
 
           return response.data;
         })
@@ -191,7 +173,6 @@
         .then(response => {
           setUser(response.data.User);
           setSession(response.data.Session);
-          updateHeader();
 
           return response.data;
         })
@@ -208,7 +189,6 @@
       .then(response => {
         setUser(response.data.User);
         setSession(response.data.Session);
-        updateHeader();
 
         return response.data;
       })
@@ -275,6 +255,22 @@
         'active': 'home',
       };
       return states[service.user.status] || 'home';
+    }
+
+    /**
+     * Check if user session has expired
+     */
+    function sessionHasExpired() {
+      if (!service.session || !service.session.expiresOn) {
+        return false;
+      }
+
+      const expiresOn = service.session.expiresOn;
+      const nowUTC = new Date().toUTCString();
+      const exp = moment(expiresOn, 'YYYY-MM-DDTHH:mm:ss.SSS', false).utc();
+      const now = moment(nowUTC, 'ddd, DD MMM YYYY HH:mm:ss.SSSS GMT', false).utc();
+
+      return !exp.isAfter(now);
     }
   }
 }());

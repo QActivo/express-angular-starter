@@ -49,7 +49,7 @@
       // /////////////
 
       function configureStates(states, otherwisePath) {
-        states.forEach(function (state) {
+        states.forEach(state => {
           state.config.resolve = angular.extend(state.config.resolve || {}, config.resolveAlways);
           $stateProvider.state(state.state, state.config);
         });
@@ -68,8 +68,8 @@
 
           if (toState.settings && toState.settings.roles && toState.settings.roles.length > 0) {
             const authenticated = typeof authentication.getUser() === 'object';
-            const role = authentication.getUser() ? authentication.getUser().role : 'guest';
-            const status = authentication.getUser() ? authentication.getUser().status : 'any';
+            const role = authenticated ? authentication.getUser().role : 'guest';
+            const status = authenticated ? authentication.getUser().status : 'any';
 
             if (toState.settings.roles && role) {
               allowed = toState.settings.roles.indexOf(role) !== -1;
@@ -85,6 +85,14 @@
 
             if (!allowed) {
               event.preventDefault();
+              $state.go(authentication.continueFrom());
+            }
+
+            // Check if user session has expired before continue
+            if (allowed && authenticated && authentication.sessionHasExpired()) {
+              event.preventDefault();
+              authentication.clearAll();
+              logger.error('Your Session has Expired');
               $state.go(authentication.continueFrom());
             }
           }
@@ -132,8 +140,7 @@
         function updateTitle(event, toState, toParams, fromState, fromParams) {
           stateCounts.changes++;
           handlingStateChangeError = false;
-          const title = config.docTitle + ' ' + (toState.title || '');
-          $rootScope.title = title; // data bind to <title>
+          $rootScope.title = `${config.docTitle}${toState.title || ''}`; // data bind to <title>
         }
       }
     }

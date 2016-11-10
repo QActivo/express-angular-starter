@@ -32,12 +32,12 @@
     }
 
     function getNavRoutes() {
-      vm.navRoutes = states.filter(function (r) {
+      vm.navRoutes = states.filter(r => {
         if (r.settings && !r.settings.roles) {
           console.log('Please configure roles', r);
         }
         return r.settings && r.settings.nav && r.settings.roles.indexOf(role) !== -1;
-      }).sort(function (r1, r2) {
+      }).sort((r1, r2) => {
         return r1.settings.nav - r2.settings.nav;
       });
     }

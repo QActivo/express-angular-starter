@@ -591,7 +591,7 @@ function serve(isDev, specRunner) {
   }
 
   return $.nodemon(nodeOptions)
-    .on('restart', ['vet'], function (ev) {
+    .on('restart', ['vet'], (ev) => {
       log('*** nodemon restarted');
       log('files changed:\n' + ev);
     })
