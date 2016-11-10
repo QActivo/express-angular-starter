@@ -2,10 +2,8 @@ import Tasks from './../models/tasks';
 
 const service = {};
 
-service.getAll = (user) => {
-  return Tasks.findAll({
-    where: { user_id: user.id },
-  });
+service.getAll = (User) => {
+  return User.getTasks();
 };
 
 service.getPaginated = (user, params) => {

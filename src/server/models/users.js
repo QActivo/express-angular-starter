@@ -112,6 +112,7 @@ const Users = db.sequelize.define('Users', {
     associate: models => {
       Users.hasMany(models.Tasks);
       Users.hasMany(models.Sessions);
+      Users.hasMany(models.Notifications);
     },
   },
   instanceMethods: {

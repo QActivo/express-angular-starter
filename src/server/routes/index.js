@@ -5,6 +5,7 @@ import socialRoutes from './social';
 import tasksRoutes from './tasks';
 import tokenRoutes from './token';
 import usersRoutes from './users';
+import notificationsRoutes from './notifications';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -15,5 +16,6 @@ router.use('/', socialRoutes);
 router.use('/', tasksRoutes);
 router.use('/', tokenRoutes);
 router.use('/', usersRoutes);
+router.use('/', notificationsRoutes);
 
 export default router;
