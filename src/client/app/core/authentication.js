@@ -5,11 +5,11 @@
     .module('app.core')
     .factory('authentication', authentication);
 
-  authentication.$inject = ['$rootScope', '$http', '$q',
-    '$state', '$localStorage', 'exception', 'logger'];
+  authentication.$inject = [
+    '$rootScope', '$http', '$q', '$state', '$localStorage', 'exception', 'logger',
+  ];
   /* @ngInject */
-  function authentication($rootScope, $http, $q,
-    $state, $localStorage, exception, logger) {
+  function authentication($rootScope, $http, $q, $state, $localStorage, exception, logger) {
     const service = {
       user: $localStorage.user,
       session: $localStorage.session,
