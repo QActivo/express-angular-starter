@@ -1,0 +1,57 @@
+version: v1.5.0
+ignore:
+  'npm:connect:20130701':
+    - browser-sync > browser-sync-ui > weinre > express > connect:
+        reason: None given
+        expires: '2016-11-21T15:29:07.920Z'
+  'npm:express:20140912':
+    - browser-sync > browser-sync-ui > weinre > express:
+        reason: None given
+        expires: '2016-11-21T15:29:07.920Z'
+  'npm:qs:20140806':
+    - browser-sync > browser-sync-ui > weinre > express > qs:
+        reason: None given
+        expires: '2016-11-21T15:29:07.921Z'
+  'npm:qs:20140806-1':
+    - browser-sync > browser-sync-ui > weinre > express > qs:
+        reason: None given
+        expires: '2016-11-21T15:29:07.921Z'
+patch:
+  'npm:minimatch:20160620':
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - browser-sync > foxy > resp-modifier > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp-nodemon > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp-traceur-compiler > traceur > glob > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp-nodemon > gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp-order > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp.spritesmith > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp-nodemon > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp-useref > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp-nodemon > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+    - gulp-useref > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2016-10-22T15:29:08.160Z'
+  'npm:request:20160119':
+    - browser-sync > localtunnel > request:
+        patched: '2016-10-22T15:29:08.160Z'
+  'npm:semver:20150403':
+    - gulp-traceur-compiler > traceur > semver:
+        patched: '2016-10-22T15:29:08.160Z'
+  'npm:tough-cookie:20160722':
+    - browser-sync > localtunnel > request > tough-cookie:
+        patched: '2016-10-22T15:29:08.160Z'

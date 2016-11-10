@@ -15,5 +15,4 @@ coverage
 
 server-coverage/
 yarn.lock
-.snyk
 
