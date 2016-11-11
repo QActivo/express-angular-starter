@@ -16,7 +16,7 @@
       <tbody>
         <tr data-ng-repeat="task in tc.tasks">
           <td>{{task.id}}</td>
-          <td>{{task.title}}</td>
+          <td><a data-ui-sref="task_details({ taskId: task.id })">{{task.title}}</a></td>
           <td data-ng-bind-html="task.done | boolFilter"></td>
           <!-- <td>
             <div class="btn-group">

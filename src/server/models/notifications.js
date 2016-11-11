@@ -1,6 +1,13 @@
 import Sequelize from 'sequelize';
 import db from './../config/db';
 
+const toJSON = function () {
+  this.dataValues.parameters = JSON.parse(this.dataValues.parameters);
+  this.dataValues.content = JSON.parse(this.dataValues.content);
+  this.dataValues.action = JSON.parse(this.dataValues.action);
+  return this.dataValues;
+};
+
 const Notifications = db.sequelize.define('Notifications', {
   id: {
     type: Sequelize.INTEGER,
@@ -41,6 +48,9 @@ const Notifications = db.sequelize.define('Notifications', {
     associate: models => {
       Notifications.belongsTo(models.Users);
     },
+  },
+  instanceMethods: {
+    toJSON,
   },
 });
 

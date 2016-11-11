@@ -1,4 +1,5 @@
 import Tasks from './../models/tasks';
+import Notifications from './../services/notifications';
 
 const service = {};
 
@@ -55,7 +56,17 @@ service.create = (User, task) => {
     task.user_id = User.id;
   }
 
-  return Tasks.create(task);
+  return Tasks.create(task)
+    .then(Task => {
+      if (task.user_id !== User.id) {
+        // Send new task notification to remote user
+        Notifications.create(
+          task.user_id, `The user ${User.firstName} ${User.lastName} created a new task for you`,
+          'new_task', { id: Task.id, title: Task.title }
+        );
+      }
+      return Task;
+    });
 };
 
 service.findById = (id, user) => {

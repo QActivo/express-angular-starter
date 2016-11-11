@@ -5,14 +5,17 @@
     .module('app.layout')
     .controller('SidebarController', SidebarController);
 
-  SidebarController.$inject = ['$scope', '$state', 'routerHelper', 'authentication'];
+  SidebarController.$inject = [
+    '$scope', '$state', 'routerHelper', 'authentication', 'Notifications',
+  ];
   /* @ngInject */
-  function SidebarController($scope, $state, routerHelper, authentication) {
+  function SidebarController($scope, $state, routerHelper, authentication, Notifications) {
     const vm = this;
     const states = routerHelper.getStates();
     let role = authentication.getUser() ? authentication.getUser().role : 'guest';
     vm.isCurrent = isCurrent;
     vm.logout = authentication.logout;
+    vm.notifications = [];
 
     activate();
 
@@ -29,6 +32,12 @@
     function activate() {
       vm.user = authentication.getUser();
       getNavRoutes();
+
+      if (vm.user && vm.user.role !== 'guest') {
+        Notifications.getAll({ limit: 10 }).then(data => {
+          vm.notifications = data;
+        });
+      }
     }
 
     function getNavRoutes() {

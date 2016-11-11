@@ -11,8 +11,45 @@
     routerHelper.configureStates(getStates(), otherwise);
   }
 
+  firstPage.$inject = ['$timeout', '$state', 'authentication'];
+  /* @ngInject */
+  function firstPage($timeout, $state, authentication) {
+    const user = authentication.getUser();
+    const role = user ? user.role : 'guest';
+    const states = {
+      'user': 'tasks',
+      'admin': 'dashboard',
+      'guest': 'login',
+    };
+
+    $timeout(() => {
+      $state.go(states[role]);
+    }, 0);
+  }
+
+  function showNotification($window, $stateParams, $timeout) {
+    console.log($stateParams.redirect);
+    $window.location.href = $stateParams.redirect;
+    $timeout(() => {
+    }, 0);
+  }
+
   function getStates() {
     return [
+      {
+        state: 'default',
+        config: {
+          url: '/',
+          resolve: { firstPage },
+        },
+      },
+      {
+        state: 'notifications',
+        config: {
+          url: '/notification/:id?:state&:redirect',
+          resolve: { showNotification },
+        },
+      },
       {
         state: '404',
         config: {

@@ -6,7 +6,6 @@
   </div>
 
   <div>
-
     <ul class="nav navbar-top-links navbar-left">
       <li ng-class="vm.isCurrent(r)" ng-repeat="r in vm.navRoutes">
         <a ui-sref="{{r.name}}" ng-bind-html="r.settings.content"></a>
@@ -14,6 +13,27 @@
     </ul>
 
     <ul class="nav navbar-top-links navbar-right" data-ng-show='vm.user'>
+      <li role="notification" class="dropdown notifications">
+        <a class="dropdown-toggle pointer" data-toggle="dropdown" aria-expanded="false">
+          Notifications
+          <span data-ng-bind-html="vm.notifications | unreadNotifications"></span>
+          <span class="caret sidebar-row"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li data-ng-repeat="notification in vm.notifications | limitTo: 10" data-ng-class="{'delivered': notification.status === 'delivered', 'read': notification.status === 'read'}">
+            <div style="padding: 10px;">
+              <span>{{ notification.content }}</span>
+              <br>
+              <div data-ng-if="notification.action" data-ng-bind-html="notification | notificationAction"></div>
+              <div class="text-right">
+                <span am-time-ago="notification.created_at"></span>
+              </div>
+            </div>
+          </li>
+          <a>More +</a>
+        </ul>
+      </li>
+
       <li role="presentation" class="dropdown">
         <a class="dropdown-toggle pointer" data-toggle="dropdown" aria-expanded="false">
           {{vm.user.username}}

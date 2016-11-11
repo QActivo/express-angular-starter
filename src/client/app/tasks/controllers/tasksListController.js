@@ -12,7 +12,7 @@
   function TasksController($stateParams, $uibModal, logger, authentication, taskservice, alert) {
     const vm = this;
     vm.user = authentication.user;
-    vm.title = 'Home';
+    vm.title = 'Tasks';
     vm.tasks = [];
     vm.createTask = showCreateModal;
     vm.editTask = showEditTaskModal;

@@ -76,6 +76,7 @@
     function clearAll() {
       clearUser();
       clearSession();
+      $rootScope.$broadcast('user-logout');
     }
 
     /**
@@ -92,7 +93,7 @@
           if (service.user.role === 'admin') {
             $state.go('dashboard');
           } else {
-            $state.go('home');
+            $state.go('tasks');
           }
 
           return service.user;
@@ -252,9 +253,9 @@
         'not_validated': 'signup_validation',
         'validated': 'signup_profile',
         'not_active': 'signup_activate',
-        'active': 'home',
+        'active': (service.user.role === 'admin') ? 'dashboard' : 'tasks',
       };
-      return states[service.user.status] || 'home';
+      return states[service.user.status];
     }
 
     /**

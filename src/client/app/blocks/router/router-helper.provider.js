@@ -26,9 +26,11 @@
     };
 
     this.$get = RouterHelper;
-    RouterHelper.$inject = ['$location', '$rootScope', '$state', 'logger', 'authentication'];
+    RouterHelper.$inject = [
+      '$location', '$rootScope', '$state', 'logger', 'authentication', 'Notifications',
+    ];
     /* @ngInject */
-    function RouterHelper($location, $rootScope, $state, logger, authentication) {
+    function RouterHelper($location, $rootScope, $state, logger, authentication, Notifications) {
       let handlingStateChangeError = false;
       let hasOtherwise = false;
       const stateCounts = {
@@ -50,6 +52,8 @@
 
       function configureStates(states, otherwisePath) {
         states.forEach(state => {
+          // Extends url add notification references handlers
+          state.config.url += '?ref?notif_id';
           state.config.resolve = angular.extend(state.config.resolve || {}, config.resolveAlways);
           $stateProvider.state(state.state, state.config);
         });
@@ -128,6 +132,8 @@
         handleRoutingPermissions();
         handleRoutingErrors();
         updateDocTitle();
+        // Handle notifiations read status
+        updateNotificationStatus();
       }
 
       function getStates() {
@@ -141,6 +147,19 @@
           stateCounts.changes++;
           handlingStateChangeError = false;
           $rootScope.title = `${config.docTitle}${toState.title || ''}`; // data bind to <title>
+        }
+      }
+
+      /**
+       * Mark notifications as read when navigate to route where ref is a notification
+       */
+      function updateNotificationStatus() {
+        $rootScope.$on('$stateChangeSuccess', updateNotification);
+
+        function updateNotification(event, toState, toParams, fromState, fromParams) {
+          if (toParams.ref === 'notif' && toParams.notif_id) {
+            Notifications.markAsRead(toParams.notif_id);
+          }
         }
       }
     }

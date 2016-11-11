@@ -22,7 +22,7 @@
     "angular-sanitize": "~1.5.3",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
-    "moment": "momentjs#^2.15.2",
+    "moment": "momentjs#^2.16.0",
     "angular-ui-router": "^0.2.18",
     "toastr": "^2.1.2",
     "angular-animate": "^1.5.3",

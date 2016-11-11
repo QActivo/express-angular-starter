@@ -12,6 +12,7 @@
       createTask,
       updateTask,
       getTasks,
+      getTaskById,
       getPaginated,
       getMessageCount,
       getCount,
@@ -35,6 +36,20 @@
 
       function fail(e) {
         return exception.catcher('XHR Failed for getTasks')(e);
+      }
+    }
+
+    function getTaskById(taskId) {
+      return $http.get(`/api/v1/tasks/${taskId}`)
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response.data;
+      }
+
+      function fail(e) {
+        return exception.catcher('XHR Failed for getTaskById')(e);
       }
     }
 

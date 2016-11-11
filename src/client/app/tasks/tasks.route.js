@@ -28,6 +28,21 @@
           },
         },
       },
+      {
+        state: 'task_details',
+        config: {
+          url: '/tasks/:taskId',
+          templateUrl: 'app/tasks/templates/taskDetails.html',
+          controller: 'TasksDetailsController',
+          controllerAs: 'tdc',
+          title: 'Task Details',
+          settings: {
+            nav: 0,
+            content: 'Tasks',
+            roles: ['user', 'admin'],
+          },
+        },
+      },
     ];
   }
 }());
