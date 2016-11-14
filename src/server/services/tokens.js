@@ -9,7 +9,7 @@ const service = {};
  */
 service.signin = (credentials) => {
   if (!credentials || !credentials.identification || !credentials.password) {
-    throw new Error('Incomplete Credentials');
+    return Promise.reject(new Error('Incomplete Credentials'));
   }
 
   const where = {

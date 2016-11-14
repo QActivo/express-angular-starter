@@ -29,17 +29,13 @@ acl.allow([{
 const router = express.Router();
 
 router.post('/api/v1/signin', acl.checkRoles, (req, res) => {
-  try {
-    tokenService.signin(req.body)
-      .then(response => {
-        res.setHeader('Authorization', jwt.encode(response.Session.authToken, config.jwtSecret));
-        res.setHeader('AuthExpiration', response.Session.expiresOn);
-        res.json(response);
-      })
-      .catch(error => res.status(412).json(errors.get(error)));
-  } catch (error) {
-    res.status(412).json(errors.get(error));
-  }
+  tokenService.signin(req.body)
+    .then(response => {
+      res.setHeader('Authorization', jwt.encode(response.Session.authToken, config.jwtSecret));
+      res.setHeader('AuthExpiration', response.Session.expiresOn);
+      res.json(response);
+    })
+    .catch(error => res.status(412).json(errors.get(error)));
 });
 
 router.post('/api/v1/signout', acl.checkRoles, (req, res) => {
