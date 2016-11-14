@@ -39,7 +39,7 @@ service.create = (profile) => {
 // Send validation email
 service.sendValidationEmail = (User) => {
   if (User.emailValidate || !User.tokenValidate) {
-    throw new Error('Invalid user email or already validated account');
+    return Promise.reject(new Error('Invalid user email or already validated account'));
   }
   emailService.sendValidateEmail(User);
   return Promise.resolve({ msg: 'Validation email sent to ' + User.email });
@@ -51,16 +51,16 @@ service.validateEmail = (loggedUser, userSession, tokenValidate) => {
     if (loggedUser.tokenValidate === tokenValidate && !loggedUser.emailValidate) {
       return doValidation(loggedUser, userSession);
     }
-    throw new Error('Invalid token or already validated account');
-  } else {
-    return Users.findOne({ where: { tokenValidate, emailValidate: 0 } })
-      .then(User => {
-        if (!User) {
-          throw new Error('Invalid token or already validated account');
-        }
-        return doValidation(User);
-      });
+    return Promise.reject(new Error('Invalid token or already validated account'));
   }
+
+  return Users.findOne({ where: { tokenValidate, emailValidate: 0 } })
+    .then(User => {
+      if (!User) {
+        throw new Error('Invalid token or already validated account');
+      }
+      return doValidation(User);
+    });
 
   function doValidation(User, Session) {
     // valid user then do email validation
@@ -92,15 +92,15 @@ service.validateEmail = (loggedUser, userSession, tokenValidate) => {
 // Continues signup process store user profile options
 service.storeProfile = (User, Session, profile) => {
   if (User.status !== 'validated') {
-    throw new Error('Invalid user status');
+    return Promise.reject(new Error('Invalid user status'));
   }
 
   if (profile.password !== profile.verifyPassword) {
-    throw new Error('Passwords must match');
+    return Promise.reject(new Error('Passwords must match'));
   }
 
   if (profile.password.length < 6) {
-    throw new Error('Password too short');
+    return Promise.reject(new Error('Password too short'));
   }
 
   const salt = bcrypt.genSaltSync();
@@ -122,7 +122,7 @@ service.storeProfile = (User, Session, profile) => {
 // Finish signup process: 'active' user profile and send welcome email
 service.activate = (User, Session) => {
   if (User.status !== 'not_active') {
-    throw new Error('Invalid user');
+    return Promise.reject(new Error('Invalid user'));
   }
 
   return User.update({

@@ -99,13 +99,9 @@ router.post('/api/v1/signup', acl.checkRoles, (req, res) => {
  *    }
  */
 router.get('/api/v1/signup/validation', acl.checkRoles, (req, res) => {
-  try {
-    signupService.sendValidationEmail(req.User)
-      .then(result => res.json(result))
-      .catch(error => res.status(412).json(errors.get(error)));
-  } catch (error) {
-    res.status(412).json(errors.get(error));
-  }
+  signupService.sendValidationEmail(req.User)
+    .then(result => res.json(result))
+    .catch(error => res.status(412).json(errors.get(error)));
 });
 
 /**
@@ -124,43 +120,31 @@ router.get('/api/v1/signup/validation', acl.checkRoles, (req, res) => {
  *    }
  */
 router.get('/api/v1/signup/validate/:token', acl.checkRoles, (req, res) => {
-  try {
-    signupService.validateEmail(req.User, req.Session, req.params.token)
-      .then(result => {
-        res.setHeader('Authorization', jwt.encode(result.Session.authToken, config.jwtSecret));
-        res.setHeader('AuthExpiration', result.Session.expiresOn);
-        res.json(result);
-      })
-      .catch(error => res.status(412).json(errors.get(error)));
-  } catch (error) {
-    res.status(412).json(errors.get(error));
-  }
+  signupService.validateEmail(req.User, req.Session, req.params.token)
+    .then(result => {
+      res.setHeader('Authorization', jwt.encode(result.Session.authToken, config.jwtSecret));
+      res.setHeader('AuthExpiration', result.Session.expiresOn);
+      res.json(result);
+    })
+    .catch(error => res.status(412).json(errors.get(error)));
 });
 
 /**
  * Update user profile, continues signup process
  */
 router.post('/api/v1/signup/profile', acl.checkRoles, (req, res) => {
-  try {
-    signupService.storeProfile(req.User, req.Session, req.body)
-      .then(result => res.json(result))
-      .catch(error => res.status(412).json(errors.get(error)));
-  } catch (error) {
-    res.status(412).json(errors.get(error));
-  }
+  signupService.storeProfile(req.User, req.Session, req.body)
+    .then(result => res.json(result))
+    .catch(error => res.status(412).json(errors.get(error)));
 });
 
 /**
  * Activate user profile, continues signup process
  */
 router.post('/api/v1/signup/activate', acl.checkRoles, (req, res) => {
-  try {
-    signupService.activate(req.User, req.Session)
-      .then(result => res.json(result))
-      .catch(error => res.status(412).json(errors.get(error)));
-  } catch (error) {
-    res.status(412).json(errors.get(error));
-  }
+  signupService.activate(req.User, req.Session)
+    .then(result => res.json(result))
+    .catch(error => res.status(412).json(errors.get(error)));
 });
 
 export default router;
