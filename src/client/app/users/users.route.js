@@ -17,7 +17,7 @@
         state: 'users',
         config: {
           url: '/users',
-          templateUrl: 'app/users/usersList.html',
+          templateUrl: 'app/users/templates/usersList.html',
           controller: 'UserListController',
           controllerAs: 'uc',
           title: 'Users',
@@ -25,6 +25,36 @@
             nav: 2,
             content: 'Users',
             roles: ['admin'],
+          },
+        },
+      },
+      {
+        state: 'password_recovery',
+        config: {
+          url: '/password_recovery',
+          templateUrl: 'app/users/templates/password_recovery.html',
+          controller: 'PasswordRecoveryController',
+          controllerAs: 'prc',
+          title: 'User password recovery',
+          settings: {
+            nav: 2,
+            content: 'Users',
+            roles: ['guest'],
+          },
+        },
+      },
+      {
+        state: 'password_reset',
+        config: {
+          url: '/password_reset/:tokenId',
+          templateUrl: 'app/users/templates/password_reset.html',
+          controller: 'PasswordResetController',
+          controllerAs: 'prc',
+          title: 'User password recovery',
+          settings: {
+            nav: 2,
+            content: 'Users',
+            roles: ['guest'],
           },
         },
       },

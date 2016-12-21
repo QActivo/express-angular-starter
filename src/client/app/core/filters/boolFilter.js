@@ -5,6 +5,8 @@
     .module('app.core')
     .filter('boolFilter', boolFilter);
 
+  boolFilter.$inject = ['$sce'];
+  /* @ngInject */
   function boolFilter($sce) {
     return function (input) {
       let output = $sce.trustAsHtml('<button class="btn btn-success">'

@@ -69,6 +69,7 @@
   <script src="/bower_components/angular-wysiwyg/dist/angular-wysiwyg.min.js"></script>
   <script src="/bower_components/filepicker-js/filepicker.min.js"></script>
   <script src="/bower_components/angular-filepicker/dist/angular_filepicker.min.js"></script>
+  <script src="/bower_components/angular-moment/angular-moment.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -83,21 +84,25 @@
   <script src="/src/client/app/home/home.module.js"></script>
   <script src="/src/client/app/layout/layout.module.js"></script>
   <script src="/src/client/app/login/login.module.js"></script>
+  <script src="/src/client/app/signup/signup.module.js"></script>
   <script src="/src/client/app/users/users.module.js"></script>
   <script src="/src/client/app/widgets/widgets.module.js"></script>
   <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
   <script src="/src/client/app/blocks/exception/exception.js"></script>
   <script src="/src/client/app/blocks/logger/logger.js"></script>
   <script src="/src/client/app/blocks/router/router-helper.provider.js"></script>
-  <script src="/src/client/app/core/alert.js"></script>
-  <script src="/src/client/app/core/alertController.js"></script>
-  <script src="/src/client/app/core/authentication.js"></script>
-  <script src="/src/client/app/core/boolFilter.js"></script>
   <script src="/src/client/app/core/config.js"></script>
   <script src="/src/client/app/core/constants.js"></script>
+  <script src="/src/client/app/core/controllers/alert.js"></script>
   <script src="/src/client/app/core/core.route.js"></script>
-  <script src="/src/client/app/core/taskservice.js"></script>
-  <script src="/src/client/app/core/usersservice.js"></script>
+  <script src="/src/client/app/core/directives/compare-to.js"></script>
+  <script src="/src/client/app/core/directives/ng-enter.js"></script>
+  <script src="/src/client/app/core/filters/boolFilter.js"></script>
+  <script src="/src/client/app/core/interceptors/request.js"></script>
+  <script src="/src/client/app/core/services/alert.js"></script>
+  <script src="/src/client/app/core/services/authentication.js"></script>
+  <script src="/src/client/app/core/services/tasks.js"></script>
+  <script src="/src/client/app/core/services/users.js"></script>
   <script src="/src/client/app/dashboard/dashboard.controller.js"></script>
   <script src="/src/client/app/dashboard/dashboard.route.js"></script>
   <script src="/src/client/app/home/createTaskModalController.js"></script>
@@ -110,10 +115,18 @@
   <script src="/src/client/app/login/login.controller.js"></script>
   <script src="/src/client/app/login/login.route.js"></script>
   <script src="/src/client/app/login/logout.controller.js"></script>
-  <script src="/src/client/app/users/addUserModalController.js"></script>
-  <script src="/src/client/app/users/editUserModalController.js"></script>
+  <script src="/src/client/app/signup/signup_activate.controller.js"></script>
+  <script src="/src/client/app/signup/signup_profile.controller.js"></script>
+  <script src="/src/client/app/signup/signup_validation_process.controller.js"></script>
+  <script src="/src/client/app/signup/signup_validation.controller.js"></script>
+  <script src="/src/client/app/signup/signup.controller.js"></script>
+  <script src="/src/client/app/signup/signup.route.js"></script>
+  <script src="/src/client/app/users/controllers/addUserModalController.js"></script>
+  <script src="/src/client/app/users/controllers/editUserModalController.js"></script>
+  <script src="/src/client/app/users/controllers/password_recoveryController.js"></script>
+  <script src="/src/client/app/users/controllers/password_resetController.js"></script>
+  <script src="/src/client/app/users/controllers/usersListController.js"></script>
   <script src="/src/client/app/users/users.route.js"></script>
-  <script src="/src/client/app/users/usersListController.js"></script>
   <script src="/src/client/app/widgets/ht-widget-header.directive.js"></script>
   <!-- endinject -->
 

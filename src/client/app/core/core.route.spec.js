@@ -2,7 +2,7 @@
 describe('core', function () {
   describe('state', function () {
     const views = {
-      four0four: 'app/core/404.html',
+      four0four: 'app/core/templates/404.html',
     };
 
     beforeEach(function () {

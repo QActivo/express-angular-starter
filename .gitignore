@@ -14,3 +14,5 @@ mean_relational_test.sqlite
 coverage
 
 server-coverage/
+yarn.lock
+

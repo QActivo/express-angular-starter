@@ -11,7 +11,7 @@
     const vm = this;
     vm.title = 'Login';
     vm.credentials = {
-      email: '',
+      identification: '',
       password: '',
     };
     vm.login = login;
@@ -21,13 +21,11 @@
     function activate() {}
 
     function login(form) {
-      if (form.$invalid) {
-        return null;
+      if (form.$valid) {
+        authentication.login(vm.credentials).then(data => {
+          logger.success(`Welcome ${data.firstName} ${data.lastName}!`);
+        });
       }
-
-      return authentication.login(vm.credentials).then(function (data) {
-        logger.success('Welcome ' + data.name + '!');
-      });
     }
   }
 }());

@@ -1,0 +1,43 @@
+<section class="mainbar">
+  <section class="matter login-div">
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading text-center">
+            <img src="/images/logo.png" alt="MEAN Relational">
+          </div>
+          <div class="panel-body">
+            <div class="">
+              <form class="form-horizontal col-xs-12 css-form" role="form" name="form" data-ng-submit="vm.signup(form)" novalidate>
+                <div class="form-group">
+                  <label class="col-xs-3 control-label">Username</label>
+                  <div class="col-xs-8">
+                    <input type="text" class="form-control" name="username" data-ng-model="vm.credentials.username" id="username" placeholder="Username" required>
+                    <div ng-show="form.$submitted || form.username.$touched">
+                      <div class="error-msg" ng-show="form.username.$error.required">Please, write your username.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-3 control-label">Email</label>
+                  <div class="col-xs-8">
+                    <input type="email" class="form-control" name="email" data-ng-model="vm.credentials.email" id="email" placeholder="Email" required>
+                    <div ng-show="form.$submitted || form.email.$touched">
+                      <div class="error-msg" ng-show="form.email.$error.required">Please, fill in your email.</div>
+                      <div class="error-msg" ng-show="form.email.$error.email">Please, fill with valid email address.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-offset-3 col-xs-8">
+                    <button type="submit" class="btn btn-default pull-right">Create new account</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

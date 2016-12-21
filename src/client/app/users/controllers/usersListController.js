@@ -36,7 +36,7 @@
 
     function openAddUserModal() {
       const modalInstance = $uibModal.open({
-        templateUrl: 'app/users/addUserModal.html',
+        templateUrl: 'app/users/templates/addUserModal.html',
         controller: 'AddUserModalController',
         controllerAs: 'uc',
         resolve: {
@@ -52,7 +52,7 @@
 
     function openEditUserModal(user) {
       const modalInstance = $uibModal.open({
-        templateUrl: 'app/users/editUserModal.html',
+        templateUrl: 'app/users/templates/editUserModal.html',
         controller: 'EditUserModalController',
         controllerAs: 'uc',
         resolve: {

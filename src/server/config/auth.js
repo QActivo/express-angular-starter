@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 
 import config from './config';
-import Users from './../models/users';
+import sessionsService from './../services/sessions';
 
 
 const params = {
@@ -11,20 +11,24 @@ const params = {
 };
 
 const strategy = new Strategy(params, (payload, done) => {
-  Users.findById(payload.id)
-    .then(user => {
-      if (user) {
-        return done(null, {
-          id: user.id,
-          email: user.email,
-          role: user.role,
-        });
-      }
+  sessionsService.validateSession(payload)
+  .then(Session => {
+    if (!Session) {
       return done(null, false);
-    })
-    .catch(error => {
-      done(error, null);
+    }
+
+    return Session.getUser()
+    .then(User => {
+      if (!User) {
+        return done(null, false);
+      }
+
+      return done(null, { User, Session });
     });
+  })
+  .catch(error => {
+    done(error, null);
+  });
 });
 
 passport.use(strategy);

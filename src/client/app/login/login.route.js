@@ -28,18 +28,6 @@
           },
         },
       },
-      {
-        state: 'logout',
-        config: {
-          url: '/logout',
-          controller: 'LogoutController',
-          settings: {
-            nav: 0,
-            content: '<i class="fa fa-lock"></i> Logout',
-            roles: ['user', 'admin'],
-          },
-        },
-      },
     ];
   }
 }());

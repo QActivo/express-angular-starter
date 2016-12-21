@@ -7,15 +7,18 @@ describe('dashboard routes', function () {
 
     beforeEach(function () {
       module('app.dashboard', bard.fakeToastr);
-      bard.inject('$location', '$httpBackend', '$rootScope', '$state', '$templateCache',
-       'authentication');
+      bard.inject(
+        '$location', '$httpBackend', '$rootScope', '$state', '$templateCache', 'authentication'
+      );
       $templateCache.put(views.dashboard, '');
 
       sinon.stub(authentication, 'getUser').returns({
         id: 2,
         name: 'Admin',
         role: 'admin',
+        status: 'active',
       });
+      sinon.stub(authentication, 'sessionHasExpired').returns(false);
     });
 
     afterEach(() => {

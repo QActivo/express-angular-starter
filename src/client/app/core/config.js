@@ -29,14 +29,17 @@
 
   core.config(configure);
 
-  configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
+  configure.$inject = [
+    '$httpProvider', '$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider',
+  ];
   /* @ngInject */
-  function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
+  function configure($httpProvider, $logProvider, routerHelperProvider, exceptionHandlerProvider) {
     if ($logProvider.debugEnabled) {
       $logProvider.debugEnabled(true);
     }
     exceptionHandlerProvider.configure(config.appErrorPrefix);
     routerHelperProvider.configure({ docTitle: config.appTitle + ': ' });
+    $httpProvider.interceptors.push('RequestInterceptor');
   }
 
   core.config(filePickerConfig);
