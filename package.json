@@ -16,7 +16,8 @@
     "apidoc": "apidoc -i api/routes/ -o client/web/dist/apidoc",
     "deploy": "better-npm-run deploy",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "prepare": "npm run snyk-protect"
   },
   "apidoc": {
     "name": "Node Task API - Documentation",
@@ -119,7 +120,7 @@
     "istanbul": "^0.4.3",
     "jasmine": "^2.4.1",
     "jwt-simple": "^0.4.1",
-    "karma": "^0.13.2",
+    "karma": "^2.0.0",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chai": "^0.1.0",
     "karma-chai-sinon": "^0.1.3",
@@ -133,7 +134,7 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-safari-launcher": "^0.1.1",
     "karma-sinon": "^1.0.3",
-    "lodash": "^3.10.0",
+    "lodash": "^4.17.5",
     "main-bower-files": "^2.5.0",
     "method-override": "^2.3.4",
     "minimist": "^1.1.0",
@@ -157,7 +158,7 @@
     "sequelize": "^3.19.2",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.6.0",
-    "snyk": "^1.19.1",
+    "snyk": "^1.88.2",
     "socket.io": "^1.4.6",
     "sqlite3": "^3.1.1",
     "supertest": "^1.2.0",
