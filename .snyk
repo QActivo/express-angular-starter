@@ -1,4 +1,6 @@
-version: v1.5.0
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:connect:20130701':
     - browser-sync > browser-sync-ui > weinre > express > connect:
@@ -16,6 +18,7 @@ ignore:
     - browser-sync > browser-sync-ui > weinre > express > qs:
         reason: None given
         expires: '2016-11-21T15:29:07.921Z'
+# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':
     - gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
@@ -55,3 +58,66 @@ patch:
   'npm:tough-cookie:20160722':
     - browser-sync > localtunnel > request > tough-cookie:
         patched: '2016-10-22T15:29:08.160Z'
+  'npm:ms:20170412':
+    - karma > socket.io > engine.io > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - compression > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > connect > finalhandler > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > serve-index > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > localtunnel > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io > socket.io-parser > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io-client > socket.io-parser > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io > socket.io-client > socket.io-parser > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - karma > socket.io > socket.io-parser > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - socket.io > socket.io-adapter > socket.io-parser > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - karma > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - karma > socket.io > socket.io-client > socket.io-parser > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - mocha > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - gulp-mocha > mocha > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > connect > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - socket.io > socket.io-adapter > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io > socket.io-adapter > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - karma > socket.io > socket.io-adapter > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - socket.io > socket.io-client > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - karma > socket.io > socket.io-client > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io > engine.io > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io-client > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io > socket.io-client > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io-client > engine.io-client > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > socket.io > socket.io-client > engine.io-client > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - karma > socket.io > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - karma > socket.io > socket.io-client > engine.io-client > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > serve-static > send > ms:
+        patched: '2017-05-27T05:29:35.857Z'
+    - browser-sync > serve-static > send > debug > ms:
+        patched: '2017-05-27T05:29:35.857Z'
