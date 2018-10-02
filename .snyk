@@ -1,4 +1,6 @@
-version: v1.5.0
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.8.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:connect:20130701':
     - browser-sync > browser-sync-ui > weinre > express > connect:
@@ -16,6 +18,7 @@ ignore:
     - browser-sync > browser-sync-ui > weinre > express > qs:
         reason: None given
         expires: '2016-11-21T15:29:07.921Z'
+# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':
     - gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
@@ -55,3 +58,6 @@ patch:
   'npm:tough-cookie:20160722':
     - browser-sync > localtunnel > request > tough-cookie:
         patched: '2016-10-22T15:29:08.160Z'
+  'npm:marked:20170907':
+    - node-notifier > cli-usage > marked:
+        patched: '2017-10-28T05:29:42.799Z'
