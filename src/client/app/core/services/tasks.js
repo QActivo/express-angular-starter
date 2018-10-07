@@ -17,6 +17,7 @@
       getCount,
       getCountDone,
       getCountNotDone,
+      removeTask,
     };
 
     return service;
@@ -109,6 +110,20 @@
 
       function fail(e) {
         return exception.catcher('XHR Failed for updateTask')(e);
+      }
+    }
+
+    function removeTask(taskId) {
+      return $http.delete('/api/v1/tasks/' + taskId)
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response.data;
+      }
+
+      function fail(e) {
+        return exception.catcher('XHR Failed for deleteTask')(e);
       }
     }
   }
